@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'Kno.urls'
+ROOT_URLCONF = 'kno.urls'
 
-WSGI_APPLICATION = 'Kno.wsgi.application'
+WSGI_APPLICATION = 'kno.wsgi.application'
 
 
 # Database
@@ -81,3 +81,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ('static',)

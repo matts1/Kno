@@ -1,0 +1,42 @@
+/* center any form actions within said form */
+.form-actions {
+    margin: 0;
+    text-align: center;
+}
+
+/* make a format for an xl button on the home page */
+.jumbotron .btn-xlg {
+    margin: auto 10px;
+    width: 150px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    font-size:26px;
+    line-height:1.33;
+    border-radius:6px;
+}
+
+/* move the footer 30px down. It's too close to the top */
+.footer {
+    position: relative;
+    top: 30px;
+}
+
+/* center the navbar */
+.navbar-center li {
+    margin: 0 auto;
+}
+
+.table-row {
+    padding: 5px;
+    border-bottom: 1px solid lightgrey;
+}
+
+/* pull the page header further to the top */
+.page-header {
+    margin-top: 5px;
+}
+
+/* pull panel body further up too */
+.panel-body {
+    padding-top: 0;
+}

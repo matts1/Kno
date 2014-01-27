@@ -1,0 +1,32 @@
+{% macro input(type, label='', name='', id='', placeholder='', restrictions='', required=True) %}
+    <div class="form-group">
+        <label for="{{ id }}" class="col-lg-4 control-label">{{ label }}</label>
+        <div class="col-lg-7">
+            <input type="{{ type }}" {% if type != 'checkbox' %}class="form-control"{% endif %}
+                id="{{ id }}" placeholder="{{ placeholder.title() }}" name="{{ name }}"
+                {% if required %}required{% endif %} maxlength="500">
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro attr(name, value) %}
+    {% if value != None %}
+        {{ name }}="{{ value }}"
+    {% endif %}
+{% endmacro %}
+
+{% macro form(name, id=None, action=None) %}
+    <form role="form" class="form-horizontal" method="post" class="text-center"
+            {{ attr("id", id) }} {{ attr("action", action) }}>
+        <h3>{{ name }}</h3>
+        {% if id != None %}
+            <input type="hidden" name="whichform" value="{{ id }}">
+        {% endif %}
+        {{ caller() }}
+            <div class="formresults text-center help-block"></div>
+        <div class="form-actions">
+            <input type="submit" value="{{ name }}" class="btn btn-primary">
+        </div>
+    </form>
+{% endmacro %}
+input:not[type=submit]

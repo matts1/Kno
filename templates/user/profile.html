@@ -1,0 +1,25 @@
+{% set title='Profile' %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ person.gravatar(158)|safe }}
+            {% if user.teacher and not person.teacher %}
+                <form id="maketeacher" method="post" data-refresh="true">
+                    <input type="hidden" name="whichform" value="maketeacher">
+                    <input type="submit" class="btn btn-primary" style="margin-top: 5px;"
+                       value="Promote To Teacher">
+                </form>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            <p class="h1">{{ person }}</p>
+            <p class="h4">{{ 'Teacher' if person.teacher else 'Student' }}</p>
+            <p>stats about person here</p>
+        </div>
+        <div class="col-md-4">
+            courses they run / are doing here
+        </div>
+    </div>
+{% endblock %}

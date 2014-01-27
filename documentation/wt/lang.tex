@@ -1,0 +1,18 @@
+\subsection{Justification of Chosen Language}
+\paragraph{}
+As I wanted a language that I had years of experience with, I had 3 options to choose from - C++, python, and the bash shell. The bash shell, however, is not really suited to writing whole programs with - especially large ones such as the one that I was writing, as I don't know if it has classes, and even if it does, bash shell code is rather hard to understand.
+
+\paragraph{}
+This left me with C++ and python. In this case, it was clear that python was the obvious choice, as the only advantage C++ has over python is the increase in speed, something that doesn't matter so much on a web server
+
+\paragraph{}
+I also had to decide between python2 and python3. I would have much preferred python3 for several reasons. Firstly, because it is designed to make some of the functions I often use faster, such as the range and map functions returning iterables rather than lists, and division always returning a float, although slower, in the context of the computational geometry that my program will be doing, is a lot nicer, because I will almost always want it as a float. Secondly, because the syntax is nicer, such as being able to use input instead of raw\_input, and print being a function rather than a statement. Thirdly, there are some really nice new features such as function annotations, which allow you to declare data types in the return value of functions, which makes it a lot easier to check whether code is right, such as in the code below.
+
+\begin{minted}[frame=single,linenos,mathescape]{python}
+def get_keys(a_dict: '{str: int}') -> '[str]':
+    """docstring here"""
+    return 'string here'
+\end{minted}
+
+\paragraph{}
+Unfortunately, using python3 was not possible due to the fact that I was planning on using google appengine, which only supports python 2.7.

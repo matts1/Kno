@@ -1,0 +1,40 @@
+\DeclareDocumentCommand{\log}{ O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} O{DEFAULT} }{
+\subsubsection{#1}
+\begin{itemize}
+	\IfStrEq{DEFAULT}{#2}{}{\item #2}
+	\IfStrEq{DEFAULT}{#3}{}{\item #3}
+	\IfStrEq{DEFAULT}{#4}{}{\item #4}
+	\IfStrEq{DEFAULT}{#5}{}{\item #5}
+	\IfStrEq{DEFAULT}{#6}{}{\item #6}
+	\IfStrEq{DEFAULT}{#7}{}{\item #7}
+	\IfStrEq{DEFAULT}{#8}{}{\item #8}
+	\IfStrEq{DEFAULT}{#9}{}{\item #9}
+\end{itemize}
+}
+
+\log[15 January][
+Set up initial documentation from previous idea of major work][
+Added files for bootstrap, Jquery, and added ways to add static files]
+
+\log[16 January][
+Made the HTML and css look like a proper webpage][
+Added forms in and macros for forms and modals]
+
+\log[17 January][
+Added basic code for authentication][
+Fixed a bug where the user would login, but it wouldn't update until they refreshed the page][
+Added tests for models and validators][
+Made the index page look nicer]
+
+\log[18 January][
+Added password resets via email if you've forgotten your password and a way to reset your password][
+Made all my code a lot nicer by making it conform with pep8, html5, and css3 standards]
+
+\log[19 January][
+Made form submission occur through AJAX, so the user no longer needs to refresh the page in order to see the results of the form submission][
+Added a heap of documentation, planned out the database schema on paper][
+Added a handler for 404 errors]
+
+\log[20 January][
+Added a profile page][
+Made it possible to make users teachers]

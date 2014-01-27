@@ -1,0 +1,151 @@
+{% from '/macros/modals.html' import modal %}
+{% from '/macros/forms.html' import input,form %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Kno - {{ title|default('ADD A TITLE') }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top header">
+        <div class="container">
+            <a class="navbar-brand" href="{{ INDEX }}">Kno</a>
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navHeaderCollapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="mailto:mattstark75@gmail.com?Subject=Kno" target="_top">
+                        Contact Us
+                    </a></li>
+                    {% if user == None %}
+                        <li><a href="#forgot" data-toggle="modal">Reset Password</a></li>
+                        <li><a href="#login" data-toggle="modal">Login</a></li>
+                        <li><a href="#register" data-toggle="modal">Sign Up</a></li>
+                    {% else %}
+                        <li><a href="#joincourse" data-toggle="modal">Join Course</a></li>
+                        <li><a href="{{ LIST_COURSES }}">Courses</a></li>
+                        {% if user.teacher %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Create <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#createcourse" data-toggle="modal">Course</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Welcome, {{ user.fname }} <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ PROFILE }}{{ user.key().id() }}">Profile</a></li>
+                                <li><a href="{{ SETTINGS }}">Settings</a></li>
+                                <li><a href="{{ LOGOUT }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            {% if user != None %}<div class="col-lg-9">{% endif %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="page-header h1">{{ title }}</div>
+                        {% block content %}ADD SOME CONTENT{% endblock %}
+                    </div>
+                </div>
+            {% if user != None %}
+            </div>
+            <div class="col-lg-3">
+                <form class="form-search" action="{{ SEARCH }}" method="get">
+                    <input type="text" class="form-control" placeholder="Search" name="query">
+                        <button class="btn">
+                            Search
+                        </button>
+                </form>
+                <div class="list-group">
+                {% for i in range(5) %}
+                    <a href="" class="list-group-item">
+                        <div class="list-group-item-heading">Notification Heading</div>
+                        <div class="list-group-item-text">
+                            Notification Text
+                        </div>
+                    </a>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <noscript>
+        For full functionality of this site it is necessary to enable JavaScript.
+        Here are the <a href="http://www.enable-javascript.com/" target="_newtab">
+        instructions how to enable JavaScript in your web browser</a>.
+    </noscript>
+
+    <nav class="navbar navbar-default navbar-static-bottom footer">
+        <div class="container">
+            <ul class="nav navbar-nav navbar-left"><li>
+                <img src="/images/html5.png" class="navbar-text text-left" alt="html5 valid">
+            </li></ul>
+            <ul class="nav navbar-nav navbar-right"><li>
+                <img src="/images/css3.png" class="navbar-text text-right" alt="css3 valid">
+            </li></ul>
+        </div>
+    </nav>
+
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/formplugin.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/page.js"></script>
+
+    {% if user == None %}
+        {% call modal('login', 'Login', LOGIN) %}
+            {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
+            {{ input('password', 'Password', 'pwd', 'pwdLogin', 'Enter Password') }}
+            <p class="help-block"><a href="{{ FORGOT }}">Forgotten your password?</a></p>
+        {% endcall %}
+
+        {% call modal('register', 'Sign Up', REGISTER, 'Register') %}
+            {{ input('email', 'Email', 'email', 'emailRegister', 'Enter Email') }}
+            {{ input('password', 'Password', 'pwd', 'pwdRegister', 'Enter Password') }}
+            {{ input('password', 'Confirm Password', 'confpwd', 'confpwdRegister', 'Enter Password') }}
+            {{ input('text', 'First Name', 'fname', 'fnameRegister', 'Enter First Name') }}
+            {{ input('text', 'Surname', 'lname', 'lnameRegister', 'Enter Surname') }}
+        {% endcall %}
+
+        {% call modal('forgot', 'Reset Password', FORGOT, 'Send Reset Code') %}
+            {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
+        {% endcall %}
+    {% else %}
+        {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
+            {{ input('text', 'Code', 'code', 'codeJoinCourse', 'Enter course code') }}
+        {% endcall %}
+        {% if user.teacher %}
+            {% call modal('createcourse', 'Create Course', CREATE_COURSE) %}
+                {{ input('text', 'Name', 'name', 'nameMakeCourse', 'Enter Course Name') }}
+                {{ input('checkbox', 'Private', 'mode', 'modeMakeCourse', required=False) }}
+            {% endcall %}
+        {% endif %}
+    {% endif %}
+
+
+    {% if formid != None %}
+        <div class="openmodal hidden" id="{{ formid }}"></div>
+    {% endif %}
+
+</body>
+</html>
