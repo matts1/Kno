@@ -1,10 +1,14 @@
-{% macro input(type, label='', name='', id='', placeholder='', restrictions='', required=True) %}
+{% macro input(form, field, key) %}
     <div class="form-group">
-        <label for="{{ id }}" class="col-lg-4 control-label">{{ label }}</label>
+        <label for="{{ form.__class__.__name__ }}_{{ field.name }}" class="col-lg-4 control-label">
+            {{ field.label.title() }}
+        </label>
         <div class="col-lg-7">
-            <input type="{{ type }}" {% if type != 'checkbox' %}class="form-control"{% endif %}
-                id="{{ id }}" placeholder="{{ placeholder.title() }}" name="{{ name }}"
-                {% if required %}required{% endif %} maxlength="500">
+            <input type="{{ field.type }}" id="{{ form.__class__.__name__ }}_{{ field.name }}"
+                   {% if field.type != 'checkbox' %}class="form-control"{% endif %}
+                   placeholder="{% if key in form.placeholders %}{{ form.placeholders[key].title() }}
+                   {% else %}Enter Your {{ field.label.title() }}{% endif %}"
+                   name="{{ field.name }}" {% if field.required %}required{% endif %}>
         </div>
     </div>
 {% endmacro %}
@@ -14,29 +18,3 @@
         {{ name }}="{{ value }}"
     {% endif %}
 {% endmacro %}
-
-
-<form role="form" class="form-horizontal" method="post" class="text-center" id="
-        {{ form.__class__.__name__ }}" {{ attr("action", form.action) }}>
-    <h3>{{ form.name }}</h3>
-    <input type="hidden" name="whichform" value="{{ form.__class__.__name__ }}">
-    {% for key, field in form.fields.items() %}
-        <div class="form-group">
-            <label for="{{ form.__class__.__name__ }}_{{ field.name }}" class="col-lg-4 control-label">
-                {{ field.label }}
-            </label>
-            <div class="col-lg-7">
-                <input type="{{ field.type }}" id="{{ form.__class__.__name__ }}_{{ field.name }}"
-                       {% if field.type != 'checkbox' %}class="form-control"{% endif %}
-                       placeholder="{% if key in form.placeholders %}{{ form.placeholders[key] }}
-                       {% else %}Enter your {{ field.label.title() }}{% endif %}"
-                       name="{{ field.name }}" {% if field.required %}required{% endif %}
-                       maxlength="MAX">
-            </div>
-        </div>
-    {% endfor %}
-    <div class="formresults text-center help-block"></div>
-    <div class="form-actions">
-        <input type="submit" value="{{ form.button if form.button else form.name }}" class="btn btn-primary">
-    </div>
-</form>
