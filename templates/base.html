@@ -125,16 +125,13 @@
                 {{ input('checkbox', 'Private', 'mode', 'modeMakeCourse', required=False) }}
             {% endcall %} #}
         {% endif %}
-
-    {% else %}
+    {% endif %}
         {# {% call modal('login', 'Login', LOGIN) %}
             {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
             {{ input('password', 'Password', 'pwd', 'pwdLogin', 'Enter Password') }}
             <p class="help-block"><a href="{{ FORGOT }}">Forgotten your password?</a></p>
         {% endcall %} #}
-
-        {{ as_modal('RegisterForm')|safe }}
-    {% endif %}
+    {{ as_modal('RegisterForm', user)|safe }}
 
 
     {% if formid != None %}

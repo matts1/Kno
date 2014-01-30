@@ -18,7 +18,7 @@ $(document).ready(function () {
             $('[data-submitted=true]', form).remove();
 
             // add a loading icon
-            insertAfterLastInput('<img src="/images/loading.gif" alt="loading">', form);
+            insertAfterLastInput('<img src="/static/images/loading.gif" alt="loading">', form);
         },
         success: function (responseText, statusText, xhr, form) {
             var custom = form.attr('data-custom');

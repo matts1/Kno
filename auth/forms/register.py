@@ -7,6 +7,7 @@ from common.forms import ModelForm
 class RegisterForm(ModelForm):
     name = 'Sign Up'
     urlname = 'register'
+    valid_users = (0,)
 
     pwd = forms.CharField(label='password', widget=PasswordInput())
     confpwd = forms.CharField(label='confirm password', widget=PasswordInput())
