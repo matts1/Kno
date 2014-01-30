@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import PasswordInput
 from auth.models import Users
 from common.forms import ModelForm
 
@@ -7,8 +8,8 @@ class RegisterForm(ModelForm):
     name = 'Sign Up'
     urlname = 'register'
 
-    pwd = forms.CharField(label='password')
-    confpwd = forms.CharField(label='confirm password')
+    pwd = forms.CharField(label='password', widget=PasswordInput())
+    confpwd = forms.CharField(label='confirm password', widget=PasswordInput())
     placeholders = {'confpwd': 'Confirm your password'}
 
     class Meta:

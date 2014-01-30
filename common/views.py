@@ -1,4 +1,4 @@
-from django.views.generic import FormView, View
+from django.views.generic import FormView, TemplateView
 
 
 class FormView(FormView):
@@ -8,7 +8,9 @@ class FormView(FormView):
         kwargs['view'] = self
         return kwargs
 
-class View(View):
+class TemplateView(TemplateView):
     on_post = None
 
     # POST FUNCTION WHICH USES THE ON_POST VIEW INSTEAD OF CURRENT VIEW. IF ON_POST IS NONE, METHOD NOT ALLOW
+
+    # ADD VIEW TO CONTEXT, so that the forms can know what view this came from

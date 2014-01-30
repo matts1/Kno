@@ -5,7 +5,7 @@ from django.db import models
 class Users(AbstractBaseUser):
     email = models.EmailField(max_length=100, primary_key=True, unique=True)
     fname = models.CharField('First Name', max_length=50)
-    lname = models.CharField('Last Name', max_length=50)
+    lname = models.CharField('Last Name', max_length=50, null=True, blank=True)
     teacher = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
 
