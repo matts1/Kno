@@ -20,6 +20,9 @@ $(document).ready(function () {
             // add a loading icon
             insertAfterLastInput('<img src="/static/images/loading.gif" alt="loading">', form);
         },
+        error: function (responseText, statusText, xhr, form) {
+            console.log(responseText.responseText);
+        },
         success: function (responseText, statusText, xhr, form) {
             var custom = form.attr('data-custom');
 

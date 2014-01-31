@@ -49,7 +49,7 @@
 
                     {% else %}
                         <li><a href="#forgot" data-toggle="modal">Reset Password</a></li>
-                        <li><a href="#login" data-toggle="modal">Login</a></li>
+                        <li><a href="#LoginForm" data-toggle="modal">Login</a></li>
                         <li><a href="#RegisterForm" data-toggle="modal">Sign Up</a></li>
                     {% endif %}
                 </ul>
@@ -131,6 +131,7 @@
             {{ input('password', 'Password', 'pwd', 'pwdLogin', 'Enter Password') }}
             <p class="help-block"><a href="{{ FORGOT }}">Forgotten your password?</a></p>
         {% endcall %} #}
+    {{ as_modal('LoginForm', info)|safe }}
     {{ as_modal('RegisterForm', info)|safe }}
 </body>
 </html>

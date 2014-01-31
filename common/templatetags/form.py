@@ -4,7 +4,10 @@ import importlib
 lib = library.Library()
 
 form_names = {
-    'auth': {'RegisterForm'}
+    'auth': {
+        'RegisterForm',
+        'LoginForm'
+    }
 }
 
 forms = {}
@@ -21,3 +24,7 @@ def as_form(name, info):
 @lib.global_function
 def as_modal(name, info):
         return forms[name](view=info[0], user=info[1]).as_modal()
+
+@lib.global_function
+def string(s):
+    return str(s)

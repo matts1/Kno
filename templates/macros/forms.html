@@ -11,7 +11,7 @@
                    name="{{ field.name }}" {% if field.required %}required{% endif %}
                    value="{{ field.initial|default('') }}"> #}
             {{ field.widget.render(key, field.initial if field.initial is not none else '', {
-                'placeholder': form.placeholders.get(key, 'Enter your ' + field.label).title(),
+                'placeholder': form.placeholders.get(key, 'Enter your ' + string(field.label)).title(),
                 'required' if field.required else '': '',
                 'class': 'form-control',
                 'id': form.__class__.__name__ + '_' + key

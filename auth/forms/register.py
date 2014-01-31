@@ -1,7 +1,8 @@
 from django import forms
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.forms import PasswordInput
-from auth.models import Users
+from auth.models import User
 from common.forms import ModelForm
 
 
@@ -16,20 +17,15 @@ class RegisterForm(ModelForm):
     placeholders = {'confpwd': 'Confirm your password'}
 
     class Meta:
-        model = Users
+        model = User
         fields = ('email', 'pwd', 'confpwd', 'fname', 'lname')
-
-    # def clean_email(self, email):
-    #     if Users.objects.filter(email=email):
-    #         raise ValidationError('That email address is taken')
 
     def clean(self):
         if self.cleaned_data['pwd'] != self.cleaned_data['confpwd']:
             raise ValidationError('The passwords were different')
         return self.cleaned_data
 
-    def save(self, commit=True):
+    def save(self):
         user = super().save(False)  # don't commit because we're about to commit
-        user.set_password(self.cleaned_data['pwd'])
+        user.pwd = make_password(self.cleaned_data['pwd'])
         user.save()
-        return user

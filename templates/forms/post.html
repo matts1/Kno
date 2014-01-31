@@ -2,6 +2,7 @@
     {% if form.non_field_errors() %}
         <div class="alert alert-danger" data-for="">
             {% for error in form.non_field_errors() %}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
                 <p class="text-center">{{ error }}</p>
             {% endfor %}
         </div>
@@ -9,6 +10,7 @@
     {% for field in form %}
         {% if field.errors %}
             <div class="alert alert-danger" data-for="{{ form.__class__.__name__ }}_{{ field.name }}">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
                 {% for error in field.errors %}
                     <p class="text-center">{{ error }}</p>
                 {% endfor %}
