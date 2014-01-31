@@ -131,12 +131,6 @@
             {{ input('password', 'Password', 'pwd', 'pwdLogin', 'Enter Password') }}
             <p class="help-block"><a href="{{ FORGOT }}">Forgotten your password?</a></p>
         {% endcall %} #}
-    {{ as_modal('RegisterForm', user)|safe }}
-
-
-    {% if formid != None %}
-        <div class="openmodal hidden" id="{{ formid }}"></div>
-    {% endif %}
-
+    {{ as_modal('RegisterForm', info)|safe }}
 </body>
 </html>

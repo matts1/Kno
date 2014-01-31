@@ -15,9 +15,9 @@ for modulename in form_names:
         forms[cls] = getattr(module, cls)
 
 @lib.global_function
-def as_form(name, user=None):
-    return forms[name](None, user=user).as_form()
+def as_form(name, info):
+    return forms[name](view=info[0], user=info[1]).as_form()
 
 @lib.global_function
-def as_modal(name, user=None):
-    return forms[name](None, user=user).as_modal()
+def as_modal(name, info):
+        return forms[name](view=info[0], user=info[1]).as_modal()

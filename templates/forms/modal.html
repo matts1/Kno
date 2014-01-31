@@ -4,6 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form role="form" class="form-horizontal" method="post" action="{{ url(form.urlname) }}">
+                {% csrf_token %}
                 <input type="hidden" name="whichform" value="{{ form.__class__.__name__ }}">
                 <div class="modal-header">
                     <h3>{{ form.name }}</h3>

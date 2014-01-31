@@ -653,6 +653,7 @@ $.fn.ajaxSubmit = function(options) {
             var status = 'success', errMsg;
             try {
                 if (timedOut) {
+                    //noinspection ExceptionCaughtLocallyJS
                     throw 'timeout';
                 }
 

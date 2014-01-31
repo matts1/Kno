@@ -34,16 +34,17 @@ $(document).ready(function () {
 
                     // this line fixes a bug where you can't search for the outermost tag, so we wrap it
                     responseText = '<nav>' + responseText + '</nav>';
-
                     // Fill in the error messages with the response from the server
                     $('div', $(responseText)).each(function () {
                         var name = $(this).attr('data-for');
                         var msg = $(this.outerHTML);
                         msg.attr('data-submitted', 'true');
+                        console.log(name);
+                        console.log(msg);
                         if (name == '') {
                             insertAfterLastInput(msg[0].outerHTML, form);
                         } else {
-                            $('input[name=' + name + ']', form).parent().parent().after(msg);
+                            $('input#' + name, form).parent().parent().after(msg);
                         }
                     });
                 } else {
@@ -61,7 +62,6 @@ $(document).ready(function () {
             }
         }
     });
-
 });
 
 function insertAfterLastInput(data, container) {
