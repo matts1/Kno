@@ -15,10 +15,12 @@ class ModelForm(ModelForm):
 
         # override this method if you want to change the form based on the user
 
-    def allowed(self) -> bool:
-        if not self.user.is_authenticated():
+    def allowed(self, user=None) -> bool:
+        if user is None:
+            user = self.user
+        if not user.is_authenticated():
             return 0 in self.valid_users
-        elif not self.user.teacher:
+        elif not user.teacher:
             return 1 in self.valid_users
         else:
             return 2 in self.valid_users

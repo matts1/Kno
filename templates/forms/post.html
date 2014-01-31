@@ -2,7 +2,7 @@
     {% if form.non_field_errors() %}
         <div class="alert alert-danger" data-for="">
             {% for error in form.non_field_errors() %}
-                <p>{{ error }}</p>
+                <p class="text-center">{{ error }}</p>
             {% endfor %}
         </div>
     {% endif %}
@@ -10,13 +10,15 @@
         {% if field.errors %}
             <div class="alert alert-danger" data-for="{{ form.__class__.__name__ }}_{{ field.name }}">
                 {% for error in field.errors %}
-                    <p>{{ error }}</p>
+                    <p class="text-center">{{ error }}</p>
                 {% endfor %}
             </div>
         {% endif %}
     {% endfor %}
 
     {% if form.is_valid() %}
-        <div class="alert alert-success" data-for="">{{ form.success_msg|safe }}</div>
+        <div class="alert alert-success text" data-for="">
+            <p class="text-center">{{ form.success_msg|safe }}</p>
+        </div>
     {% endif %}
 {% endif %}

@@ -19,11 +19,17 @@ class RegisterForm(ModelForm):
         model = Users
         fields = ('email', 'pwd', 'confpwd', 'fname', 'lname')
 
-    def clean_email(self, email):
-        if Users.objects.filter(email=email):
-            raise ValidationError('That email address is taken')
+    # def clean_email(self, email):
+    #     if Users.objects.filter(email=email):
+    #         raise ValidationError('That email address is taken')
 
     def clean(self):
         if self.cleaned_data['pwd'] != self.cleaned_data['confpwd']:
             raise ValidationError('The passwords were different')
         return self.cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(False)  # don't commit because we're about to commit
+        user.set_password(self.cleaned_data['pwd'])
+        user.save()
+        return user
