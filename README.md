@@ -1,8 +1,8 @@
 Collaborative e-learning website
 
-Requirements:
+Requirements (pip3 install requirements.txt):
 ---------
-* python 2.7
-* django 1.6
+* python 3
+* django 1.6.1
 * jinja2
 * django-jinja
