@@ -19,13 +19,11 @@ class RegisterForm(ModelForm):
         model = Users
         fields = ('email', 'pwd', 'confpwd', 'fname', 'lname')
 
+    def clean_email(self, email):
+        if Users.objects.filter(email=email):
+            raise ValidationError('That email address is taken')
+
     def clean(self):
-        print('general clean')
+        if self.cleaned_data['pwd'] != self.cleaned_data['confpwd']:
+            raise ValidationError('The passwords were different')
         return self.cleaned_data
-
-    def clean_email(self):
-        print('cleaning email')
-
-    def clean_pwd(self):
-        print('cleaning pwd')
-        raise ValidationError([ValidationError('blah'), ValidationError('b2')])

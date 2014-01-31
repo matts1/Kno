@@ -39,8 +39,6 @@ $(document).ready(function () {
                         var name = $(this).attr('data-for');
                         var msg = $(this.outerHTML);
                         msg.attr('data-submitted', 'true');
-                        console.log(name);
-                        console.log(msg);
                         if (name == '') {
                             insertAfterLastInput(msg[0].outerHTML, form);
                         } else {

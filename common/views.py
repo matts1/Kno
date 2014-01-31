@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import FormView, TemplateView
 
 
@@ -12,8 +12,14 @@ class FormView(FormView):
         return kwargs
 
     def get(self, request, *args, **kwargs):
-        print('get')
         return HttpResponse(status=405)
+
+    def form_valid(self, form):
+        redirect = None
+        if hasattr(form, 'success_url'):
+            redirect = form.success_url
+        return self.render_to_response(self.get_context_data(form=form, redirect=redirect))
+
 
 class TemplateView(TemplateView):
     on_post = None
