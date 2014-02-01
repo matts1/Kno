@@ -4,15 +4,6 @@ from auth.forms import RegisterForm
 
 
 class RegisterFormTest(TestCase):
-    def test_valid_form(self):
-        RegisterForm.test({}, {'fname': 'John', 'lname': 'Smith'},
-            email='john@smith.com',
-            pwd='abc',
-            confpwd='abc',
-            fname='john',
-            lname='smith'
-        )
-
     def test_empty_form(self):
         RegisterForm.test({'email', 'pwd', 'confpwd', 'fname', 'lname'},
             email='',
@@ -41,6 +32,15 @@ class RegisterFormTest(TestCase):
         )
 
     def test_valid(self):
+        RegisterForm.test({}, {'fname': 'John', 'lname': 'Smith'},
+            email='john@smith.com',
+            pwd='correcthorsebatterystaple',
+            confpwd='correcthorsebatterystaple',
+            fname='john',
+            lname='smith'
+        )
+
+    def test_valid2(self):
         RegisterForm.test({}, {'fname': 'Bob', 'lname': 'Last'},
             email='j@s.co',
             pwd='abc',
