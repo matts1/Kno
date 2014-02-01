@@ -1,4 +1,0 @@
-django==1.6.1
-jinja2
-django-jinja
-coverage==3.7.1

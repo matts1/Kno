@@ -48,3 +48,8 @@ class RegisterFormTest(TestCase):
             fname='bob',
             lname='last'
         )
+
+
+class RegisterModelTest(TestCase):
+    def test_blah(self):
+        raise AssertionError('NEED FIXTURES')

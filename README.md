@@ -1,6 +1,6 @@
 Collaborative e-learning website
 
-Requirements (pip3 install requirements.txt):
+Requirements (run `sudo python3 setup.py install`):
 ---------
 * python 3
 * django 1.6.1
