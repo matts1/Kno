@@ -33,7 +33,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.admin',
     'auth',
     'common',
     'django_jinja',

@@ -61,3 +61,45 @@ class ModelForm(ModelForm):
                 self._errors[name] = self.error_class(e.messages)
                 if name in self.cleaned_data:
                     del self.cleaned_data[name]
+
+    @classmethod
+    def test(cls, correct:set, cleaned=None, **kwargs):
+        correct = set(correct)
+
+        form = cls(data=kwargs)
+        form.full_clean()
+        results = set(form.errors)
+        if '__all__' in results:
+            results.remove('__all__')
+            results.add('')
+        problems = []
+        for result in results ^ correct:
+            if result in correct:
+                problems.append('The %s field should have raised an error, but didn\'t' % (
+                    result if result else 'main'
+                ))
+            else:
+                problems.append('The %s field unexpectedly raised an error (%s)' % (
+                    result if result else 'main', ', '.join(form.errors[result if result else '__all__'])
+                ))
+
+        if problems:
+            raise AssertionError('Input for %s is %r\n%s' % (
+                cls.__name__, kwargs, '\n'.join(problems)
+            ))
+
+        if cleaned is not None:
+            for key in kwargs:
+                if key not in cleaned:
+                    cleaned[key] = kwargs[key]
+
+            if cleaned != form.cleaned_data:
+                problems = []
+                for key in cleaned:
+                    if form.cleaned_data[key] != cleaned[key]:
+                        problems.append('For field %s, got %s, should have been %s' % (
+                            key, form.cleaned_data[key], cleaned[key]
+                        ))
+                raise AssertionError('Input for %s is %r\n%s' % (
+                    cls.__name__, kwargs, '\n'.join(problems)
+                ))

@@ -1,20 +1,20 @@
 \subsection{Outline of Resources Available for your Reference and Assistance}
 There are a few libraries which I will be using to make my job easier, both for coding and for deployment.
 
-\subsubsection{Google appengine}
-Appengine is one of the many web frameworks available for python. It is relatively easy to learn, has an ORM (stores database tables as classes, which makes it a lot nicer), and is extremely scaleable due to an asynchronous web server and database. It is also extremely easy to deploy on google's servers (who have a limited free service which you could upgrade for a cost).
-	
+\subsubsection{Django}
+Django is one of the most popular and fully featured web frameworks for python out there. Its documentation is extremely extensive, and it has been running since November 2005, fixing near all of its problems. As of recently, it also runs on python3.
+
 \subsubsection{Jinja2}
-Jinja2 is a templating language for python, used to write HTML. It is both extremely simple and powerful, and is fast, widely used, and secure, making it very useful for me. It also integrates with google app engine, making it even more useful.
+Jinja2 is a templating language for python, used to write HTML. It is both extremely simple and powerful, and is fast, widely used, and secure, making it very useful for me. I find it to be far superior to django's templating engine, due to the ability to write things such as macros, and the flexibility it provides. Luckily, there is a module for python called django-jinja which integrates jinja with django effortlessly.
 
 \subsubsection{Bootstrap}
-Bootstrap is a css stylesheet which adds classes so you can make your website look nice easily.
+Bootstrap is a css stylesheet which adds classes so you can make your website look nice easily (and makes it easier to scale to devices of different size).
 
 \subsubsection{Jquery}
-Jquery is a Javascript library to make things like document traversal, document manipulation, and event handling much simpler which works across many different browsers. I also used a plugin for Jquery called "Jquery form plugin", which makes AJAX requests easier.
+Jquery is a Javascript library to make things like document traversal, document manipulation, and event handling much simpler which works across many different browsers. I also used a plugin for Jquery called "Jquery form plugin", which makes AJAX requests easier (AJAX requests allow for form submission without refreshing the page).
 
 \subsubsection{Github}
-Github is a website which uses git to do version control on your code. On top of that, it has many nice features, such as issue tracking, which I used to ensure I remembered what I needed to do and what was currently broken in my project.
+Github is a website which uses the git version control system to manage your code easil. On top of that, it has many nice features, such as issue tracking, which I used to ensure I remembered what I needed to do and what was currently broken in my project.
 
 \subsubsection{Codeship}
-Codeship (\url{codeship.io}) is a website which automatically deploys my project to google's servers whenever I push my code to github. It also automatically runs the tests I wrote to see if my code is broken (and if so, it doesn't push it).
+Codeship (\url{codeship.io}) is a website which automatically deploys my project to servers whenever I push my code to github. It also automatically runs the tests I wrote to see if my code is broken (and if so, it doesn't push it).
