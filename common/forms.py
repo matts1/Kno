@@ -9,7 +9,7 @@ class ModelForm(ModelForm):
     valid_users = (1, 2)
 
     def __init__(self, *args, view=None, user=None, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.view = view
         self.user = view.request.user if user is None and view is not None else user
 
@@ -18,7 +18,7 @@ class ModelForm(ModelForm):
     def allowed(self, user=None) -> bool:
         if user is None:
             user = self.user
-        if not user.is_authenticated():
+        if user is None:
             return 0 in self.valid_users
         elif not user.teacher:
             return 1 in self.valid_users

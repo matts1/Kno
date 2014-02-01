@@ -24,7 +24,11 @@
                     <li><a href="mailto:mattstark75@gmail.com?Subject=Kno" target="_top">
                         Contact Us
                     </a></li>
-                    {% if user.is_authenticated() %}
+                    {% if user is none %}
+                        <li><a href="#forgot" data-toggle="modal">Reset Password</a></li>
+                        <li><a href="#LoginForm" data-toggle="modal">Login</a></li>
+                        <li><a href="#RegisterForm" data-toggle="modal">Sign Up</a></li>
+                    {% else %}
                         <li><a href="#joincourse" data-toggle="modal">Join Course</a></li>
                         <li><a href="{{ LIST_COURSES }}">Courses</a></li>
                         {% if user.teacher %}
@@ -43,14 +47,9 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ PROFILE }}">Profile</a></li>
                                 <li><a href="{{ SETTINGS }}">Settings</a></li>
-                                <li><a href="{{ LOGOUT }}">Logout</a></li>
+                                <li><a href="{{ url('logout') }}">Logout</a></li>
                             </ul>
                         </li>
-
-                    {% else %}
-                        <li><a href="#forgot" data-toggle="modal">Reset Password</a></li>
-                        <li><a href="#LoginForm" data-toggle="modal">Login</a></li>
-                        <li><a href="#RegisterForm" data-toggle="modal">Sign Up</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -111,26 +110,17 @@
     <script src="{{ static('js/bootstrap.min.js') }}"></script>
     <script src="{{ static('js/page.js') }}"></script>
 
-    {% if user.is_authenticated() %}
-        {# {% call modal('forgot', 'Reset Password', FORGOT, 'Send Reset Code') %}
-            {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
-        {% endcall %}
+    {# {% call modal('forgot', 'Reset Password', FORGOT, 'Send Reset Code') %}
+        {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
+    {% endcall %}
 
-        {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
-            {{ input('text', 'Code', 'code', 'codeJoinCourse', 'Enter course code') }}
-        {% endcall %} #}
-        {% if user.teacher %}
-            {# {% call modal('createcourse', 'Create Course', CREATE_COURSE) %}
-                {{ input('text', 'Name', 'name', 'nameMakeCourse', 'Enter Course Name') }}
-                {{ input('checkbox', 'Private', 'mode', 'modeMakeCourse', required=False) }}
-            {% endcall %} #}
-        {% endif %}
-    {% endif %}
-        {# {% call modal('login', 'Login', LOGIN) %}
-            {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
-            {{ input('password', 'Password', 'pwd', 'pwdLogin', 'Enter Password') }}
-            <p class="help-block"><a href="{{ FORGOT }}">Forgotten your password?</a></p>
-        {% endcall %} #}
+    {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
+        {{ input('text', 'Code', 'code', 'codeJoinCourse', 'Enter course code') }}
+    {% endcall %} #}
+    {# {% call modal('createcourse', 'Create Course', CREATE_COURSE) %}
+        {{ input('text', 'Name', 'name', 'nameMakeCourse', 'Enter Course Name') }}
+        {{ input('checkbox', 'Private', 'mode', 'modeMakeCourse', required=False) }}
+    {% endcall %} #}
     {{ as_modal('LoginForm', info)|safe }}
     {{ as_modal('RegisterForm', info)|safe }}
 </body>

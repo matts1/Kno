@@ -25,6 +25,12 @@ class RegisterForm(ModelForm):
             raise ValidationError('The passwords were different')
         return self.cleaned_data
 
+    def clean_fname(self, name):
+        return name.title()
+
+    def clean_lname(self, name):
+        return name.title()
+
     def save(self):
         user = super().save(False)  # don't commit because we're about to commit
         user.pwd = make_password(self.cleaned_data['pwd'])

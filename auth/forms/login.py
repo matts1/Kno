@@ -10,7 +10,7 @@ class LoginForm(ModelForm):
     name = 'Login'
     urlname = 'login'
     valid_users = (0,)
-    success_msg = 'Successful login'
+    success_url = 'index'
 
     pwd = forms.CharField(label='Password', widget=PasswordInput())
 
@@ -28,3 +28,7 @@ class LoginForm(ModelForm):
 
     def _post_clean(self):
         pass  # ensure we don't clean the email to make sure it is unique
+
+    def save(self):
+        sessionID = User.objects.get(pk=self.cleaned_data['email']).login()
+        self.view.cookies['session'] = sessionID
