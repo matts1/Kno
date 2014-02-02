@@ -10,7 +10,7 @@ class RegisterForm(ModelForm):
     name = 'Sign Up'
     urlname = 'register'
     valid_users = (0,)
-    success_msg = 'You have registered'
+    success_msg = 'You have been registered. You can log in now'
 
     pwd = forms.CharField(label='password', widget=PasswordInput())
     confpwd = forms.CharField(label='confirm password', widget=PasswordInput())

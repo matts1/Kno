@@ -18,3 +18,16 @@ Requirements:
 * django 1.6.1
 * jinja2
 * django-jinja
+
+
+Testing:
+---------
+To test, run this command
+```bash
+python3 manage.py runserver
+```
+
+If you want to get a report of the tests, run this command instead
+```bash
+coverage run manage.py test -v 2 && coverage html $(find . | grep ".py$" | egrep -v "test|setup|middleware")
+```

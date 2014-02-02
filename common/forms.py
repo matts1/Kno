@@ -63,7 +63,7 @@ class ModelForm(ModelForm):
                     del self.cleaned_data[name]
 
     @classmethod
-    def test(cls, correct:set, cleaned=None, **kwargs):
+    def test(cls, correct:list, cleaned=None, save=True, **kwargs):
         correct = set(correct)
 
         form = cls(data=kwargs)
@@ -103,3 +103,6 @@ class ModelForm(ModelForm):
                 raise AssertionError('Input for %s is %r\n%s' % (
                     cls.__name__, kwargs, '\n'.join(problems)
                 ))
+
+        if form.is_valid() and save:
+            form.save()
