@@ -18,10 +18,11 @@ python3 manage.py runserver
 
 Requirements (installed through setup.py):
 ---------
-* python 3
+* python 3.3 (3.2 is not supported by jinja2)
 * django 1.6.1
 * jinja2
 * django-jinja
+* selenium 2.3.9
 
 
 Testing:
