@@ -18,7 +18,7 @@ class LoginForm(ModelForm):
         model = User
         fields = ('email', 'pwd')
 
-    def clean(self):
+    def clean(self) -> dict:
         email = self.cleaned_data.get('email')
         user = User.objects.filter(email=email).first()
         if user is None and email is not None:

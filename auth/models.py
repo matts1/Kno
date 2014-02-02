@@ -21,12 +21,16 @@ class User(models.Model):
     def get_short_name(self) -> str:
         return self.fname
 
-    def login(self):
+    def login(self) -> bytes:
         return Session.create(self)
 
     @classmethod
-    def get(cls, email):
+    def get(cls, email:str):
+        """
+        Gets the user that goes by the email given, and returns None if no user is given
+        """
         return cls.objects.filter(pk=email).first()
+
 
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)
@@ -34,22 +38,22 @@ class Session(models.Model):
     expiry = models.DateTimeField()
 
     @classmethod
-    def create(cls, user):
-        sessionID = None
-        while sessionID is None or cls.objects.filter(sessionID=sessionID):
-            sessionID = binascii.hexlify(os.urandom(50)).decode('ascii')
+    def create(cls, user: User) -> bytes:
+        sessionid = None
+        while sessionid is None or cls.objects.filter(sessionID=sessionid):
+            sessionid = binascii.hexlify(os.urandom(50)).decode('ascii')
         cls(
-            sessionID=sessionID,
+            sessionID=sessionid,
             user=user,
             expiry=timezone.now() + timedelta(days=7)
         ).save()
-        return sessionID
+        return sessionid
 
     @classmethod
     def delete_old(cls):
         cls.objects.filter(expiry__lte=timezone.now())
 
     @classmethod
-    def get_user(cls, sessionID):
-        session = cls.objects.filter(expiry__gt=timezone.now(), sessionID=sessionID).first()
+    def get_user(cls, sessionid: str) -> User:
+        session = cls.objects.filter(expiry__gt=timezone.now(), sessionID=sessionid).first()
         return None if session is None else session.user

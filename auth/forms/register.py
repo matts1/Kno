@@ -20,15 +20,15 @@ class RegisterForm(ModelForm):
         model = User
         fields = ('email', 'pwd', 'confpwd', 'fname', 'lname')
 
-    def clean(self):
+    def clean(self) -> dict:
         if self.cleaned_data.get('pwd') != self.cleaned_data.get('confpwd'):
             raise ValidationError('The passwords were different')
         return self.cleaned_data
 
-    def clean_fname(self, name):
+    def clean_fname(self, name:str):
         return name.title()
 
-    def clean_lname(self, name):
+    def clean_lname(self, name:str):
         return name.title()
 
     def save(self):

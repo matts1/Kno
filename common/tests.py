@@ -41,7 +41,8 @@ class ModelFormTestCase(TestCase):
         ))
 
     def test_wrong_cleaned_data(self):
-        self.assertRaises(AssertionError, lambda: RegisterForm.test([], {'fname': 'first', 'lname': 'last'},
+        self.assertRaises(AssertionError, lambda: RegisterForm.test([],
+            {'fname': 'first', 'lname': 'last'},
             email='valid@gmail.com',
             pwd='abc',
             confpwd='abc',

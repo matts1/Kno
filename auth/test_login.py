@@ -52,3 +52,5 @@ class LoginLogoutTest(TestCase):
 
         self.client.get(reverse('logout'))
         self.assertEqual(len(Session.objects.all()), 0)
+
+
