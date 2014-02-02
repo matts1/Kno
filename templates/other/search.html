@@ -4,9 +4,9 @@
 
 {% block content %}
 {% for table, res in results %}
-    {% if table == 0 %}
-       {{ displaycourse(res, res.inside) }}
-    {% endif %}
+  {% if table == 0 %}
+    {{ displaycourse(res, res.inside) }}
+  {% endif %}
 {% else %}
 No results found. You might want to try a different search query.
 {% endfor %}

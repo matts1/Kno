@@ -1,34 +1,34 @@
 {% macro displaycourse(c, in_course) %}
-    <div class="row table-row">
-        <div class="col-xs-{{ COURSE_TBL_WIDTH[0] }}">{{ c.name }}</div>
-        <div class="col-xs-{{ COURSE_TBL_WIDTH[1] }}">{{ c.teacher }}</div>
-        <div class="col-xs-{{ COURSE_TBL_WIDTH[2] }}">
-            {% if in_course %}
-                <a href="{{ OPEN_COURSE }}{{ c.key().id() }}" class="btn btn-primary">Open Course</a>
-            {% else %}
-                <form id="join{{ c.key().id() }}" method="post" action="{{ LIST_COURSES }}"
-                      data-custom="joinpublic" data-key="{{ c.key().id() }}">
-                    <input type="hidden" name="whichform" value="join{{ c.key().id() }}">
-                    <input type="submit" class="btn btn-primary" value="Join Course">
-                </form>
-            {% endif %}
-        </div>
+  <div class="row table-row">
+    <div class="col-xs-{{ COURSE_TBL_WIDTH[0] }}">{{ c.name }}</div>
+    <div class="col-xs-{{ COURSE_TBL_WIDTH[1] }}">{{ c.teacher }}</div>
+    <div class="col-xs-{{ COURSE_TBL_WIDTH[2] }}">
+      {% if in_course %}
+        <a href="{{ OPEN_COURSE }}{{ c.key().id() }}" class="btn btn-primary">Open Course</a>
+      {% else %}
+        <form id="join{{ c.key().id() }}" method="post" action="{{ LIST_COURSES }}"
+            data-custom="joinpublic" data-key="{{ c.key().id() }}">
+          <input type="hidden" name="whichform" value="join{{ c.key().id() }}">
+          <input type="submit" class="btn btn-primary" value="Join Course">
+        </form>
+      {% endif %}
     </div>
+  </div>
 {% endmacro %}
 
 {% macro displaycourses(courses, name, in_course=False) %}
-    <p class="h3">{{ name }}</p>
-    {% if courses %}
-        <div class="row table-row">
-            <div class="col-xs-{{ COURSE_TBL_WIDTH[0] }} h4">Course Name</div>
-            <div class="col-xs-{{ COURSE_TBL_WIDTH[1] }} h4">Teacher</div>
-        </div>
-        {% for course in courses %}
-            {{ displaycourse(course, in_course) }}
-        {% endfor %}
-    {% else %}
-        <p>
-            Looks like there isn't any {{ name.lower() }}. Maybe you should do something about that...
-        </p>
-    {% endif %}
+  <p class="h3">{{ name }}</p>
+  {% if courses %}
+    <div class="row table-row">
+      <div class="col-xs-{{ COURSE_TBL_WIDTH[0] }} h4">Course Name</div>
+      <div class="col-xs-{{ COURSE_TBL_WIDTH[1] }} h4">Teacher</div>
+    </div>
+    {% for course in courses %}
+      {{ displaycourse(course, in_course) }}
+    {% endfor %}
+  {% else %}
+    <p>
+      Looks like there isn't any {{ name.lower() }}. Maybe you should do something about that...
+    </p>
+  {% endif %}
 {% endmacro %}

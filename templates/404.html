@@ -2,20 +2,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="col-md-6">
-        <p>
-            The url <a href="{{ page }}">{{ page }}</a> could not be found. This could be for several
-            reasons.
-        </p>
-        <ul>
-            <li>It never existed</li>
-            <li>You were looking for something else and found this</li>
-            <li>Or you porbalby seplt smoehtnig worng</li>
-            <li>You like our 404 page</li>
-        </ul>
-    </div>
-    <div class="col-md-6">
-        <img src="http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-error-404-15.png" alt="404"
-             width="100%">
-    </div>
+  <div class="col-md-6">
+    <p>
+      The url <a href="{{ page }}">{{ page }}</a> could not be found. This could be for several reasons.
+    </p>
+    <ul>
+      <li>It never existed</li>
+      <li>You were looking for something else and found this</li>
+      <li>Or you porbalby seplt smoehtnig worng</li>
+      <li>You like our 404 page</li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <img src="http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-error-404-15.png" alt="404" width="100%">
+  </div>
 {% endblock %}

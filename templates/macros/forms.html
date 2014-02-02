@@ -1,28 +1,27 @@
 {% macro input(form, field, key) %}
-    <div class="form-group">
-        <label for="{{ form.__class__.__name__ }}_{{ field.name }}" class="col-lg-4 control-label">
-            {{ field.label.title() }}
-        </label>
-        <div class="col-lg-7">
-            {# <input type="{{ field.widget.input_type }}" id="{{ form.__class__.__name__ }}_{{ field.name }}"
-                   {% if field.type != 'checkbox' %}class="form-control"{% endif %}
-                   placeholder="{% if key in form.placeholders %}{{ form.placeholders[key].title() }}
-                   {% else %}Enter Your {{ field.label.title() }}{% endif %}"
-                   name="{{ field.name }}" {% if field.required %}required{% endif %}
-                   value="{{ field.initial|default('') }}"> #}
-            {{ field.widget.render(key, field.initial if field.initial is not none else '', {
-                'placeholder': form.placeholders.get(key, 'Enter your ' + string(field.label)).title(),
-                'required' if field.required else '': '',
-                'class': 'form-control',
-                'id': form.__class__.__name__ + '_' + key
-            }) }}
-
-        </div>
+  <div class="form-group">
+    <label for="{{ form.__class__.__name__ }}_{{ field.name }}" class="col-lg-4 control-label">
+      {{ field.label.title() }}
+    </label>
+    <div class="col-lg-7">
+      {# <input type="{{ field.widget.input_type }}" id="{{ form.__class__.__name__ }}_{{ field.name }}"
+           {% if field.type != 'checkbox' %}class="form-control"{% endif %}
+           placeholder="{% if key in form.placeholders %}{{ form.placeholders[key].title() }}
+           {% else %}Enter Your {{ field.label.title() }}{% endif %}"
+           name="{{ field.name }}" {% if field.required %}required{% endif %}
+           value="{{ field.initial|default('') }}"> #}
+      {{ field.widget.render(key, field.initial if field.initial is not none else '', {
+        'placeholder': form.placeholders.get(key, 'Enter your ' + string(field.label)).title(),
+        'required' if field.required else '': '',
+        'class': 'form-control',
+        'id': form.__class__.__name__ + '_' + key
+      }) }}
     </div>
+  </div>
 {% endmacro %}
 
 {% macro attr(name, value) %}
-    {% if value != None %}
-        {{ name }}="{{ value }}"
-    {% endif %}
+  {% if value != None %}
+    {{ name }}="{{ value }}"
+  {% endif %}
 {% endmacro %}
