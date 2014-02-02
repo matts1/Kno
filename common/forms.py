@@ -63,10 +63,12 @@ class ModelForm(ModelForm):
                     del self.cleaned_data[name]
 
     @classmethod
-    def test(cls, correct:list, cleaned=None, save=True, **kwargs):
+    def test(cls, correct:list, cleaned=None, save=True, initdata=None, **kwargs):
         correct = set(correct)
+        if initdata is None:
+            initdata = {}
 
-        form = cls(data=kwargs)
+        form = cls(data=kwargs, **initdata)
         form.full_clean()
         results = set(form.errors)
         if '__all__' in results:

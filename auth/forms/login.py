@@ -19,10 +19,11 @@ class LoginForm(ModelForm):
         fields = ('email', 'pwd')
 
     def clean(self):
-        user = User.objects.filter(email=self.cleaned_data.get('email')).first()
-        if user is None:
+        email = self.cleaned_data.get('email')
+        user = User.objects.filter(email=email).first()
+        if user is None and email is not None:
             raise ValidationError('The email does not exist in our database')
-        if not check_password(self.cleaned_data['pwd'], user.pwd):
+        if email is not None and not check_password(self.cleaned_data['pwd'], user.pwd):
             raise ValidationError('The password is incorrect')
         return self.cleaned_data
 
@@ -30,5 +31,5 @@ class LoginForm(ModelForm):
         pass  # ensure we don't clean the email to make sure it is unique
 
     def save(self):
-        sessionID = User.objects.get(pk=self.cleaned_data['email']).login()
+        sessionID = User.get(self.cleaned_data['email']).login()
         self.view.cookies['session'] = sessionID

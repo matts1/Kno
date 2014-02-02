@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from auth.forms import RegisterForm
 from django.test import TestCase
 from auth.models import User
@@ -50,7 +51,7 @@ class RegisterFormTest(TestCase):
             fname='john',
             lname='smith'
         )
-        user = User.objects.get(pk='john@smith.com')
+        user = User.get('john@smith.com')
         self.assertIsNotNone(user)
         self.assertEqual(user.fname, 'John')
         self.assertEqual(user.lname, 'Smith')
@@ -65,9 +66,24 @@ class RegisterFormTest(TestCase):
             fname='bob',
             lname='last'
         )
-        user = User.objects.get(pk='j@s.co')
+        user = User.get('j@s.co')
         self.assertIsNotNone(user)
         self.assertEqual(user.fname, 'Bob')
         self.assertEqual(user.lname, 'Last')
         self.assertEqual(user.get_short_name(), 'Bob')
         self.assertEqual(user.get_full_name(), 'Bob Last')
+
+    def test_view(self):
+        self.assertIsNone(User.get('bob@gmail.com'))
+
+        self.assertEqual(self.client.post(reverse('register'), dict(
+            email='bob@gmail.com',
+            pwd='mypwd',
+            confpwd='mypwd',
+            fname='bob',
+            lname='student'
+        )).status_code, 200)
+        user = User.get('bob@gmail.com')
+        self.assertIsNotNone(user)
+        self.assertEqual(user.fname, 'Bob')
+        self.assertEqual(user.lname, 'Student')

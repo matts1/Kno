@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from auth.forms import RegisterForm
 from auth.models import User
@@ -47,3 +48,12 @@ class ModelFormTestCase(TestCase):
             fname='first',
             lname='last'
         ))
+
+class MethodErrorTestCase(TestCase):
+    fixtures = ['auth']
+
+    def test_formview_get(self):
+        self.assertEqual(self.client.get(reverse('login')).status_code, 405)
+
+    def test_templateview_post(self):
+        self.assertEqual(self.client.post(reverse('index')).status_code, 405)

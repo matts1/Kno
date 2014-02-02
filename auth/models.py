@@ -24,6 +24,10 @@ class User(models.Model):
     def login(self):
         return Session.create(self)
 
+    @classmethod
+    def get(cls, email):
+        return cls.objects.filter(pk=email).first()
+
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)
     user = models.ForeignKey(User)

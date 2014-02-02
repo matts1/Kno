@@ -1,5 +1,9 @@
-Collaborative e-learning website
+Kno
+--------------------
+A collaborative e-learning website
 
+Installation
+---------
 First you will need to install the setuptools module for python3. For a debain based system, this will work
 ```bash
 sudo apt-get install python3-setuptools
@@ -12,7 +16,7 @@ python3 manage.py syncdb --noinput
 python3 manage.py runserver
 ```
 
-Requirements:
+Requirements (installed through setup.py):
 ---------
 * python 3
 * django 1.6.1
