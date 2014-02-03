@@ -1,7 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
-import time
 from auth.models import User
-from common.selenium import SeleniumTestCase
+from tests.base_selenium import SeleniumTestCase
 
 class AuthTestCase(SeleniumTestCase):
     fixtures = ['auth']

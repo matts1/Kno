@@ -1,5 +1,6 @@
 from .settings import *
 
+TEMPLATE_DEBUG = False
 DEBUG = False
 
 # ADMINS = (('Matt Stark', 'mattstark75@gmail.com'),)

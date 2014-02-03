@@ -93,3 +93,7 @@ TEMPLATE_LOADERS = (
 )
 
 AUTH_USER_MODEL = 'auth.User'
+
+BASE_PATH = BASE_DIR
+TEST_RUNNER = 'kno.tests.DiscoveryRunner'
+TEST_DISCOVERY_ROOT = 'tests'
