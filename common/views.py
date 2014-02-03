@@ -43,7 +43,7 @@ class FormView(FormView):
 
 class TemplateView(TemplateView):
     def get_context_data(self):
-        kwargs = super(TemplateView, self).get_context_data()
+        kwargs = super().get_context_data()
         self.request.user = get_user(self)
         kwargs['info'] = (self, self.request.user)
         kwargs['user'] = self.request.user

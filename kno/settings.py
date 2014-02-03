@@ -85,6 +85,8 @@ TEMPLATE_DIRS = makepath('templates/')
 DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r"^(?!admin/).*"
 JINJA2_BYTECODE_CACHE_ENABLE = True
 
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
+
 TEMPLATE_LOADERS = (
     'django_jinja.loaders.AppLoader',
     'django_jinja.loaders.FileSystemLoader',
