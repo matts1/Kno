@@ -1,7 +1,11 @@
+from selenium.common.exceptions import NoSuchElementException
+import time
 from auth.models import User
 from common.selenium import SeleniumTestCase
 
 class AuthTestCase(SeleniumTestCase):
+    fixtures = ['auth']
+
     def test_register(self):
         self.browser.get(self.live_server_url)
 
@@ -18,10 +22,19 @@ class AuthTestCase(SeleniumTestCase):
 
         self.fill_form(
             'LoginForm',
-            {'email': 'student@gmail.com', 'pwd': 'a'},
+            {'email': 'teacher@gmail.com', 'pwd': 'a'},
             modal=True
         )
 
         # check that we're logged in
+        self.assertRaises(NoSuchElementException, self.fluent_wait,
+            self.browser.find_element_by_id,
+            'LoginForm'
+        )
 
         # logout
+        dropdown = self.browser.find_element_by_partial_link_text('Welcome')
+        dropdown.click()
+
+        logout_btn = self.browser.find_element_by_link_text(r'Logout')
+        logout_btn.click()

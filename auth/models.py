@@ -31,6 +31,15 @@ class User(models.Model):
         """
         return cls.objects.filter(pk=email).first()
 
+    def __str__(self):
+        return self.email
+
+    def pprint(self):
+        return self.email
+
+    def __repr__(self):
+        return self.email
+
 
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)

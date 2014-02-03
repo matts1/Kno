@@ -40,6 +40,7 @@ class SeleniumTestCase(LiveServerTestCase):
 
     def fill_form(self, formname: str, data: dict, modal: bool=False):
         form = self.browser.find_element_by_css_selector('#' + formname)
+
         if modal:
             self.assertFalse(form.is_displayed())
             self.browser.find_element_by_css_selector(r'a[href=\#%s]' % formname).click()
