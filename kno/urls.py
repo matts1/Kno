@@ -15,15 +15,6 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='other/index.html'), name='index')
 )
 
-if settings.DEBUG == False:   #if DEBUG is True it will be served automatically
-    urlpatterns += patterns('',
-            url(
-                r'^static/(?P<path>.*)$',
-                'django.views.static.serve',
-                {'document_root': settings.STATICFILES_DIRS[0]}
-            ),
-    )
-
 class ErrorView(GenericView):
     def get_context_data(self):  # copied from templateview so that we can render it properly
         kwargs = super().get_context_data()
