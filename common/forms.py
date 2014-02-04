@@ -7,6 +7,7 @@ from django.template.loader import get_template
 class ModelForm(ModelForm):
     placeholders = {}
     valid_users = (1, 2)
+    text = None
 
     def __init__(self, *args, view=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)

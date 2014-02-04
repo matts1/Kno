@@ -49,5 +49,10 @@ class TemplateView(TemplateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def get(self, request, *args, **kwargs):
+        self.args_data = args
+        self.kwargs_data = kwargs
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         return HttpResponse(status=405)

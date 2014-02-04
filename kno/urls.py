@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='other/index.html'), name='index')
 )
 
-class ErrorView(GenericView):
+class ErrorView(GenericView): # ensures that error templates are handled by jinja2, not django
     def get_context_data(self):  # copied from templateview so that we can render it properly
         kwargs = super().get_context_data()
         self.request.user = get_user(self)

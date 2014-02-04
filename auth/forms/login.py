@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
 from django.forms import PasswordInput
-import time
 from auth.models import User
 from common.forms import ModelForm
 

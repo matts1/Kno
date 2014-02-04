@@ -3,6 +3,7 @@ import binascii
 from common import models
 from django.utils import timezone
 from datetime import timedelta
+import hashlib
 
 class User(models.Model):
     email = models.EmailField(max_length=100, primary_key=True, unique=True,
@@ -39,6 +40,11 @@ class User(models.Model):
 
     def __repr__(self):
         return self.email
+
+    def gravatar(self, size):
+        # http://en.gravatar.com/site/implement/images/python/
+        return '<img src="http://www.gravatar.com/avatar/%s?d=identicon&s=%d" alt="gravatar">' % \
+               (hashlib.md5(self.email.lower().encode()).hexdigest(), size)
 
 
 class Session(models.Model):
