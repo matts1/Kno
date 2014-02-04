@@ -6,7 +6,8 @@ lib = library.Library()
 form_names = {
     'auth': {
         'RegisterForm',
-        'LoginForm'
+        'LoginForm',
+        'ResetPwdForm'
     }
 }
 

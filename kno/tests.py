@@ -36,15 +36,15 @@ class DiscoveryRunner(DiscoverRunner):
                 pattern='*.py'
             )))
 
-        include = [re.compile('^' + x + '$') for x in options if not x.startswith('no')]
-        exclude = [re.compile('^' + x[2:] + '$') for x in options if x.startswith('no')]
+        include = [re.compile(x, re.I) for x in options if not x.startswith('no')]
+        exclude = [re.compile(x[2:], re.I) for x in options if x.startswith('no')]
 
         tests = [(str(type(test))[14:-2], test) for test in tests]
 
         if include:
-            tests = [t for t in tests if any([p.match(t[0]) for p in include])]
+            tests = [t for t in tests if any([p.search(t[0]) for p in include])]
         for pattern in exclude:
-            tests = [t for t in tests if not pattern.match(t[0])]
+            tests = [t for t in tests if not pattern.search(t[0])]
 
         suite = TestSuite([x[1] for x in tests])
 
