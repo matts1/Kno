@@ -8,11 +8,14 @@ class ModelForm(ModelForm):
     placeholders = {}
     valid_users = (1, 2)
     text = None
+    update = False
 
     def __init__(self, *args, view=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.view = view
         self.user = view.request.user if user is None and view is not None else user
+        if self.update:
+            self._post_clean = lambda: None
 
         # override this method if you want to change the form based on the user
 
@@ -109,3 +112,7 @@ class ModelForm(ModelForm):
 
         if form.is_valid() and save:
             form.save()
+
+    @classmethod
+    def cls_name(cls) -> str:
+        return cls.__name__[:-4] if cls.__name__.endswith('Form') else cls.__name__

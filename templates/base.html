@@ -21,9 +21,9 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="mailto:mattstark75@gmail.com?Subject=Kno" target="_top">Contact Us</a></li>
           {% if user is none %}
-            <li><a href="#forgot" data-toggle="modal">Reset Password</a></li>
-            <li><a href="#LoginForm" data-toggle="modal">Login</a></li>
-            <li><a href="#RegisterForm" data-toggle="modal">Sign Up</a></li>
+            <li><a href="#ForgotPwd" data-toggle="modal">Reset Password</a></li>
+            <li><a href="#Login" data-toggle="modal">Login</a></li>
+            <li><a href="#Register" data-toggle="modal">Sign Up</a></li>
           {% else %}
             <li><a href="#joincourse" data-toggle="modal">Join Course</a></li>
             <li><a href="{{ LIST_COURSES }}">Courses</a></li>
@@ -105,18 +105,16 @@
   <script src="{{ static('js/bootstrap.min.js') }}"></script>
   <script src="{{ static('js/page.js') }}"></script>
 
-  {# {% call modal('forgot', 'Reset Password', FORGOT, 'Send Reset Code') %}
-    {{ input('email', 'Email', 'email', 'emailLogin', 'Enter Email') }}
-  {% endcall %}
+  {{ as_modal('ForgotPwd', info)|safe }}
 
-  {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
+  {# {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
     {{ input('text', 'Code', 'code', 'codeJoinCourse', 'Enter course code') }}
-  {% endcall %} #}
-  {# {% call modal('createcourse', 'Create Course', CREATE_COURSE) %}
+  {% endcall %}
+  {% call modal('createcourse', 'Create Course', CREATE_COURSE) %}
     {{ input('text', 'Name', 'name', 'nameMakeCourse', 'Enter Course Name') }}
     {{ input('checkbox', 'Private', 'mode', 'modeMakeCourse', required=False) }}
   {% endcall %} #}
-  {{ as_modal('LoginForm', info)|safe }}
-  {{ as_modal('RegisterForm', info)|safe }}
+  {{ as_modal('Login', info)|safe }}
+  {{ as_modal('Register', info)|safe }}
 </body>
 </html>

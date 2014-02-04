@@ -6,7 +6,7 @@ $(document).ready(function () {
     // Open up old modal if the form wasn't filled out correctly
     //noinspection JSJQueryEfficiency
     $('div.openmodal').each(function () {
-        var element = $('#' + this.id);
+        var element = $('#' + $(this).attr('data-modal'));
         if (element.hasClass('modal')) {
             element.modal({show: true});
         }

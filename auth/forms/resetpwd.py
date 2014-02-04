@@ -10,6 +10,7 @@ class ResetPwdForm(ModelForm):
     name = 'Reset Password'
     urlname = 'resetpwd'
     success_msg = 'Your password has been changed'
+    update = True
 
     oldpwd = forms.CharField(label='old password', widget=PasswordInput())
     newpwd = forms.CharField(label='new password', widget=PasswordInput())
@@ -28,9 +29,6 @@ class ResetPwdForm(ModelForm):
         if self.cleaned_data.get('newpwd') != self.cleaned_data.get('confpwd'):
             raise ValidationError('The passwords were different')
         return self.cleaned_data
-
-    def _post_clean(self):  # don't try to validate the fields
-        pass
 
     def save(self):
         self.user.pwd = make_password(self.cleaned_data['newpwd'])

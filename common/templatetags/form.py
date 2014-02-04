@@ -5,9 +5,11 @@ lib = library.Library()
 
 form_names = {
     'auth': {
-        'RegisterForm',
-        'LoginForm',
-        'ResetPwdForm'
+        'Register',
+        'Login',
+        'ResetPwd',
+        'ForgotPwd',
+        'DoResetPwd'
     }
 }
 
@@ -16,7 +18,8 @@ forms = {}
 for modulename in form_names:
     module = importlib.import_module(modulename + '.forms')
     for cls in form_names[modulename]:
-        forms[cls] = getattr(module, cls)
+        cls = getattr(module, cls + 'Form')
+        forms[cls.cls_name()] = cls
 
 @lib.global_function
 def as_form(name, info):
