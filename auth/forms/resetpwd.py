@@ -7,7 +7,7 @@ from common.forms import ModelForm
 
 
 class ResetPwdForm(ModelForm):
-    name = 'Sign Up'
+    name = 'Reset Password'
     urlname = 'resetpwd'
     success_msg = 'Your password has been changed'
 
@@ -29,7 +29,7 @@ class ResetPwdForm(ModelForm):
             raise ValidationError('The passwords were different')
         return self.cleaned_data
 
-    def _clean_fields(self):  # don't try to validate the fields
+    def _post_clean(self):  # don't try to validate the fields
         pass
 
     def save(self):

@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import check_password
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from auth.forms import ResetPwdForm
 from auth.models import User
@@ -14,7 +15,7 @@ class ResetPwdFormTest(TestCase):
         
     def test_empty_conf_pwd(self):
         ResetPwdForm.test(
-            [''],
+            ['confpwd', ''],
             initdata={'user': self.user()},
             oldpwd='a',
             newpwd='blah',
@@ -23,11 +24,11 @@ class ResetPwdFormTest(TestCase):
 
     def test_empty_new_pwd(self):
         ResetPwdForm.test(
-            [''],
+            ['newpwd', ''],
             initdata={'user': self.user()},
-            oldpwd='',
-            newpwd='blah',
-            confpwd=''
+            oldpwd='a',
+            newpwd='',
+            confpwd='blah'
         )
 
     def test_wrong_old_pwd(self):
@@ -51,7 +52,7 @@ class ResetPwdFormTest(TestCase):
     def test_valid_form(self):
         self.assertTrue(check_password('a', self.user().pwd))
         ResetPwdForm.test(
-            [''],
+            [],
             initdata={'user': self.user()},
             oldpwd='a',
             newpwd='newpwd',

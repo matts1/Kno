@@ -4,11 +4,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-7">
-            {% call form('Change Password', 'chgpwd') %}
-                {{ input('password', 'Old Password', 'oldpwd', 'oldpwd', 'Enter Password') }}
-                {{ input('password', 'New Password', 'newpwd', 'newpwd', 'Enter Password') }}
-                {{ input('password', 'Confirm Password', 'confpwd', 'confpwd', 'Enter Password') }}
-            {% endcall %}
+            {{ as_form('ResetPwdForm', info)|safe }}
         </div>
         <div class="col-md-5">
             Other stuff here

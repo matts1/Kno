@@ -39,7 +39,7 @@ class ModelForm(ModelForm):
         else:
             return ''
 
-    def _clean_fields(self):  # copied from the class it overrides and changed the calling of the function
+    def _clean_fields(self):  # copied from the class it overrides, changed calling of clean_field
         for name, field in self.fields.items():
             # value_from_datadict() gets the data from the data dictionaries.
             # Each widget type knows how to retrieve its own data, because some
