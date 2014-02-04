@@ -29,17 +29,23 @@ class ModelForm(ModelForm):
         else:
             return 2 in self.valid_users
 
-    def as_modal(self) -> str:
+    def as_modal(self, *args, **kwargs) -> str:
         modal_template = get_template('forms/modal.html')
         if self.allowed():
-            return modal_template.render(RequestContext(self.view.request, {'form': self}))
+            return modal_template.render(RequestContext(
+                self.view.request,
+                {'form': self, 'hidden': kwargs}
+            ))
         else:
             return ''
 
-    def as_form(self) -> str:
+    def as_form(self, *args, **kwargs) -> str:
         form_template = get_template('forms/form.html')
         if self.allowed():
-            return form_template.render(RequestContext(self.view.request, {'form': self}))
+            return form_template.render(RequestContext(
+                self.view.request,
+                {'form': self, 'hidden': kwargs}
+            ))
         else:
             return ''
 

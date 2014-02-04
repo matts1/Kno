@@ -1,5 +1,4 @@
 from django.contrib.auth.hashers import check_password
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from auth.forms import ResetPwdForm
 from auth.models import User

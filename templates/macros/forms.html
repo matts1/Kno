@@ -1,6 +1,6 @@
 {% macro input(form, field, key) %}
   <div class="form-group">
-    <label for="{{ form.__class__.__name__ }}_{{ field.name }}" class="col-lg-4 control-label">
+    <label for="{{ form.__class__.cls_name() }}_{{ field.name }}" class="col-lg-4 control-label">
       {{ field.label.title() }}
     </label>
     <div class="col-lg-7">
@@ -14,7 +14,7 @@
         'placeholder': form.placeholders.get(key, 'Enter your ' + string(field.label)).title(),
         'required' if field.required else '': '',
         'class': 'form-control',
-        'id': form.__class__.__name__ + '_' + key
+        'id': form.__class__.cls_name() + '_' + key
       }) }}
     </div>
   </div>

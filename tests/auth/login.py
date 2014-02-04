@@ -46,7 +46,7 @@ class LoginLogoutTest(TestCase):
 
     def test_login_logout(self):
         index = self.client.get(reverse('index'))
-        self.assertIn('RegisterForm', str(index.content))
+        self.assertIn('Register', str(index.content))
         self.assertEqual(len(Session.objects.all()), 0)
 
         request = self.client.post(

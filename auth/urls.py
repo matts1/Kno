@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     url(r'^logout$', LogoutView.as_view(), name='logout'),
     url(r'^profile/(\d+)$', ProfileView.as_view(), name='profile'),
 
-    url(r'^doreset/([0123456789abcdef]{100})$', TemplateView.as_view(template_name='other/index.html'),
+    url(r'^doreset/([0123456789abcdef]+)$', TemplateView.as_view(template_name='other/index.html'),
         name='doresetpwdview'),
     url(r'^settings$', TemplateView.as_view(template_name='user/settings.html'), name='settings'),
 

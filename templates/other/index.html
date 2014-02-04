@@ -21,6 +21,6 @@
   </p>-->
   {% if view.args_data %}
     <div class="openmodal" data-modal="DoResetPwd"></div>
-    {{ as_modal('DoResetPwd', info)|safe }}
+    {{ as_modal('DoResetPwd', info, reset_code=view.args_data[0])|safe }}
   {% endif %}
 {% endblock %}

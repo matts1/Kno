@@ -3,9 +3,14 @@
 <form role="form" class="form-horizontal" method="post" class="text-center"
     id="{{ form.__class__.cls_name() }}" action="{{ url(form.urlname) }}">
   {% csrf_token %}
+  {% for key, value in hidden.items() %}
+    <input type="hidden" name="{{ key }}" value="{{ value }}">
+  {% endfor %}
   <h3>{{ form.name }}</h3>
   {% for key, field in form.fields.items() %}
-    {{ input(form, field, key) }}
+    {% if key not in hidden %}
+      {{ input(form, field, key) }}
+    {% endif %}
   {% endfor %}
   <div class="formresults text-center help-block"></div>
   {% if form.text is not none %}
