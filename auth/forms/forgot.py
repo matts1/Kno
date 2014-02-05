@@ -44,6 +44,7 @@ class DoResetPwdForm(ModelForm):
     def clean(self):
         if self.cleaned_data.get('pwd') != self.cleaned_data.get('confpwd'):
             raise ValidationError('Passwords were different')
+        return self.cleaned_data
 
     def clean_reset_code(self, value):
         if value is None:
@@ -57,3 +58,5 @@ class DoResetPwdForm(ModelForm):
     def save(self):
         user = User.objects.get(reset_code=self.cleaned_data['reset_code'])
         user.pwd = make_password(self.cleaned_data['pwd'])
+        user.reset_code = None
+        user.save()

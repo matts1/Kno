@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
 from django.test import TestCase
+import time
 from auth.forms import ForgotPwdForm, DoResetPwdForm
 from auth.models import User
 
@@ -87,5 +88,8 @@ class ForgotPwdFormTest(TestCase):
             pwd='newpwd',
             confpwd='newpwd'
         )
+        time.sleep(5)
         user = User.get('student@gmail.com')
-        self.assertTrue(check_password('code', user.pwd))
+        self.assertIsNone(user.reset_code)
+        self.assertFalse(check_password('a', user.pwd))
+        self.assertTrue(check_password('newpwd', user.pwd))
