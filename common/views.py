@@ -12,7 +12,7 @@ class FormView(FormView):
     cookies = {}
 
     def get_form_kwargs(self):
-        kwargs = super(FormView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['view'] = self
         kwargs['user'] = self.request.user
         return kwargs
@@ -33,8 +33,8 @@ class FormView(FormView):
         redirect = None
         form.save()
 
-        if hasattr(form, 'success_url'):
-            redirect = form.success_url
+        if form.success_url is not None:
+            redirect = form.get_success_url()
         response = self.render_to_response(self.get_context_data(form=form, redirect=redirect))
         for key, value in self.cookies.items():
             response.set_cookie(key, value)

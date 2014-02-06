@@ -30,7 +30,7 @@ class DoResetPwdForm(ModelForm):
     name = 'Reset Password'
     urlname = 'doresetpwd'
     valid_users = (0, 1, 2)
-    success_msg = 'Your password has been reset'
+    success_msg = 'Your password has been reset. You can {{ Login }}log in</a> now'
     update = True
 
     pwd = forms.CharField(label='password', widget=forms.PasswordInput())

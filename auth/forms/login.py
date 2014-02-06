@@ -11,6 +11,7 @@ class LoginForm(ModelForm):
     urlname = 'login'
     valid_users = (0,)
     success_url = 'index'
+    text = '{{ ForgotPwd }}Forgot your password?</a>'
     update = True
 
     pwd = forms.CharField(label='Password', widget=PasswordInput())

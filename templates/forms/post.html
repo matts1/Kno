@@ -1,4 +1,4 @@
-{% if redirect %}REDIRECT:{{ url(redirect) }}{% else %}FORMDATA:
+{% if redirect %}REDIRECT:{{ redirect }}{% else %}FORMDATA:
   {% if form.non_field_errors() %}
     <div class="alert alert-danger" data-for="">
       {% for error in form.non_field_errors() %}
@@ -20,7 +20,7 @@
 
   {% if form.is_valid() %}
     <div class="alert alert-success text" data-for="">
-      <p class="text-center">{{ form.success_msg|safe }}</p>
+      <p class="text-center">{{ form.get_text(form.success_msg)|safe }}</p>
     </div>
   {% endif %}
 {% endif %}

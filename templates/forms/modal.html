@@ -17,7 +17,7 @@
           {% endfor %}
           <div class="formresults text-center help-block"></div>
           {% if form.text is not none %}
-            <p class="text-center">{{ form.text|safe }}</p>
+            <p class="text-center">{{ form.get_text()|safe }}</p>
           {% endif %}
 
         </div>

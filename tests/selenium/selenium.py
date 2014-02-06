@@ -10,7 +10,7 @@ class AuthTestCase(SeleniumTestCase):
 
         self.assertIsNone(User.get('a@b.com'))
         self.fill_form(
-            'RegisterForm',
+            'Register',
             {'email': 'a@b.com', 'pwd': 'abc', 'confpwd': 'abc', 'fname': 'bobby', 'lname': 'bob'},
             modal=True
         )
@@ -20,7 +20,7 @@ class AuthTestCase(SeleniumTestCase):
         self.browser.get(self.live_server_url)
 
         self.fill_form(
-            'LoginForm',
+            'Login',
             {'email': 'teacher@gmail.com', 'pwd': 'a'},
             modal=True
         )

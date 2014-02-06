@@ -9,7 +9,10 @@ form_names = {
         'Login',
         'ResetPwd',
         'ForgotPwd',
-        'DoResetPwd'
+        'DoResetPwd',
+    },
+    'courses': {
+        'CreateCourse',
     }
 }
 
