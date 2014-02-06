@@ -43,6 +43,24 @@ class RegisterFormTest(TestCase):
             lname='blah'
         )
 
+    def test_whitespace_fname(self):
+        RegisterForm.test(['fname'],
+            email='newaccount@gmail.com',
+            pwd='pwd',
+            confpwd='pwd',
+            fname=' blah?',
+            lname='ok'
+        )
+
+    def test_whitespace_lname(self):
+        RegisterForm.test(['lname'],
+            email='newaccount@gmail.com',
+            pwd='pwd',
+            confpwd='pwd',
+            fname='ok',
+            lname=' \n\t\r\f\v'
+        )
+
     def test_valid(self):
         RegisterForm.test([], {'fname': 'John', 'lname': 'Smith'},
             email='john@smith.com',

@@ -13,7 +13,7 @@ class User(models.Model):
                               error_messages={'unique': 'The email address is already taken'})
     pwd = models.CharField('Password', max_length=128)
     fname = models.CharField('First Name', max_length=50)
-    lname = models.CharField('Last Name', max_length=50)
+    lname = models.CharField('Last Name', max_length=50, )
     reset_code = models.CharField(max_length=100, default=None, blank=True, null=True)
 
     teacher = models.BooleanField(default=False)

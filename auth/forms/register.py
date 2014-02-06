@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.forms import PasswordInput
 from auth.models import User
 from common.forms import ModelForm
+from common.validators import matches_regex
 
 
 class RegisterForm(ModelForm):
@@ -25,11 +26,11 @@ class RegisterForm(ModelForm):
             raise ValidationError('The passwords were different')
         return self.cleaned_data
 
-    def clean_fname(self, name:str):
-        return name.title()
-
-    def clean_lname(self, name:str):
-        return name.title()
+    clean_fname = clean_lname =  matches_regex(
+        r'[a-z]+',
+        'Please enter only letters in your name',
+        lambda x: x.title()
+    )
 
     def save(self):
         user = super().save(False)  # don't commit because we're about to commit
