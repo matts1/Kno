@@ -14,6 +14,8 @@ class CreateCourseTestCase(TestCase):
             ['name'],
             initdata={'user': self.user()},
             name='',
+            year=7,
+            subject=0,
             private=False
         )
 
@@ -22,6 +24,18 @@ class CreateCourseTestCase(TestCase):
             ['name'],
             initdata={'user': self.user()},
             name=None,
+            year=7,
+            subject=0,
+            private=False
+        )
+
+    def test_invalid_subject(self):
+        CreateCourseForm.test(
+            ['subject'],
+            initdata={'user': self.user()},
+            name='course',
+            year=7,
+            subject=-1,
             private=False
         )
 
@@ -33,6 +47,8 @@ class CreateCourseTestCase(TestCase):
             [],
             initdata={'user': self.user()},
             name='newname',
+            year=7,
+            subject=0,
             private=False
         )
         course = Course.objects.filter(teacher=self.user()).first()
@@ -45,5 +61,7 @@ class CreateCourseTestCase(TestCase):
             ['name'],
             initdata={'user': self.user()},
             name='newname',
+            year=7,
+            subject=0,
             private=False
         )

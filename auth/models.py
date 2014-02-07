@@ -1,5 +1,3 @@
-import os
-import binascii
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from common import models
@@ -9,6 +7,9 @@ import hashlib
 import smtplib
 from common.functions import genunique
 
+SCHOOLS = (
+    ('chs', 'Chatswood High School'),
+)
 
 class User(models.Model):
     email = models.EmailField(max_length=100, primary_key=True, unique=True,
@@ -17,6 +18,7 @@ class User(models.Model):
     fname = models.CharField('First Name', max_length=50)
     lname = models.CharField('Last Name', max_length=50, )
     reset_code = models.CharField(max_length=100, default=None, blank=True, null=True)
+    school = models.CharField(max_length=50, choices=SCHOOLS, default='chs')
 
     teacher = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'

@@ -12,8 +12,6 @@ class JoinCourseForm(ModelForm):
         fields = ('code',)
 
     def clean_code(self, code):
-        if code is None:
-            raise ValidationError('Please enter a code')
         self.course = Course.objects.filter(code=code)
         if not self.course.exists():
             raise ValidationError('The code was invalid')

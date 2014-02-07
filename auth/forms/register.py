@@ -19,7 +19,7 @@ class RegisterForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'pwd', 'confpwd', 'fname', 'lname')
+        fields = ('email', 'pwd', 'confpwd', 'fname', 'lname', 'school')
 
     def clean(self) -> dict:
         if self.cleaned_data.get('pwd') != self.cleaned_data.get('confpwd'):

@@ -14,7 +14,7 @@ class CreateCourseForm(ModelForm):
 
     class Meta:
         model = Course
-        fields = ('name', 'private')
+        fields = ('name', 'private', 'subject', 'year')
 
     clean_name = matches_regex(
         r'[\w\-]([\w\- ]+)?',
@@ -23,4 +23,4 @@ class CreateCourseForm(ModelForm):
     )
 
     def save(self):
-        Course.create(self.user, self.cleaned_data['name'], self.cleaned_data['private'])
+        Course.create(self.user, *[self.cleaned_data[x] for x in self.fields])
