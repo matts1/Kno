@@ -1,12 +1,10 @@
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from tests.base import TestCase
 from auth.forms import LoginForm
 from auth.models import Session
 
 
 class LoginFormTest(TestCase):
-    fixtures = ['auth']
-
     def test_bad_email(self):
         LoginForm.test(
             ['email'],
@@ -37,8 +35,6 @@ class LoginFormTest(TestCase):
 
 
 class LoginLogoutTest(TestCase):
-    fixtures = ['auth']
-
     def test_logged_out_to_logout(self):  # here they were never logged in
         logout = self.client.get(reverse('logout'))
         self.assertEqual(logout.url, 'http://testserver/')  # redirected to root url

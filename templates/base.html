@@ -25,7 +25,7 @@
             <li><a href="#Login" data-toggle="modal">Login</a></li>
             <li><a href="#Register" data-toggle="modal">Sign Up</a></li>
           {% else %}
-            <li><a href="#joincourse" data-toggle="modal">Join Course</a></li>
+            <li><a href="#JoinCourse" data-toggle="modal">Join Course</a></li>
             <li><a href="{{ LIST_COURSES }}">Courses</a></li>
             {% if user.teacher %}
               <li class="dropdown">
@@ -106,12 +106,9 @@
   <script src="{{ static('js/page.js') }}"></script>
 
   {{ as_modal('ForgotPwd', info)|safe }}
-
-  {# {% call modal('joincourse', 'Join Course', LIST_COURSES) %}
-    {{ input('text', 'Code', 'code', 'codeJoinCourse', 'Enter course code') }}
-  {% endcall %} #}
   {{ as_modal('Login', info)|safe }}
   {{ as_modal('Register', info)|safe }}
   {{ as_modal('CreateCourse', info)|safe }}
+  {{ as_modal('JoinCourse', info)|safe }}
 </body>
 </html>

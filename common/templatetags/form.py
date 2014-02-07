@@ -13,6 +13,7 @@ form_names = {
     },
     'courses': {
         'CreateCourse',
+        'JoinCourse',
     }
 }
 

@@ -29,7 +29,7 @@ class RegisterForm(ModelForm):
     clean_fname = clean_lname =  matches_regex(
         r'[a-z]+',
         'Please enter only letters in your name',
-        lambda x: x.title()
+        lambda x: x.strip().title()
     )
 
     def save(self):

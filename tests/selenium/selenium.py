@@ -3,8 +3,6 @@ from auth.models import User
 from tests.base_selenium import SeleniumTestCase
 
 class AuthTestCase(SeleniumTestCase):
-    fixtures = ['auth']
-
     def test_register(self):
         self.browser.get(self.live_server_url)
 

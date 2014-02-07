@@ -1,11 +1,11 @@
 from django.core.urlresolvers import reverse
 from auth.forms import RegisterForm
-from django.test import TestCase
+from tests.base import TestCase
 from auth.models import User
 
 
 class RegisterFormTest(TestCase):
-    fixtures = ['auth']
+    fixtures = ['data']
 
     def test_empty_form(self):
         RegisterForm.test(['email', 'pwd', 'confpwd', 'fname', 'lname'],

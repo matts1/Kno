@@ -1,14 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
-from django.test import TestCase
+from tests.base import TestCase
 import time
 from auth.forms import ForgotPwdForm, DoResetPwdForm
 from auth.models import User
 
 
 class ForgotPwdFormTest(TestCase):
-    fixtures = ['auth']
-
     @classmethod
     def setUpClass(cls):
         settings.TEST = True  # so it doesn't send email or print it out to console

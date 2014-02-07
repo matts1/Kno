@@ -17,7 +17,7 @@ class CustomWebDriver(webdriver.Firefox):
         return elems
 
 class SeleniumTestCase(LiveServerTestCase):
-    fixtures = ['auth']
+    fixtures = ['data']
 
     @classmethod
     def setUpClass(cls):

@@ -17,8 +17,8 @@ class CreateCourseForm(ModelForm):
         fields = ('name', 'private')
 
     clean_name = matches_regex(
-        r'[\w]([\w ]+)?',
-        'Enter a valid name',
+        r'[\w\-]([\w\- ]+)?',
+        'Enter a valid name (letters, numbers, hyphens and underscores)',
         lambda x: x.strip()
     )
 

@@ -1,13 +1,10 @@
-from django.core.exceptions import ValidationError
-from django.test import TestCase
+from tests.base import TestCase
 from auth.models import User
 from courses.forms import CreateCourseForm
 from courses.models import Course
 
 
 class CreateCourseTestCase(TestCase):
-    fixtures = ['auth']
-
     @classmethod
     def setUpClass(cls):
         cls.user = lambda s, x='teacher@gmail.com': User.get(x)

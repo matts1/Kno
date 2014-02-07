@@ -1,12 +1,10 @@
 from django.contrib.auth.hashers import check_password
-from django.test import TestCase
+from tests.base import TestCase
 from auth.forms import ResetPwdForm
 from auth.models import User
 
 
 class ResetPwdFormTest(TestCase):
-    fixtures = ['auth']
-
     @classmethod
     def setUpClass(cls):
         # fixtures aren't set up yet, so this will return none unless we make it a function
