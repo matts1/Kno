@@ -1,5 +1,6 @@
 from auth.models import User
 from common import models
+from common.functions import genunique
 
 
 class Course(models.Model):
@@ -8,3 +9,8 @@ class Course(models.Model):
 
     teacher = models.ForeignKey(User, related_name='taught')
     students = models.ManyToManyField(User, related_name='courses')
+
+    @classmethod
+    def create(cls, teacher, name, private):
+        code = genunique(Course, 'code', 16) if private else None
+        cls(teacher=teacher, name=name, code=code).save()

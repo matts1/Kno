@@ -7,6 +7,8 @@ from django.utils import timezone
 from datetime import timedelta
 import hashlib
 import smtplib
+from common.functions import genunique
+
 
 class User(models.Model):
     email = models.EmailField(max_length=100, primary_key=True, unique=True,
@@ -51,7 +53,7 @@ class User(models.Model):
                (hashlib.md5(self.email.lower().encode()).hexdigest(), size)
 
     def forgotpwd(self):
-        self.reset_code = binascii.hexlify(os.urandom(50)).decode('ascii')
+        self.reset_code = genunique(User, 'reset_code', 100)
         self.save()
         self.send_mail(
             'Password Reset',
@@ -91,7 +93,7 @@ class Session(models.Model):
     def create(cls, user: User) -> bytes:
         sessionid = None
         while sessionid is None or cls.objects.filter(sessionID=sessionid):
-            sessionid = binascii.hexlify(os.urandom(50)).decode('ascii')
+            sessionid = genunique(Session, 'sessionID', 100)
         cls(
             sessionID=sessionid,
             user=user,

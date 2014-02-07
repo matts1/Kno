@@ -23,4 +23,4 @@ class CreateCourseForm(ModelForm):
     )
 
     def save(self):
-        Course.create(self.cleaned_data['private'], self.cleaned_data['name'])
+        Course.create(self.user, self.cleaned_data['name'], self.cleaned_data['private'])
