@@ -1,2 +1,11 @@
-{% macro row(object) %}
+{% from "/macros/users.html" import displayuser %}
+{% from "/macros/course.html" import displaycourse %}
+
+{% macro row(user, object) %}
+  {% set table=object.__class__.__name__ %}
+  {% if table == 'User' %}
+    {{ displayuser(object) }}
+  {% elif table == 'Course' %}
+    {{ displaycourse(user, object) }}
+  {% endif %}
 {% endmacro %}

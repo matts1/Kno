@@ -40,3 +40,7 @@ def string(s):
 @lib.global_function
 def table_width(i):
     return (3, 4, 3)[i]
+
+@lib.global_function
+def func(fn, *args, **kwargs):
+    return eval(fn)(*args, **kwargs)

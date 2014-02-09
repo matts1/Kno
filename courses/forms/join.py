@@ -12,7 +12,7 @@ class JoinCourseForm(ModelForm):
         fields = ('code',)
 
     def clean_code(self, code):
-        self.course = Course.objects.filter(code=code)
+        self.course = Course.objects.filter(code=code.lower())
         if not self.course.exists():
             raise ValidationError('The code was invalid')
         if self.course.first().teacher == self.user:

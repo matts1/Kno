@@ -44,5 +44,8 @@ class Course(models.Model):
 
     @classmethod
     def create(cls, teacher, name, private, subject, year):
+        from misc.models import Search  # bidirectional import
         code = genunique(Course, 'code', 16) if private else None
-        cls(teacher=teacher, name=name, code=code, year=year, subject=subject).save()
+        course = cls(teacher=teacher, name=name, code=code, year=year, subject=subject)
+        course.save()
+        Search.add_words(name, course.id, cls)

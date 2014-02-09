@@ -8,5 +8,5 @@ class ProfileTestCase(TestCase):
         self.assertEqual(profile.status_code, 404)
 
     def test_valid(self):
-        profile = self.client.get(reverse('profile', args=['2']))
+        profile = self.client.get(reverse('profile', args=['1']))
         self.assertEqual(profile.status_code, 200)

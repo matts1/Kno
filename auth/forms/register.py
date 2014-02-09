@@ -5,6 +5,7 @@ from django.forms import PasswordInput
 from auth.models import User
 from common.forms import ModelForm
 from common.validators import matches_regex
+from misc.models import Search
 
 
 class RegisterForm(ModelForm):
@@ -36,3 +37,4 @@ class RegisterForm(ModelForm):
         user = super().save(False)  # don't commit because we're about to commit
         user.pwd = make_password(self.cleaned_data['pwd'])
         user.save()
+        Search.add_words(user.get_full_name(), user.id, User)

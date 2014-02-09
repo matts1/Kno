@@ -90,8 +90,12 @@ class User(models.Model):
         from courses.models import Course  # 2 way import
         return Course.objects.filter(teacher=self)
 
-    def can_see(self, course):
-        return course.code is None or course.teacher == self or course in self.courses
+    def can_see(self, data, table):
+        cls_name = table.__name__
+        if cls_name == 'User':
+            return True
+        elif cls_name == 'Course':
+            return data.code is None or self.teacher or data in self.courses.all()
 
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)

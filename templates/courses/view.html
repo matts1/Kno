@@ -3,6 +3,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ displayusers([course.teacher], 'Teacher', False) }}
-{{ displayusers(course.students.all(), 'Students') }}
+  {% if user != course.teacher and user not in course.students.all() and course.code is none %}
+    <form id="joinpubliccourse" method="post" action="{{ 'PUT URL HERE' }}"
+        data-custom="joinpublic" data-key="{{ course.id }}">
+      <input type="hidden" name="whichform" value="joinpubliccourse">
+      <input type="submit" class="btn btn-primary" value="Join Course">
+    </form>
+  {% endif %}
+  {% if user == course.teacher and course.code is not none %}
+    {{ course.code }}
+  {% endif %}
+  {{ 'public course' if course.code is none else 'private course' }}
+  {{ displayusers([course.teacher], 'Teacher', False) }}
+  {{ displayusers(course.students.all(), 'Students') }}
 {% endblock %}
