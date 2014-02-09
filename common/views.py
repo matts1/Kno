@@ -42,17 +42,29 @@ class FormView(FormView):
 
 
 class TemplateView(TemplateView):
+    valid_users = (0, 1, 2)
     def get_context_data(self):
         kwargs = super().get_context_data()
         self.request.user = get_user(self)
         kwargs['info'] = (self, self.request.user)
         kwargs['user'] = self.request.user
+        kwargs.update(self.custom_context_data())
         return kwargs
 
     def get(self, request, *args, **kwargs):
         self.args_data = args
         self.kwargs_data = kwargs
+        user = get_user(self)
+        if user is None and 0 not in self.valid_users:
+            return redirect('index')
+        elif user is not None and user.teacher and 2 not in self.valid_users:
+            return redirect('index')
+        elif user is not None and not user.teacher and 1 not in self.valid_users:
+            return redirect('index')
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         return HttpResponse(status=405)
+
+    def custom_context_data(self):
+        return {}

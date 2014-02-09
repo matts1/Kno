@@ -34,9 +34,14 @@
 /* pull the page header further to the top */
 .page-header {
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 /* pull panel body further up too */
 .panel-body {
     padding-top: 0;
+}
+
+.section {
+    padding-bottom: 5px;
 }

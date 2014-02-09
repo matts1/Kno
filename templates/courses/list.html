@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if user.teacher %}
-    {{ displaycourses(taught_courses, 'Courses You Teach', True) }}
+    {{ displaycourses(user, user.get_courses_taught(), 'Courses You Teach') }}
   {% endif %}
-  {{ displaycourses(my_courses, 'Courses You Are Enrolled In', True) }}
+  {{ displaycourses(user, user.courses.all(), 'Courses You Are Enrolled In') }}
 {% endblock %}

@@ -1,0 +1,29 @@
+{% macro displayusers(users, name, columns=True) %}
+  <p class="section">
+    <p class="h3">{{ name }}</p>
+    {% if users %}
+      {% if columns %}
+        <div class="row table-row">
+          <div class="col-xs-1">&nbsp</div>
+          <div class="col-xs-{{ table_width(0) - 1 }} h4">Name</div>
+          <div class="col-xs-{{ table_width(1) }} h4">School</div>
+        </div>
+      {% endif %}
+      {% for user in users %}
+        {{ displayuser(user) }}
+      {% endfor %}
+    {% else %}
+      <p>
+        There aren't any users here...
+      </p>
+    {% endif %}
+  </p>
+{% endmacro %}
+
+{% macro displayuser(user) %}
+  <div class="row table-row">
+    <div class="col-xs-1">{{ user.gravatar(50)|safe }}</div>
+    <div class="col-xs-{{ table_width(0) - 1 }}">{{ user.get_full_name() }}</div>
+    <div class="col-xs-{{ table_width(1) }}">{{ user.get_school_display() }}</div>
+  </div>
+{% endmacro %}

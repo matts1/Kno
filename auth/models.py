@@ -86,6 +86,13 @@ class User(models.Model):
         else:
             print(msg)
 
+    def get_courses_taught(self):
+        from courses.models import Course  # 2 way import
+        return Course.objects.filter(teacher=self)
+
+    def can_see(self, course):
+        return course.code is None or course.teacher == self or course in self.courses
+
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)
     user = models.ForeignKey(User)

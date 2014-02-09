@@ -1,1 +1,1 @@
-from .list import ListCourseView
+from .view import ViewCourseView

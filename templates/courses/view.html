@@ -1,6 +1,8 @@
+{% from "macros/users.html" import displayusers, displayuser %}
 {% set title=course.name %}
 {% extends 'base.html' %}
 
 {% block content %}
-Looking at {{ course.name }}
+{{ displayusers([course.teacher], 'Teacher', False) }}
+{{ displayusers(course.students.all(), 'Students') }}
 {% endblock %}

@@ -36,3 +36,7 @@ def as_modal(name, info, *args, **kwargs):
 @lib.global_function
 def string(s):
     return str(s)
+
+@lib.global_function
+def table_width(i):
+    return (3, 4, 3)[i]
