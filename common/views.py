@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView
@@ -34,7 +35,9 @@ class FormView(FormView):
         form.save()
 
         if form.success_url is not None:
-            redirect = form.get_success_url()
+            print(form.success_url, form.success_url_args(), form.success_url_kwargs())
+            redirect = reverse(form.success_url, args=form.success_url_args(),
+                               kwargs=form.success_url_kwargs())
         response = self.render_to_response(self.get_context_data(form=form, redirect=redirect))
         for key, value in self.cookies.items():
             response.set_cookie(key, value)

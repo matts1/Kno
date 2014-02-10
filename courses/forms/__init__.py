@@ -1,2 +1,2 @@
 from .create import CreateCourseForm
-from .join import JoinCourseForm
+from .join import JoinCourseForm, JoinPublicCourseForm

@@ -4,9 +4,9 @@
 
 {% block content %}
   {% if user != course.teacher and user not in course.students.all() and course.code is none %}
-    <form id="joinpubliccourse" method="post" action="{{ 'PUT URL HERE' }}"
-        data-custom="joinpublic" data-key="{{ course.id }}">
-      <input type="hidden" name="whichform" value="joinpubliccourse">
+    <form id="JoinPublicCourse" method="post" action="{{ url('joinpubliccourse') }}">
+      {% csrf_token %}
+      <input type="hidden" name="courseid" value="{{ course.id }}">
       <input type="submit" class="btn btn-primary" value="Join Course">
     </form>
   {% endif %}

@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.forms import ModelForm, FileField
 from django.template import RequestContext
 from django.template.loader import get_template
@@ -12,6 +11,8 @@ class ModelForm(ModelForm):
     text = None
     update = False
     success_url = None
+    success_url_args = lambda x: ()
+    success_url_kwargs = lambda x: {}
 
     def __init__(self, *args, view=None, user=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,9 +52,6 @@ class ModelForm(ModelForm):
             ))
         else:
             return ''
-
-    def get_success_url(self):
-        return reverse(self.success_url)
 
     def _clean_fields(self):  # copied from the class it overrides, changed calling of clean_field
         for name, field in self.fields.items():

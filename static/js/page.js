@@ -25,7 +25,7 @@ $(document).ready(function () {
         },
         success: function (responseText, statusText, xhr, form) {
             var custom = form.attr('data-custom');
-
+            console.log(responseText, custom);
             if (typeof custom === 'undefined') {
                 var responseType = responseText.substring(0, 9);
                 responseText = responseText.substring(9);
