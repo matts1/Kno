@@ -35,7 +35,6 @@ class FormView(FormView):
         form.save()
 
         if form.success_url is not None:
-            print(form.success_url, form.success_url_args(), form.success_url_kwargs())
             redirect = reverse(form.success_url, args=form.success_url_args(),
                                kwargs=form.success_url_kwargs())
         response = self.render_to_response(self.get_context_data(form=form, redirect=redirect))

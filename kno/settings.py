@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'common',
     'auth',
     'courses',
+    'tasks',
     'misc',
 )
 
