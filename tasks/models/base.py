@@ -14,8 +14,9 @@ class BaseTask(models.Model):
 
 class BaseSubmission(models.Model):
     user = models.ForeignKey(User)
-    task = models.ForeignKey(BaseTask)
     marks = models.IntegerField()
+    # subclasses need to implement this to their own type of task
+    # task = models.ForeignKey(BaseTask)
 
     class Meta:
         abstract = True

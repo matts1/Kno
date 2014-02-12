@@ -14,6 +14,9 @@ form_names = {
     'courses': {
         'CreateCourse',
         'JoinCourse',
+    },
+    'tasks': {
+        'CreateTask',
     }
 }
 

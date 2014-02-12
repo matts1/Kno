@@ -10,8 +10,11 @@
       <input type="submit" class="btn btn-primary" value="Join Course">
     </form>
   {% endif %}
-  {% if user == course.teacher and course.code is not none %}
-    {{ course.code }}
+  {% if user == course.teacher %}
+    {{ as_form('CreateTask', info)|safe }}
+    {% if course.code is not none %}
+      Code is{{ course.code }}
+    {% endif %}
   {% endif %}
   {{ 'public course' if course.code is none else 'private course' }}
   {{ displayusers([course.teacher], 'Teacher', False) }}

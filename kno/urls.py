@@ -11,6 +11,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^auth/', include('auth.urls')),
     url(r'^courses/', include('courses.urls')),
+    url(r'^tasks/', include('tasks.urls')),
     url(r'^misc/', include('misc.urls')),
 
     url(r'^$', TemplateView.as_view(template_name='other/index.html'), name='index')

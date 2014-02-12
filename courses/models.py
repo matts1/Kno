@@ -49,3 +49,6 @@ class Course(models.Model):
         course = cls(teacher=teacher, name=name, code=code, year=year, subject=subject)
         course.save()
         Search.add_words(name, course.id, cls)
+
+    def __repr__(self):
+        return self.name
