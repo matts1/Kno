@@ -23,7 +23,7 @@ class FormView(FormView):
 
     def post(self, request, *args, **kwargs):
         self.request.user = get_user(self)
-        if self.form_class().allowed(request.user):
+        if self.form_class(view=self).allowed(request.user):
             return super().post(request, *args, **kwargs)
         elif request.user is None:
             return redirect('index')
@@ -44,7 +44,7 @@ class FormView(FormView):
 
 
 class TemplateView(TemplateView):
-    valid_users = (0, 1, 2)
+    valid_users = (1, 2)
     def get_context_data(self):
         kwargs = super().get_context_data()
         self.request.user = get_user(self)

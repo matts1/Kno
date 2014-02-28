@@ -19,16 +19,16 @@ SUBJECTS = tuple(enumerate(['Other'] + sorted((
     'Geography',
     'History',
     'Industrial Technology',
-    'Information And Software Technology',
+    'IST',
     'Languages',
     'Music',
     'PDHPE',
     'Textiles',
     'Art',
     'Metalwork',
-    'Software Design And Development',
+    'SDD',
     'Multimedia',
-    'Information And Processing Technology',
+    'IPT',
     'Engineering Studies',
 ))))
 
@@ -40,7 +40,7 @@ class Course(models.Model):
     students = models.ManyToManyField(User, related_name='courses')
 
     year = models.IntegerField(choices=YEARS)
-    subject = models.IntegerField(choices = SUBJECTS, default=0)
+    subject = models.IntegerField(choices=SUBJECTS, default=0)
 
     @classmethod
     def create(cls, teacher, name, private, subject, year):

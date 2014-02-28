@@ -14,7 +14,8 @@ urlpatterns = patterns('',
     url(r'^tasks/', include('tasks.urls')),
     url(r'^misc/', include('misc.urls')),
 
-    url(r'^$', TemplateView.as_view(template_name='other/index.html'), name='index')
+    url(r'^$', TemplateView.as_view(template_name='other/index.html', valid_users=(0, 1, 2)),
+        name='index')
 )
 
 class ErrorView(GenericView): # ensures that error templates are handled by jinja2, not django
