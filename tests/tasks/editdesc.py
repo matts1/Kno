@@ -1,34 +1,44 @@
 from auth.models import User
-from courses.models import Course
-from tasks.forms import CreateTaskForm
+from tasks.forms import EditTaskDescForm
+from tasks.modeldir.base import Task
 from tests.base import TestCase
 
 class EditTaskDescTestCase(TestCase):
-    def test_unowned_course(self):
-        user = User.objects.get(email='teacher@gmail.com')
-        course = Course.objects.get(name='my public course')
-        CreateTaskForm.test(
-            ['course'],
+    def test_missing_task(self):
+        user = User.objects.get(email='mattstark75@gmail.com')
+        EditTaskDescForm.test(
+            ['taskid'],
             initdata={'user': user},
-            course=course,
-            name='bad',
-            kind='read',
+            taskid=9001,
+            desc='blah'
         )
 
-    def test_valid_and_duplicate_name(self):
+    def test_wrong_teacher(self):
         user = User.objects.get(email='teacher@gmail.com')
-        CreateTaskForm.test(
+        task = Task.objects.get(name='Task 1')
+        EditTaskDescForm.test(
+            ['taskid'],
+            initdata={'user': user},
+            taskid=task.id,
+            desc='blah'
+        )
+
+    def test_student(self):
+        user = User.objects.get(email='student@gmail.com')
+        task = Task.objects.get(name='Task 1')
+        EditTaskDescForm.test(
+            ['taskid'],
+            initdata={'user': user},
+            taskid=task.id,
+            desc='blah'
+        )
+
+    def test_valid(self):
+        user = User.objects.get(email='mattstark75@gmail.com')
+        task = Task.objects.get(name='Task 1')
+        EditTaskDescForm.test(
             [],
             initdata={'user': user},
-            course='public course',
-            name=' good ',
-            kind='read'
-        )
-
-        CreateTaskForm.test(
-            [''],
-            initdata={'user': user},
-            course='public course',
-            name='good',
-            kind='read'
+            taskid=task.id,
+            desc='blah'
         )

@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block content %}
-
   {% if task.course.teacher == user %}
     <form role="form" method="post" action="/tasks/editdesc" hidden id="editdescform">
       {% csrf_token %}
@@ -25,7 +24,7 @@
     <p><a onclick="openEdit(this)" class="btn btn-primary">Edit Description</a></p>
   {% endif %}
 
-  <p class="desc">{{ task.desc }}</p>
+  <p class="desc" id="description">{{ task.desc }}</p>
 
   <p>
     Submission data goes here (only store 1 submission)

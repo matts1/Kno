@@ -46,5 +46,8 @@ class CreateTaskForm(ModelForm):
         kind = self.cleaned_data['kind']
         del kwargs['kind']
 
-        # TODO: depending on kind of task, call a different class to create the task.
-        self.task = Task.create(**kwargs)
+        print(kind)
+        if kind == 'read':
+            self.task = Task.create(**kwargs)
+        elif kind == 'code':
+            self.task = CodeTask.create(**kwargs)

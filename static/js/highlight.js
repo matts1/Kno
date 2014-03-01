@@ -14,7 +14,7 @@ function applyMarkup (markup) {
 
 function refreshMarkup() {
     applyMarkup($('#editdesc').val());
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'description']);
 }
 
 function openEdit(btn) {

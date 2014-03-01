@@ -25,10 +25,12 @@ class CreateTaskTestCase(TestCase):
             kind='read'
         )
 
+    def test_duplicate_name(self):
+        user = User.objects.get(email='mattstark75@gmail.com')
         CreateTaskForm.test(
             [''],
             initdata={'user': user},
-            course='public course',
-            name='good',
+            course='Programming',
+            name='Task 1',
             kind='read'
         )

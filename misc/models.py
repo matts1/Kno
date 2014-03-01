@@ -1,7 +1,7 @@
 from auth.models import User
 from common import models
 from courses.models import Course
-from tasks.modeldir.base import Task
+from tasks.models import Task
 
 tables = (User, Course, Task)
 

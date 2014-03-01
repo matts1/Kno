@@ -51,7 +51,7 @@ class Course(models.Model):
         Search.add_words(name, course.id, cls)
 
     def get_tasks(self):
-        from tasks.modeldir.base import Task  # bidirectional import
+        from tasks.models import Task  # bidirectional import
         return Task.objects.filter(course=self)
 
     def __repr__(self):
