@@ -13,7 +13,8 @@ class CreateTaskForm(ModelForm):
     name = 'Create Task'
     urlname = 'createtask'
     valid_users = (2,)
-    success_msg = 'Your task has been created'
+    success_url = 'viewtask'
+    success_url_args = lambda self: (self.task.id,)
 
     kind = forms.ChoiceField(choices=CHOICES, initial='read', label='Task Type')
 
@@ -46,4 +47,4 @@ class CreateTaskForm(ModelForm):
         del kwargs['kind']
 
         # TODO: depending on kind of task, call a different class to create the task.
-        Task.create(**kwargs)
+        self.task = Task.create(**kwargs)

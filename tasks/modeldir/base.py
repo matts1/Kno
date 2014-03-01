@@ -20,6 +20,7 @@ class Task(models.Model):
 
         from misc.models import Search  # bidirectional import
         Search.add_words(kwargs['name'], task.id, Task)
+        return task
 
     def __repr__(self):
         return self.name
