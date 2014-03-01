@@ -21,7 +21,7 @@ class CreateTaskTestCase(TestCase):
             [],
             initdata={'user': user},
             course='public course',
-            name='good',
+            name=' good ',
             kind='read'
         )
 

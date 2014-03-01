@@ -1,4 +1,5 @@
-{% from "macros/users.html" import displayusers, displayuser %}
+{% from "macros/users.html" import displayusers %}
+{% from "macros/tasks.html" import displaytasks %}
 {% set title=course.name %}
 {% extends 'base.html' %}
 
@@ -16,6 +17,7 @@
       Code is{{ course.code }}
     {% endif %}
   {% endif %}
+  {{ displaytasks(course.get_tasks(), 'Tasks') }}
   {{ 'public course' if course.code is none else 'private course' }}
   {{ displayusers([course.teacher], 'Teacher', False) }}
   {{ displayusers(course.students.all(), 'Students') }}

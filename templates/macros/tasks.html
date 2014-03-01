@@ -1,0 +1,30 @@
+{% macro displaytasks(tasks, name, columns=True) %}
+  <p class="section">
+    <p class="h3">{{ name }}</p>
+    {% if tasks %}
+      {% if columns %}
+        <div class="row table-row">
+          <div class="col-xs-{{ table_width(0) }} h4">Name</div>
+          <div class="col-xs-{{ table_width(1) }} h4">Type</div>
+        </div>
+      {% endif %}
+      {% for task in tasks %}
+        {{ displaytask(task) }}
+      {% endfor %}
+    {% else %}
+      <p>
+        There aren't any tasks here...
+      </p>
+    {% endif %}
+  </p>
+{% endmacro %}
+
+{% macro displaytask(task) %}
+  <div class="row table-row">
+    <div class="col-xs-{{ table_width(0) - 1 }}">{{ task.name }}</div>
+    <div class="col-xs-{{ table_width(1) }}">{{ "ENTER TASK TYPE HERE" }}</div>
+    <div class="col-xs-{{ table_width(2) }}">
+      <a href="{{ url('viewtask', task.id) }}" class="btn btn-primary">Open Task</a>
+    </div>
+  </div>
+{% endmacro %}

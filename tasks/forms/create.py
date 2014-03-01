@@ -36,6 +36,9 @@ class CreateTaskForm(ModelForm):
             raise ValidationError('That name is taken')
         return self.cleaned_data
 
+    def clean_name(self, name):
+        return name.strip()
+
     def save(self):
         kwargs = self.cleaned_data
         kwargs['desc'] = 'This description is empty. You might want to add something to it.'

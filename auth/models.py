@@ -96,6 +96,11 @@ class User(models.Model):
             return True
         elif cls_name == 'Course':
             return data.code is None or self.teacher or data in self.courses.all()
+        elif cls_name == 'Task':
+            from courses.models import Course  # bidirectional import
+            return self.can_see(data.course, Course)
+        else:
+            raise NotImplementedError
 
 class Session(models.Model):
     sessionID = models.CharField(max_length=100, primary_key=True, unique=True)

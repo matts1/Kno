@@ -50,5 +50,9 @@ class Course(models.Model):
         course.save()
         Search.add_words(name, course.id, cls)
 
+    def get_tasks(self):
+        from tasks.modeldir.base import Task  # bidirectional import
+        return Task.objects.filter(course=self)
+
     def __repr__(self):
         return self.name

@@ -9,6 +9,7 @@
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    {% block morehead %}{% endblock %}
   </head>
 <body>
   <nav class="navbar navbar-inverse navbar-static-top header">
@@ -109,6 +110,7 @@
   <script src="{{ static('js/formplugin.js') }}"></script>
   <script src="{{ static('js/bootstrap.min.js') }}"></script>
   <script src="{{ static('js/page.js') }}"></script>
+  {% block js %}{% endblock %}
 
   {{ as_modal('ForgotPwd', info)|safe }}
   {{ as_modal('Login', info)|safe }}
