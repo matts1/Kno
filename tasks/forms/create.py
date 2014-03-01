@@ -41,9 +41,9 @@ class CreateTaskForm(ModelForm):
 
     def save(self):
         kwargs = self.cleaned_data
-        kwargs['desc'] = 'This description is empty. You might want to add something to it.'
+        kwargs['desc'] = 'This description is empty. You might want to add something to it...'
         kind = self.cleaned_data['kind']
         del kwargs['kind']
 
         # TODO: depending on kind of task, call a different class to create the task.
-        Task(**kwargs).save()
+        Task.create(**kwargs)

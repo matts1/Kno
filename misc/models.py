@@ -1,8 +1,9 @@
 from auth.models import User
 from common import models
 from courses.models import Course
+from tasks.modeldir.base import Task
 
-tables = (User, Course,)
+tables = (User, Course, Task)
 
 
 class Search(models.Model):

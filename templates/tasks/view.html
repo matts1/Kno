@@ -8,25 +8,26 @@
 {% block js %}
   <script type="text/javascript" src="{{ static('js/syntax.js') }}"></script>
   <script type="text/javascript" src="{{ static('js/highlight.js') }}"></script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  <!--<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">-->
 </script>
 {% endblock %}
 
 {% block content %}
-  {{ task.desc }}
 
-  <p class="desc">
-  {{ "
-    {{{!python
-    # testing $$ax^2 + bx + c = 0$$
-    !}}}" }}
-  When $$a \ne 0$$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+  {% if task.course.teacher == user %}
+    <form role="form" method="post" action="/tasks/editdesc" hidden id="editdescform">
+      {% csrf_token %}
+      <input type="hidden" name="taskid" value="{{ task.id }}">
+      <textarea rows="15" style="width:100%" id="editdesc" name="desc"></textarea>
+      <p><input type="submit" class="btn btn-primary" value="Save"></p>
+      <div class="formresults"></div>
+    </form>
+    <p><a onclick="openEdit(this)" class="btn btn-primary">Edit Description</a></p>
+  {% endif %}
 
-  \[
-  </p>
+  <p class="desc">{{ task.desc }}</p>
 
   <p>
-    Submission data goes here
+    Submission data goes here (only store 1 submission)
   </p>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% from "/macros/users.html" import displayuser %}
 {% from "/macros/course.html" import displaycourse %}
+{% from "/macros/task.html" import displaytask %}
 
 {% macro row(user, object) %}
   {% set table=object.__class__.__name__ %}
@@ -7,5 +8,7 @@
     {{ displayuser(object) }}
   {% elif table == 'Course' %}
     {{ displaycourse(user, object) }}
+  {% elif table == 'Task' %}
+    {{ displaytask(object) }}
   {% endif %}
 {% endmacro %}

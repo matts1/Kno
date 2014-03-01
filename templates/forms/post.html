@@ -1,6 +1,6 @@
 {% if redirect %}REDIRECT:{{ redirect }}{% else %}FORMDATA:
   {% if form.non_field_errors() %}
-    <div class="alert alert-danger" data-for="">
+    <div class="alert alert-danger alert-dismissable" data-for="">
       {% for error in form.non_field_errors() %}
         <a class="close" data-dismiss="alert" href="#">&times;</a>
         <p class="text-center">{{ error }}</p>
@@ -9,7 +9,8 @@
   {% endif %}
   {% for field in form %}
     {% if field.errors %}
-      <div class="alert alert-danger" data-for="{{ form.__class__.cls_name() }}_{{ field.name }}">
+      <div class="alert alert-danger alert-dismissable" data-for="{{ form.__class__.cls_name() }}
+      _{{ field.name }}">
         <a class="close" data-dismiss="alert" href="#">&times;</a>
         {% for error in field.errors %}
           <p class="text-center">{{ error }}</p>
@@ -19,7 +20,8 @@
   {% endfor %}
 
   {% if form.is_valid() %}
-    <div class="alert alert-success text" data-for="">
+    <div class="alert alert-success text alert-dismissable" data-for="">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <p class="text-center">{{ form.get_text(form.success_msg)|safe }}</p>
     </div>
   {% endif %}

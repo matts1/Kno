@@ -13,6 +13,17 @@ class Task(models.Model):
     desc = models.CharField(max_length=10000)
     course = models.ForeignKey(Course)
 
+    @classmethod
+    def create(cls, *args, **kwargs):
+        task = Task(*args, **kwargs)
+        task.save()
+
+        from misc.models import Search  # bidirectional import
+        Search.add_words(kwargs['name'], task.id, Task)
+
+    def __repr__(self):
+        return self.name
+
 
 class Submission(models.Model):
     class Meta:
