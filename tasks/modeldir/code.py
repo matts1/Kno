@@ -1,3 +1,5 @@
+from shutil import copyfile
+import tempfile
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from common import models
@@ -57,7 +59,22 @@ class CodeSubmission(Submission):
         self.comment = 0
         self.order = 0
         self.error = None
-        env = Environment()
-        print(env.add_file('main.py', bonus['data'].read()))
-        print(env.run_simple([], ))
+        # env = Environment()
+        # print(env.add_file('main.py', bonus['data'].read()))
+        # print(env.run_simple([], ))
+        directory = tempfile.mkdtemp()
+        os.chmod(directory, 0o755)
+        code = os.path.join(directory, 'main.py')
+        f = open(code, 'wb')
+        f.write(self.data.read())
+        f.close()
+        for io in self.task.codetask.get_io_files():
+            fin = open(os.path.join(directory, 'infile'), 'w')
+            infile = open(makepath('codeio/{}/{}.in'.format(self.task.id, io))).read()
+            fin.write(infile)
+            fin.close()
+            outfile = open(makepath('codeio/{}/{}.out'.format(self.task.id, io))).read()
+            print(os.popen('python3 {0}/main.py < {0}/infile'.format(directory)))
+
+
         return 'submitted a code task'
