@@ -2,6 +2,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from common import models
 from common.functions import makepath
+from tasks.modeldir.programming import Environment
 from tasks.models import Task, Submission
 import os
 
@@ -56,4 +57,7 @@ class CodeSubmission(Submission):
         self.comment = 0
         self.order = 0
         self.error = None
+        env = Environment()
+        print(env.add_file('main.py', bonus['data'].read()))
+        print(env.run_simple([], ))
         return 'submitted a code task'
