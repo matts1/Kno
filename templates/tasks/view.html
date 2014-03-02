@@ -8,13 +8,11 @@
 {% block js %}
   <script type="text/javascript" src="{{ static('js/syntax.js') }}"></script>
   <script type="text/javascript" src="{{ static('js/highlight.js') }}"></script>
-  <!--<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">-->
-</script>
 {% endblock %}
 
 {% block content %}
   {% if task.course.teacher == user %}
-    <form role="form" method="post" action="/tasks/editdesc" hidden id="editdescform">
+    <form role="form" method="post" action="{{ url('edittaskdesc') }}" hidden id="editdescform">
       {% csrf_token %}
       <input type="hidden" name="taskid" value="{{ task.id }}">
       <textarea rows="15" style="width:100%" id="editdesc" name="desc"></textarea>
@@ -25,6 +23,31 @@
   {% endif %}
 
   <p class="desc" id="description">{{ task.desc }}</p>
+
+  {% if task.kind == 'code' and task.course.teacher == user %}
+    <div id="addfilestorage">
+      {{ as_form("AddIOFile", info, taskid=task.id)|safe }}
+    </div>
+    <h3>Test Cases</h3>
+
+    <div class="row table-row">
+      <div class="col-xs-2">Name</div>
+      <div class="col-xs-1">Delete</div>
+    </div>
+    {% for name in task.codetask.get_io_files() %}
+      <form role="form" method="post" action="{{ url('deleteiofile') }}" id="editdescform">
+        <div class="row table-row">
+          <div class="col-xs-2">{{ name }}</div>
+          <div class="col-xs-1">
+              {% csrf_token %}
+              <input type="hidden" name="taskid" value="{{ task.id }}">
+              <input type="hidden" name="ioname" value="{{ name }}">
+              <input type="submit" class="btn btn-danger" value="Delete">
+          </div>
+        </div>
+      </form>
+    {% endfor %}
+  {% endif %}
 
   <p>
     Submission data goes here (only store 1 submission)

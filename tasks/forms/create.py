@@ -1,13 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from common.forms import ModelForm
-from tasks.models import Task
+from tasks.models import Task, CodeTask
 
-
-CHOICES = (
-    ('read', 'Reading'),
-    ('code', 'Programming')
-)
 
 class CreateTaskForm(ModelForm):
     name = 'Create Task'
@@ -16,7 +11,7 @@ class CreateTaskForm(ModelForm):
     success_url = 'viewtask'
     success_url_args = lambda self: (self.task.id,)
 
-    kind = forms.ChoiceField(choices=CHOICES, initial='read', label='Task Type')
+#     kind = forms.ChoiceField(choices=CHOICES, initial='read', label='Task Type')
 
     class Meta:
         model = Task
@@ -44,9 +39,7 @@ class CreateTaskForm(ModelForm):
         kwargs = self.cleaned_data
         kwargs['desc'] = 'This description is empty. You might want to add something to it...'
         kind = self.cleaned_data['kind']
-        del kwargs['kind']
 
-        print(kind)
         if kind == 'read':
             self.task = Task.create(**kwargs)
         elif kind == 'code':

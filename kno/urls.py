@@ -18,11 +18,6 @@ urlpatterns = patterns('',
         name='index')
 )
 
-if settings.DEBUG:
-    urlpatterns += url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT,
-    }),
-
 class ErrorView(GenericView): # ensures that error templates are handled by jinja2, not django
     def get_context_data(self):  # copied from templateview so that we can render it properly
         kwargs = super().get_context_data()

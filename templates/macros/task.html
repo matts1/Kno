@@ -22,7 +22,7 @@
 {% macro displaytask(task) %}
   <div class="row table-row">
     <div class="col-xs-{{ table_width(0) - 1 }}">{{ task.name }}</div>
-    <div class="col-xs-{{ table_width(1) }}">{{ "ENTER TASK TYPE HERE" }}</div>
+    <div class="col-xs-{{ table_width(1) }}">{{ task.get_kind_display() }}</div>
     <div class="col-xs-{{ table_width(2) }}">
       <a href="{{ url('viewtask', task.id) }}" class="btn btn-primary">Open Task</a>
     </div>

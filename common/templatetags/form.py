@@ -17,6 +17,8 @@ form_names = {
     },
     'tasks': {
         'CreateTask',
+        'EditTaskDesc',
+        'AddIOFile'
     }
 }
 
