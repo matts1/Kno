@@ -1,7 +1,8 @@
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from common import models
 from common.functions import makepath
-from tasks.models import Task
+from tasks.models import Task, Submission
 import os
 
 class CodeTask(Task):
@@ -33,3 +34,26 @@ class CodeTask(Task):
         path = self.get_path(name)
         default_storage.delete(path + '.in')
         default_storage.delete(path + '.out')
+
+SCORES = enumerate([
+    'Doesn\'t look right to me...',
+    'Your answer looks right, but some letters aren\'t capitalised correctly.',
+    'Getting there, but check that the punctuation is correct.',
+    'Almost there, but check the whitespace (newlines, spaces, tabs)',
+    'That looks good to me!'
+])
+
+class CodeSubmission(Submission):
+    class Meta:
+        app_label = 'tasks'
+
+    comment = models.IntegerField(choices=SCORES)
+    error = models.CharField(blank=True, null=True, max_length=50)  # error type
+    order = models.IntegerField()  # for code tasks, we can have multiple submissions
+
+    def on_submit(self, bonus):
+        # here we execute their code
+        self.comment = 0
+        self.order = 0
+        self.error = None
+        return 'submitted a code task'

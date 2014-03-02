@@ -15,7 +15,7 @@ class EditTaskDescTestCase(TestCase):
 
     def test_wrong_teacher(self):
         user = User.objects.get(email='teacher@gmail.com')
-        task = Task.objects.get(name='Task 1')
+        task = Task.objects.get(name='Reading Task 1')
         EditTaskDescForm.test(
             ['taskid'],
             initdata={'user': user},
@@ -25,7 +25,7 @@ class EditTaskDescTestCase(TestCase):
 
     def test_student(self):
         user = User.objects.get(email='student@gmail.com')
-        task = Task.objects.get(name='Task 1')
+        task = Task.objects.get(name='Reading Task 1')
         EditTaskDescForm.test(
             ['taskid'],
             initdata={'user': user},
@@ -35,7 +35,7 @@ class EditTaskDescTestCase(TestCase):
 
     def test_valid(self):
         user = User.objects.get(email='mattstark75@gmail.com')
-        task = Task.objects.get(name='Task 1')
+        task = Task.objects.get(name='Reading Task 1')
         EditTaskDescForm.test(
             [],
             initdata={'user': user},

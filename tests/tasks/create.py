@@ -31,6 +31,6 @@ class CreateTaskTestCase(TestCase):
             [''],
             initdata={'user': user},
             course='Programming',
-            name='Task 1',
-            kind='read'
+            name='Programming Task 1',
+            kind='code'
         )

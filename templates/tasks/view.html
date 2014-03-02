@@ -49,7 +49,11 @@
     {% endfor %}
   {% endif %}
 
+  {% if task.kind != 'read' and user != task.course.teacher %}
+    {{ as_form('Submit', info, taskid=task.id)|safe }}
+  {% endif %}
+
   <p>
-    Submission data goes here (only store 1 submission)
+    Submission data goes here (only store 1 submission for everything but code submissions)
   </p>
 {% endblock %}

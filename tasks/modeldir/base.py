@@ -31,9 +31,11 @@ class Task(models.Model):
     def __repr__(self):
         return self.name
 
-    def dir(self):
-        return dir(self)
-
+    def get_submission(self):
+        from tasks.models import CodeSubmission
+        return {
+            'code': CodeSubmission
+        }[self.kind]
 
 class Submission(models.Model):
     class Meta:
@@ -42,3 +44,14 @@ class Submission(models.Model):
     user = models.ForeignKey(User)
     marks = models.IntegerField()  # TODO: make this a seperate table for certain task types
     task = models.ForeignKey(Task)
+    data = models.FileField(upload_to='submissions')
+
+    def on_submit(self, bonus):
+        return 'Your work has been submitted'
+
+    @classmethod
+    def create(cls, task, user, bonus):
+        submission = cls(user=user, task=task, marks=-1, data=bonus['data'])
+        msg = submission.on_submit(bonus)
+        submission.save()
+        return msg

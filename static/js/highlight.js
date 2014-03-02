@@ -6,7 +6,7 @@ function isimage (url) {
 
 function applyMarkup (markup) {
     // {{{!language, newline, code, !}}}
-    var regex = new RegExp('\\{\\{\\{!([^\\n]*)\n((.|\\n)*)!\\}\\}\\}', 'm')
+    var regex = new RegExp('\\{\\{\\{!([^\\n]*)\n((.|\\n)*?)!\\}\\}\\}', 'mg')
     $('p.desc').html(markup.replace(regex, '<pre class="sh_$1">$2</pre>'));
 
     sh_highlightDocument('/static/js/lang/', '.min.js');
