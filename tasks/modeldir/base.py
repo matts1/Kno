@@ -31,6 +31,9 @@ class Task(models.Model):
     def __repr__(self):
         return self.name
 
+    def get_submissions(self, user):
+        return self.get_submission().objects.filter(user=user, task=self)
+
     def get_submission(self):
         from tasks.models import CodeSubmission
         return {

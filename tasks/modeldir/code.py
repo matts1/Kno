@@ -42,11 +42,11 @@ class CodeTask(Task):
 
 SCORES = list(enumerate([
     'That looks good to me!',
-    'Almost there, but check the whitespace (newlines, spaces, tabs)',
+    'Almost there, but check the whitespace (newlines, spaces, tabs).',
     'Getting there, but check that the punctuation is correct.',
     'Your answer looks right, but some letters aren\'t capitalised correctly.',
     'Doesn\'t look right to me...',
-    'Your code ran for too long',
+    'Your code timed out. It may have an infinite loop, or it may just be too slow.',
     'Your code threw an error...',
     'Unknown error'
 ]))

@@ -5,17 +5,17 @@ pre.sh_sourceCode {
   font-weight: normal;
 }
 
-pre.sh_sourceCode .sh_keyword { color: blue; font-weight: bold; }           /* language keywords */
+pre.sh_sourceCode .sh_keyword { color: orange; font-weight: bold; }           /* language keywords */
 pre.sh_sourceCode .sh_type { color: darkgreen; }                            /* basic types */
 pre.sh_sourceCode .sh_usertype { color: teal; }                             /* user defined types */
-pre.sh_sourceCode .sh_string { color: red; font-family: monospace; }        /* strings and chars */
+pre.sh_sourceCode .sh_string { color: limegreen; font-family: monospace; }        /* strings and chars */
 pre.sh_sourceCode .sh_regexp { color: orange; font-family: monospace; }     /* regular expressions */
-pre.sh_sourceCode .sh_specialchar { color: pink; font-family: monospace; }  /* e.g., \n, \t, \\ */
-pre.sh_sourceCode .sh_comment { color: brown; font-style: italic; }         /* comments */
+pre.sh_sourceCode .sh_specialchar { color: red; font-family: monospace; }  /* e.g., \n, \t, \\ */
+pre.sh_sourceCode .sh_comment { color: red; font-style: italic; }         /* comments */
 pre.sh_sourceCode .sh_number { color: purple; }                             /* literal numbers */
 pre.sh_sourceCode .sh_preproc { color: darkblue; font-weight: bold; }       /* e.g., #include, import */
-pre.sh_sourceCode .sh_symbol { color: darkred; }                            /* e.g., <, >, + */
-pre.sh_sourceCode .sh_function { color: black; font-weight: bold; }         /* function calls and declarations */
+pre.sh_sourceCode .sh_symbol { color: black; }                            /* e.g., <, >, + */
+pre.sh_sourceCode .sh_function { color: blue; font-weight: bold; }         /* function calls and declarations */
 pre.sh_sourceCode .sh_cbracket { color: red; }                              /* block brackets (e.g., {, }) */
 pre.sh_sourceCode .sh_todo { font-weight: bold; background-color: cyan; }
 
@@ -24,7 +24,7 @@ pre.sh_sourceCode .sh_predef_var { color: darkblue; }
 pre.sh_sourceCode .sh_predef_func { color: darkblue; font-weight: bold; }
 
 /* for OOP */
-pre.sh_sourceCode .sh_classname { color: teal; }
+pre.sh_sourceCode .sh_classname { color: blue; }
 
 /* line numbers (not yet implemented) */
 pre.sh_sourceCode .sh_linenum { color: black; font-family: monospace; }

@@ -1,12 +1,14 @@
 {% macro input(form, field, key) %}
+  {% set type=field.widget.__class__.__name__.lower() %}
   <div class="form-group">
     <label for="{{ form.__class__.cls_name() }}_{{ key }}" class="col-lg-4 control-label">
       {{ field.label.title() }}
     </label>
     <div class="col-lg-7">
       {{ field.widget.render(key, field.initial if field.initial is not none else '', {
-        'placeholder': form.placeholders.get(key, 'Enter your ' + string(field.label)).title(),
-        'required' if field.required else 'data-checkbox': '1',
+        'data-placeholder' if type == 'select' else 'placeholder': form.placeholders.get(key,
+          'Enter your ' + string(field.label)).title(),
+        'required' if field.required and type != 'select' else 'data-checkbox': '',
         'class': 'form-control',
         'id': form.__class__.cls_name() + '_' + key
       }) }}
