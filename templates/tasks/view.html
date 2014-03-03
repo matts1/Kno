@@ -14,7 +14,7 @@
   {% if task.course.teacher == user %}
     <form role="form" method="post" action="{{ url('edittaskdesc') }}" hidden id="editdescform">
       {% csrf_token %}
-      <input type="hidden" name="taskid" value="{{ task.id }}">
+      <input type="hidden" name="task" value="{{ task }}">
       <textarea rows="15" style="width:100%" id="editdesc" name="desc"></textarea>
       <p><input type="submit" class="btn btn-primary" value="Save"></p>
       <div class="formresults"></div>
@@ -26,7 +26,7 @@
 
   {% if task.kind == 'code' and task.course.teacher == user %}
     <div id="addfilestorage">
-      {{ as_form("AddIOFile", info, taskid=task.id)|safe }}
+      {{ as_form("AddIOFile", info, task=task)|safe }}
     </div>
     <h3>Test Cases</h3>
 
@@ -50,7 +50,7 @@
   {% endif %}
 
   {% if task.kind != 'read' and user != task.course.teacher %}
-    {{ as_form('Submit', info, taskid=task.id)|safe }}
+    {{ as_form('Submit', info, taskid=taskid)|safe }}
   {% endif %}
 
   {% for submission in task.get_submissions(user).order_by('-order') %}

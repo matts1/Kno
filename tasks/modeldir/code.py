@@ -30,11 +30,6 @@ class CodeTask(Task):
     def has_io_files(self, name):
         return os.path.isfile(self.get_path(name + '.in'))
 
-    def add_io_files(self, name, infile, outfile):
-        path = self.get_path(name)
-        default_storage.save(path + '.in', ContentFile(infile.read()))
-        default_storage.save(path + '.out', ContentFile(outfile.read()))
-
     def delete_io_files(self, name):
         path = self.get_path(name)
         default_storage.delete(path + '.in')
@@ -72,3 +67,15 @@ class CodeSubmission(Submission):
             self.comment = max(self.comment, check_output(output.stdout, expected, output.status))
 
         return 'submitted a code task (order=%d, comment=%s)' % (self.order, self.get_comment_display())
+
+
+class TestCase(models.Model):
+    class Mate:
+        app_label = 'tasks'
+
+    task = models.ForeignKey(CodeTask)
+    name = models.CharField(max_length=50)
+    infile = models.FileField(verbose_name='Input File', upload_to='testcases')
+    outfile = models.FileField(verbose_name='Output File', upload_to='testcases')
+    hidden = models.BooleanField()
+    order = models.IntegerField()

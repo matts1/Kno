@@ -17,7 +17,6 @@ class CreateTaskForm(ModelForm):
         fields = ('name', 'course', 'kind')
 
     def __init__(self, *args, **kwargs):
-        initial = kwargs.get('initial', {})
         super().__init__(*args, **kwargs)
 
         # only show the courses the user teaches, label them correctly
