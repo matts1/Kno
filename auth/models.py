@@ -12,7 +12,7 @@ SCHOOLS = (
 )
 
 class User(models.Model):
-    email = models.EmailField(max_length=100, primary_key=True, unique=True,
+    email = models.EmailField(max_length=100, unique=True,
                               error_messages={'unique': 'The email address is already taken'})
     pwd = models.CharField('Password', max_length=128)
     fname = models.CharField('First Name', max_length=50)
@@ -38,7 +38,7 @@ class User(models.Model):
         """
         Gets the user that goes by the email given, and returns None if no user is given
         """
-        return cls.objects.filter(pk=email).first()
+        return cls.objects.filter(email=email).first()
 
     def __str__(self):
         return self.email

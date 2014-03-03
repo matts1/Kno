@@ -9,16 +9,20 @@ class ModelFormTestCase(TestCase):
         self.assertTrue(RegisterForm().allowed(None))
 
     def test_student(self):
-        self.assertFalse(RegisterForm().allowed(User.objects.get(pk='student@gmail.com')))
+        self.assertFalse(RegisterForm().allowed(User.objects.get(email='student@gmail.com')))
 
     def test_teacher(self):
-        self.assertFalse(RegisterForm().allowed(User.objects.get(pk='teacher@gmail.com')))
+        self.assertFalse(RegisterForm().allowed(User.objects.get(email='teacher@gmail.com')))
 
     def test_as_modal(self):
-        self.assertEqual(RegisterForm(user=User.objects.get(pk='teacher@gmail.com')).as_modal(), '')
+        self.assertEqual(RegisterForm(
+            user=User.objects.get(email='teacher@gmail.com')).as_modal(),
+            ''
+        )
 
     def test_as_form(self):
-        self.assertEqual(RegisterForm(user=User.objects.get(pk='teacher@gmail.com')).as_form(), '')
+        self.assertEqual(RegisterForm(user=User.objects.get(email='teacher@gmail.com')).as_form(),
+                         '')
 
     def test_less_errors(self):
         self.assertRaises(AssertionError, lambda: RegisterForm.test(['fname'],

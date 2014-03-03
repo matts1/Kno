@@ -30,5 +30,5 @@ class LoginForm(ModelForm):
         return self.cleaned_data
 
     def save(self):
-        sessionID = User.get(self.cleaned_data['email']).login()
+        sessionID = User.get(email=self.cleaned_data['email']).login()
         self.view.cookies['session'] = sessionID

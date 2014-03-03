@@ -51,9 +51,8 @@ class CreateCourseTestCase(TestCase):
             subject=0,
             private=False
         )
-        course = Course.objects.filter(teacher=self.user()).first()
+        course = Course.objects.filter(teacher=self.user(), name='newname').first()
         self.assertIsNotNone(course)
-        self.assertEqual(course.name, 'newname')
         self.assertEqual(course.code, None)
 
         # lets try creating another course under the same name

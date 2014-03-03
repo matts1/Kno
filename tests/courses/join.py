@@ -25,7 +25,7 @@ class JoinCourseTestCase(TestCase):
         )
 
     def test_rejoin_course(self):
-        course = Course.objects.get(pk='private course')
+        course = Course.objects.get(name='private course')
         JoinCourseForm.test(
             ['code'],
             code=course.code,
@@ -33,7 +33,7 @@ class JoinCourseTestCase(TestCase):
         )
 
     def test_join_taught_course(self):
-        course = Course.objects.get(pk='private course')
+        course = Course.objects.get(name='private course')
         JoinCourseForm.test(
             ['code'],
             code=course.code,
@@ -41,7 +41,7 @@ class JoinCourseTestCase(TestCase):
         )
 
     def test_valid_join(self):
-        course = Course.objects.get(pk='my private course')
+        course = Course.objects.get(name='my private course')
         self.assertFalse(self.user() in course.students.all())
         JoinCourseForm.test(
             [],
@@ -77,7 +77,7 @@ class JoinPublicCourseTestCase(TestCase):
         )
 
     def test_rejoin_course(self):
-        course = Course.objects.get(pk='public course')
+        course = Course.objects.get(name='public course')
         JoinPublicCourseForm.test(
             ['courseid'],
             courseid=course.id,
@@ -85,7 +85,7 @@ class JoinPublicCourseTestCase(TestCase):
         )
 
     def test_join_taught_course(self):
-        course = Course.objects.get(pk='public course')
+        course = Course.objects.get(name='public course')
         JoinPublicCourseForm.test(
             ['courseid'],
             courseid=course.id,
@@ -93,7 +93,7 @@ class JoinPublicCourseTestCase(TestCase):
         )
 
     def test_join_private(self):
-        course = Course.objects.get(pk='my private course')
+        course = Course.objects.get(name='my private course')
         JoinPublicCourseForm.test(
             ['courseid'],
             courseid=course.id,
@@ -101,7 +101,7 @@ class JoinPublicCourseTestCase(TestCase):
         )
 
     def test_valid_join(self):
-        course = Course.objects.get(pk='my public course')
+        course = Course.objects.get(name='my public course')
         self.assertFalse(self.user() in course.students.all())
         JoinPublicCourseForm.test(
             [],

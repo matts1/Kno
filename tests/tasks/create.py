@@ -10,7 +10,7 @@ class CreateTaskTestCase(TestCase):
         CreateTaskForm.test(
             ['course'],
             initdata={'user': user},
-            course=course,
+            course=course.id,
             name='bad',
             kind='read',
         )
@@ -20,7 +20,7 @@ class CreateTaskTestCase(TestCase):
         CreateTaskForm.test(
             [],
             initdata={'user': user},
-            course='public course',
+            course=Course.objects.get(name='public course').id,
             name=' good ',
             kind='read'
         )
@@ -30,7 +30,7 @@ class CreateTaskTestCase(TestCase):
         CreateTaskForm.test(
             [''],
             initdata={'user': user},
-            course='Programming',
+            course=Course.objects.get(name='Programming').id,
             name='Programming Task 1',
             kind='code'
         )

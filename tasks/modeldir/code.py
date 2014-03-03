@@ -4,6 +4,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from common import models
 from common.functions import makepath
+from tasks.modeldir.programming import check_output
 from tasks.models import Task, Submission
 import os
 
@@ -39,32 +40,35 @@ class CodeTask(Task):
         default_storage.delete(path + '.in')
         default_storage.delete(path + '.out')
 
-SCORES = enumerate([
-    'Doesn\'t look right to me...',
-    'Your answer looks right, but some letters aren\'t capitalised correctly.',
-    'Getting there, but check that the punctuation is correct.',
+SCORES = list(enumerate([
+    'That looks good to me!',
     'Almost there, but check the whitespace (newlines, spaces, tabs)',
-    'That looks good to me!'
-])
+    'Getting there, but check that the punctuation is correct.',
+    'Your answer looks right, but some letters aren\'t capitalised correctly.',
+    'Doesn\'t look right to me...',
+    'Your code ran for too long',
+    'Your code threw an error...',
+    'Unknown error'
+]))
 
 class CodeSubmission(Submission):
     class Meta:
         app_label = 'tasks'
 
     comment = models.IntegerField(choices=SCORES)
-    error = models.CharField(blank=True, null=True, max_length=50)  # error type
     order = models.IntegerField()  # for code tasks, we can have multiple submissions
 
     def on_submit(self, bonus):
         # here we execute their code
+        code = bonus['data'].read().decode('UTF-8')
+        submissions = CodeSubmission.objects.filter(user=self.user, task=self.task)
+        self.order = max([x.order for x in submissions] + [0]) + 1
         self.comment = 0
-        self.order = 0
-        self.error = None
         for io in self.task.codetask.get_io_files():
             infile = open(makepath('codeio/{}/{}.in'.format(self.task.id, io))).read().encode('UTF-8')
-            outfile = open(makepath('codeio/{}/{}.out'.format(self.task.id, io))).read()
-            a=jail_code('python3', bonus['data'].read().decode(encoding='UTF-8'), stdin=infile)
-            print('input is', infile)
-            print('output is', a.stdout)
+            expected = open(makepath('codeio/{}/{}.out'.format(self.task.id, io))).read()
+            output = jail_code('python3', code, stdin=infile)
 
-        return 'submitted a code task'
+            self.comment = max(self.comment, check_output(output.stdout, expected, output.status))
+
+        return 'submitted a code task (order=%d, comment=%s)' % (self.order, self.get_comment_display())

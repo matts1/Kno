@@ -5,4 +5,4 @@ class Model(Model):
         return super().full_clean(exclude, True)
 
     class Meta:
-        abstract = False
+        abstract = True

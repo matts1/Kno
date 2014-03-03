@@ -6,7 +6,7 @@ from courses.models import Course
 class JoinCourseForm(ModelForm):
     name = 'Join Course'
     urlname = 'joincourse'
-    success_url = 'You have joined the course'
+    success_msg = 'You have joined the course'
 
     class Meta:
         model = Course

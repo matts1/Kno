@@ -12,7 +12,7 @@
     </form>
   {% endif %}
   {% if user == course.teacher %}
-    {{ as_form('CreateTask', info, course=course.name)|safe }}
+    {{ as_form('CreateTask', info, course=course.id)|safe }}
     {% if course.code is not none %}
       Code is{{ course.code }}
     {% endif %}
