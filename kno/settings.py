@@ -103,6 +103,8 @@ BASE_PATH = BASE_DIR
 TEST_RUNNER = 'kno.tests.DiscoveryRunner'
 TEST_DISCOVERY_ROOT = 'tests'
 
+PYTHON_SANDBOX_PATH = makepath('sandbox/bin/python')[0]
+
 WEBSITE_URL = 'localhost:8000'
 
 TEST = False

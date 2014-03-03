@@ -1,12 +1,13 @@
-from shutil import copyfile
-import tempfile
+from codejail.jail_code import jail_code, configure
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from common import models
 from common.functions import makepath
-from tasks.modeldir.programming import Environment
 from tasks.models import Task, Submission
 import os
+
+configure('python3', settings.PYTHON_SANDBOX_PATH)
 
 class CodeTask(Task):
     class Meta:
@@ -59,22 +60,11 @@ class CodeSubmission(Submission):
         self.comment = 0
         self.order = 0
         self.error = None
-        # env = Environment()
-        # print(env.add_file('main.py', bonus['data'].read()))
-        # print(env.run_simple([], ))
-        directory = tempfile.mkdtemp()
-        os.chmod(directory, 0o755)
-        code = os.path.join(directory, 'main.py')
-        f = open(code, 'wb')
-        f.write(self.data.read())
-        f.close()
         for io in self.task.codetask.get_io_files():
-            fin = open(os.path.join(directory, 'infile'), 'w')
-            infile = open(makepath('codeio/{}/{}.in'.format(self.task.id, io))).read()
-            fin.write(infile)
-            fin.close()
+            infile = open(makepath('codeio/{}/{}.in'.format(self.task.id, io))).read().encode('UTF-8')
             outfile = open(makepath('codeio/{}/{}.out'.format(self.task.id, io))).read()
-            print(os.popen('python3 {0}/main.py < {0}/infile'.format(directory)))
-
+            a=jail_code('python3', bonus['data'].read().decode(encoding='UTF-8'), stdin=infile)
+            print('input is', infile)
+            print('output is', a.stdout)
 
         return 'submitted a code task'

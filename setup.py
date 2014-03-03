@@ -7,7 +7,8 @@ packages = [
     'django-jinja',
     'coverage==3.7.1',
     'selenium==2.3.9',
-    'django-selenium==0.9.6'
+    'django-selenium==0.9.6',
+    'virtualenv',
 ]
 
 setup(name='Kno',
