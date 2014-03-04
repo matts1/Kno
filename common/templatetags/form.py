@@ -19,6 +19,7 @@ form_names = {
         'CreateTask',
         'EditTaskDesc',
         'AddIOFile',
+        'DeleteIOFile',
         'Submit'
     }
 }

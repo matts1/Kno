@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from common.forms import ModelForm
-from tasks.models import CodeTask, TestCase
+from tasks.models import TestCase
 
 
 class DeleteIOFileForm(ModelForm):
@@ -9,31 +9,28 @@ class DeleteIOFileForm(ModelForm):
     urlname = 'deleteiofile'
     valid_users = (2,)
 
+    case = forms.IntegerField(label='case')
+
     class Meta:
         model = TestCase
-        fields = ('task', 'name')
+        fields = ('case',)
 
-    def clean(self):
-        if not TestCase.objects.filter(task=self.cleaned_data['task'],
-                                       name=self.cleaned_data.get('name', '')):
-            raise ValidationError('No test cases by that name')
-        if self.cleaned_data['task'].course.teacher != self.user:
+    def clean_case(self, case):
+        case = TestCase.objects.filter(id=int(case)).first()
+        print(case)
+        if case is None:
+            raise ValidationError('No test case matching the id')
+        if case.task.course.teacher != self.user:
+            print(self.cleaned_data['case'].course.teacher)
             raise ValidationError('Not enough permissions')
-        return self.cleaned_data
-
-    def clean_task(self, id):
-        task = CodeTask.objects.filter(id=int(id)).first()
-        if task is None:
-            raise ValidationError('Task does not exist')
-        elif task.course.teacher != self.user:
-            raise ValidationError('You don\'t have permissions')
-        return task
+        print(self.cleaned_data)
+        return case
 
     def save(self):
-        self.cleaned_data['task'].delete_io_files(self.cleaned_data['name'])
+        self.cleaned_data['case'].delete()
 
 
-class AddIOFileForm(DeleteIOFileForm):
+class AddIOFileForm(ModelForm):
     name = 'Add Test Case'
     urlname = 'addiofile'
     valid_users = (2,)
@@ -45,8 +42,14 @@ class AddIOFileForm(DeleteIOFileForm):
         model = TestCase
         fields = ('task', 'name', 'infile', 'outfile')
 
+    def clean_task(self, task):
+        if task is None:
+            raise ValidationError('Task does not exist')
+        elif task.course.teacher != self.user:
+            raise ValidationError('You don\'t have permissions')
+        return task
+
     def clean(self):
-        print(self.cleaned_data)
         if TestCase.objects.filter(task=self.cleaned_data['task'], name=self.cleaned_data.get(
             'name', '')):
             raise ValidationError('A test case with that name already exists. If you want to '
@@ -61,4 +64,6 @@ class AddIOFileForm(DeleteIOFileForm):
             task=self.cleaned_data['task'],
             infile=self.cleaned_data['infile'],
             outfile=self.cleaned_data['outfile'],
+            hidden=False,  # TODO: make user able to change this
+            order=0,  # TODO: autoincrement this
         ).save()

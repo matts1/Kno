@@ -26,7 +26,7 @@
 
   {% if task.kind == 'code' and task.course.teacher == user %}
     <div id="addfilestorage">
-      {{ as_form("AddIOFile", info, task=task)|safe }}
+      {{ as_form("AddIOFile", info, task=task.id)|safe }}
     </div>
     <h3>Test Cases</h3>
 
@@ -34,14 +34,13 @@
       <div class="col-xs-2">Name</div>
       <div class="col-xs-1">Delete</div>
     </div>
-    {% for name in task.codetask.get_io_files() %}
+    {% for testcase in task.codetask.get_io_files() %}
       <form role="form" method="post" action="{{ url('deleteiofile') }}" id="editdescform">
         <div class="row table-row">
-          <div class="col-xs-2">{{ name }}</div>
+          <div class="col-xs-2">{{ testcase }}</div>
           <div class="col-xs-1">
               {% csrf_token %}
-              <input type="hidden" name="taskid" value="{{ task.id }}">
-              <input type="hidden" name="ioname" value="{{ name }}">
+              <input type="hidden" name="case" value="{{ testcase.id }}">
               <input type="submit" class="btn btn-danger" value="Delete">
           </div>
         </div>
@@ -50,7 +49,7 @@
   {% endif %}
 
   {% if task.kind != 'read' and user != task.course.teacher %}
-    {{ as_form('Submit', info, taskid=taskid)|safe }}
+    {{ as_form('Submit', info, taskid=task.id)|safe }}
   {% endif %}
 
   {% for submission in task.get_submissions(user).order_by('-order') %}

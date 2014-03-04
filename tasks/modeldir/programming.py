@@ -8,7 +8,7 @@ CHARSET = [
 
 def check_output(actual:bytes, expected:str, status) -> int:  # returns an index in the list scores
     if status != 0:
-        return {-9: 6, 1: 5}.get(status, 7)
+        return {-9: 5, 1: 6}.get(status, 7)
 
     out = actual.decode('UTF-8')
     for i, chars in enumerate(CHARSET):
