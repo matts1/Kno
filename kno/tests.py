@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.runner import DiscoverRunner, reorder_suite
 from django.utils.importlib import import_module
 import re
-from kno import settings
+from django.conf import settings
 
 def make_test_case(suite):
     tests = []

@@ -20,7 +20,6 @@ class User(models.Model):
     reset_code = models.CharField(max_length=100, default=None, blank=True, null=True)
     school = models.CharField(max_length=50, choices=SCHOOLS, default='chs')
 
-    teacher = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('fname', 'lname', 'pwd')
 

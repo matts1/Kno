@@ -7,7 +7,7 @@ import re
 
 class ModelForm(ModelForm):
     placeholders = {}
-    valid_users = (1, 2)
+    valid_users = (1,)
     text = None
     update = False
     success_url = None
@@ -28,10 +28,8 @@ class ModelForm(ModelForm):
             user = self.user
         if user is None:
             return 0 in self.valid_users
-        elif not user.teacher:
-            return 1 in self.valid_users
         else:
-            return 2 in self.valid_users
+            return 1 in self.valid_users
 
     def as_modal(self, *args, **kwargs) -> str:
         modal_template = get_template('forms/modal.html')
