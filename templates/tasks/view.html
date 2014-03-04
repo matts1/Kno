@@ -53,10 +53,10 @@
   {% endif %}
 
   {% for submission in task.get_submissions(user).order_by('-order') %}
-    <p>
-      Submission #{{ submission.order }}
+    <div class="row" style="margin-bottom:10px;">
+      <h4>Submission #{{ submission.order }}</h4>
       <pre class="sh_python">{{ submission.data.read().decode('UTF-8') }}</pre>
       Results: {{ submission.get_comment_display() }}
-    </p>
+    </div>
   {% endfor %}
 {% endblock %}

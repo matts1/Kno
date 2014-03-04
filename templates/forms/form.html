@@ -1,6 +1,6 @@
 {% from 'macros/forms.html' import input, attr %}
 
-<form role="form" class="form-horizontal" method="post" class="text-center"
+<form role="form" method="post" class="text-center form-horizontal"
     id="{{ form.__class__.cls_name() }}" action="{{ url(form.urlname) }}">
   {% csrf_token %}
   {% for key, value in hidden.items() %}
