@@ -39,9 +39,6 @@ class CreateCourseTestCase(TestCase):
             private=False
         )
 
-    def test_student(self):
-        self.assertEqual(CreateCourseForm.valid_users, (2,))
-
     def test_valid(self):
         CreateCourseForm.test(
             [],
@@ -55,11 +52,11 @@ class CreateCourseTestCase(TestCase):
         self.assertIsNotNone(course)
         self.assertEqual(course.code, None)
 
-        # lets try creating another course under the same name
+    def test_duplicate(self):
         CreateCourseForm.test(
             ['name'],
             initdata={'user': self.user()},
-            name='newname',
+            name='my public course',
             year=7,
             subject=0,
             private=False

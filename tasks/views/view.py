@@ -10,7 +10,7 @@ class ViewTaskView(TemplateView):
         user = get_user(self)
         id = int(args[0])
         self.task = get_object_or_404(Task, id=id)
-        if user is None or not user.can_see(self.task, Task):
+        if user is None or not user.can_interact(self.task, Task):
             return redirect('index')
         return super().get(request, *args, **kwargs)
 

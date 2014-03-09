@@ -20,7 +20,7 @@ class Search(models.Model):
             cls(word=word, table_id=key, table=tables.index(table), weight=weight).save()
 
     @classmethod
-    def search(cls, line:str, user:User) -> list:
+    def search(cls, line:str) -> list:
         count = {}
         for word in line.lower().split():
             for result in cls.objects.filter(word=word):
@@ -29,9 +29,7 @@ class Search(models.Model):
         values = []
         for (table, key) in sorted(count, key=count.get, reverse=True):
             table = tables[table]
-            row = table.objects.get(id=key)
-            if user.can_see(row, table):
-                values.append(row)
+            values.append(table.objects.get(id=key))
         return values
 
     @classmethod
@@ -42,4 +40,4 @@ class Search(models.Model):
 
     @classmethod
     def delete_words(cls, key:int, table):
-        cls.objects.filter(table_id=key, table=table).delete()
+        cls.objects.filter(table_id=key, table=tables.index(table)).delete()

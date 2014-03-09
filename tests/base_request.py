@@ -9,10 +9,10 @@ class RequestTestCase(TestCase):
     def setUpClass(cls):
         cls.f = RequestFactory()
 
-    def fetch(self, name, *args, **kwargs):
+    def fetch(self, name, *args, data={}, post=False, **kwargs):
         url = reverse(name, args=args, kwargs=kwargs)
         view = resolve(url).func
-        request = self.f.get(url)
+        request = self.f.post(url, data) if post else self.f.get(url, data)
         self.user = User.objects.get(email='student@gmail.com') if not hasattr(self, 'user') else \
             self.user
         request.user = self.user

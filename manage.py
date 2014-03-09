@@ -3,8 +3,7 @@ import os
 import sys
 
 if sys.argv[1] == 'test':
-    # when testing we want to be testing as if we're in production
-    os.environ["DJANGO_SETTINGS_MODULE"] = "kno.production"
+    os.environ["DJANGO_SETTINGS_MODULE"] = "kno.test_settings"
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kno.settings")

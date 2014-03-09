@@ -7,7 +7,6 @@ from courses.models import Course
 class CreateCourseForm(ModelForm):
     name = 'Create Course'
     urlname = 'createcourse'
-    valid_users = (2,)
     success_msg = 'Your course has been created'
 
     private = forms.BooleanField(label='Private', required=False)

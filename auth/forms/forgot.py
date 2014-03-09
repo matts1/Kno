@@ -47,8 +47,6 @@ class DoResetPwdForm(ModelForm):
         return self.cleaned_data
 
     def clean_reset_code(self, value):
-        if value is None:
-            raise ValidationError('Need to provide a reset code')
         if not User.objects.filter(reset_code=value):
             raise ValidationError(
                 'Reset code is invalid. You may not have copied the whole url, or there may have '

@@ -5,13 +5,13 @@ from courses.models import Course
 
 class ViewCourseView(TemplateView):
     template_name = 'courses/view.html'
-    valid_users = (1, 2)
+    valid_users = (1,)
 
     def get(self, request, *args, **kwargs):
         user = get_user(self)
         id = int(args[0])
         self.course = get_object_or_404(Course, id=id)
-        if user is None or not user.can_see(self.course, Course):
+        if user is None:
             return redirect('index')
         return super().get(request, *args, **kwargs)
 

@@ -14,12 +14,6 @@ class ModelFormTestCase(TestCase):
     def test_teacher(self):
         self.assertFalse(RegisterForm().allowed(User.objects.get(email='teacher@gmail.com')))
 
-    def test_as_modal(self):
-        self.assertEqual(RegisterForm(
-            user=User.objects.get(email='teacher@gmail.com')).as_modal(),
-            ''
-        )
-
     def test_as_form(self):
         self.assertEqual(RegisterForm(user=User.objects.get(email='teacher@gmail.com')).as_form(),
                          '')

@@ -9,4 +9,4 @@ class SearchView(TemplateView):
     def custom_context_data(self):
         query = self.request.GET.get('query', '')
 
-        return {'query': query, 'results': Search.search(query, self.request.user)}
+        return {'query': query, 'results': Search.search(query)}

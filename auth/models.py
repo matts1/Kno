@@ -78,26 +78,26 @@ class User(models.Model):
                 'Kno'
                  % (sender, self.fname, self.lname, self.email, subject, self.fname, body)
         )
-        if not settings.DEBUG:
+        if settings.DEBUG:
+            print(msg)
+        else:
             if not settings.TEST:
                 smtpObj = smtplib.SMTP('localhost')
                 smtpObj.sendmail(sender, self.email, msg)
-        else:
-            print(msg)
 
     def get_courses_taught(self):
         from courses.models import Course  # 2 way import
         return Course.objects.filter(teacher=self)
 
-    def can_see(self, data, table):
+    def can_interact(self, data, table):
         cls_name = table.__name__
         if cls_name == 'User':
             return True
         elif cls_name == 'Course':
-            return data.code is None or self.teacher or data in self.courses.all()
+            return data.teacher == self or data.students.filter(email=self.email).first() is not None
         elif cls_name == 'Task':
             from courses.models import Course  # bidirectional import
-            return self.can_see(data.course, Course)
+            return self.can_interact(data.course, Course)
         else:
             raise NotImplementedError
 

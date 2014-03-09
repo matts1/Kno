@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
 from tests.base import TestCase
-import time
 from auth.forms import ForgotPwdForm, DoResetPwdForm
 from auth.models import User
 
