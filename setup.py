@@ -6,7 +6,7 @@ packages = [
     'jinja2==2.7.2',
     'django-jinja',
     'coverage==3.7.1',
-    'selenium==2.3.9',
+    'selenium==2.39',
     'django-selenium==0.9.6',
     'virtualenv',
 ]

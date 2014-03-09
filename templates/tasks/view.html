@@ -14,7 +14,7 @@
   {% if task.course.teacher == user %}
     <form role="form" method="post" action="{{ url('edittaskdesc') }}" hidden id="editdescform">
       {% csrf_token %}
-      <input type="hidden" name="task" value="{{ task }}">
+      <input type="hidden" name="taskid" value="{{ task.id }}">
       <textarea rows="15" style="width:100%" id="editdesc" name="desc"></textarea>
       <p><input type="submit" class="btn btn-primary" value="Save"></p>
       <div class="formresults"></div>

@@ -3,8 +3,6 @@
 {% extends '/base.html' %}
 
 {% block content %}
-  {% if user.teacher %}
     {{ displaycourses(user, user.get_courses_taught(), 'Courses You Teach') }}
-  {% endif %}
   {{ displaycourses(user, user.courses.all(), 'Courses You Are Enrolled In') }}
 {% endblock %}

@@ -6,7 +6,7 @@ from tasks.models import Task
 class EditTaskDescForm(ModelForm):
     name = 'Edit Task Description'
     urlname = 'edittaskdesc'
-    valid_users = (2,)
+    valid_users = (1,)
     success_msg = 'Saved!'
 
     taskid = forms.IntegerField(min_value=0)

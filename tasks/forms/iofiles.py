@@ -7,7 +7,7 @@ from tasks.models import TestCase
 class DeleteIOFileForm(ModelForm):
     name = 'Delete Test Case'
     urlname = 'deleteiofile'
-    valid_users = (2,)
+    valid_users = (1,)
 
     case = forms.IntegerField(label='case')
 
@@ -33,7 +33,7 @@ class DeleteIOFileForm(ModelForm):
 class AddIOFileForm(ModelForm):
     name = 'Add Test Case'
     urlname = 'addiofile'
-    valid_users = (2,)
+    valid_users = (1,)
     success_msg = 'Added file'
 
     # TODO: add a file size limit - see http://stackoverflow.com/questions/2894914/how-to-restrict-the-size-of-file-being-uploaded-apache-django/2895811#2895811

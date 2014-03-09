@@ -6,7 +6,7 @@ from tasks.models import Task, CodeTask
 class CreateTaskForm(ModelForm):
     name = 'Create Task'
     urlname = 'createtask'
-    valid_users = (2,)
+    valid_users = (1,)
     success_url = 'viewtask'
     success_url_args = lambda self: (self.task.id,)
 
