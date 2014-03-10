@@ -17,13 +17,10 @@ class DeleteIOFileForm(ModelForm):
 
     def clean_case(self, case):
         case = TestCase.objects.filter(id=int(case)).first()
-        print(case)
         if case is None:
             raise ValidationError('No test case matching the id')
         if case.task.course.teacher != self.user:
-            print(self.cleaned_data['case'].course.teacher)
             raise ValidationError('Not enough permissions')
-        print(self.cleaned_data)
         return case
 
     def save(self):
@@ -41,6 +38,11 @@ class AddIOFileForm(ModelForm):
     class Meta:
         model = TestCase
         fields = ('task', 'name', 'infile', 'outfile')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['infile'].allow_empty_file = True
+        self.fields['outfile'].allow_empty_file = True
 
     def clean_task(self, task):
         if task is None:

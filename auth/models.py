@@ -87,7 +87,6 @@ class User(models.Model):
 
     def get_courses_taught(self):
         from courses.models import Course  # 2 way import
-        print(Course.objects.filter(teacher=self))
         return Course.objects.filter(teacher=self)
 
     def can_interact(self, data, table):
