@@ -33,7 +33,7 @@ class FormView(FormView):
         elif request.user is None:
             return redirect('index')
         else:
-            raise NotImplementedError
+            return redirect('index')
 
     def form_valid(self, form):
         redirect = None

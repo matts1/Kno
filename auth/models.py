@@ -126,3 +126,6 @@ class Session(models.Model):
     def get_user(cls, sessionid: str) -> User:
         session = cls.objects.filter(expiry__gt=timezone.now(), sessionID=sessionid).first()
         return None if session is None else session.user
+
+    def __repr__(self):
+        return 'Session for {} starting with {}'.format(self.user, self.sessionID[:10])
