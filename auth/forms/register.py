@@ -34,7 +34,14 @@ class RegisterForm(ModelForm):
     )
 
     def save(self):
-        user = super().save(False)  # don't commit because we're about to commit
-        user.pwd = make_password(self.cleaned_data['pwd'])
+        user = User(
+            email = self.cleaned_data['email'],
+            pwd = make_password(self.cleaned_data['pwd']),
+            fname = self.cleaned_data['fname'],
+            lname=self.cleaned_data['lname'],
+            school=self.cleaned_data['school']
+        )
+        if hasattr(self.view, 'cookies') and 'session' in self.view.cookies:
+            self.view.cookies['session'] = None
         user.save()
         Search.add_words(user.get_full_name(), user.id, User)

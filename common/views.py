@@ -31,9 +31,9 @@ class FormView(FormView):
         if self.form_class(view=self).allowed(request.user):
             return super().post(request, *args, **kwargs)
         elif request.user is None:
-            return redirect('index')
+            return self.render_to_response(self.get_context_data(redirect=reverse('index')))
         else:
-            return redirect('index')
+            return self.render_to_response(self.get_context_data(redirect=reverse('listcourses')))
 
     def form_valid(self, form):
         redirect = None

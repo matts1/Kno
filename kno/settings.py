@@ -79,7 +79,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ('static',)
+STATICFILES_DIRS = makepath('static')
 
 MEDIA_ROOT = makepath('media/')[0]
 MEDIA_URL = '/media/'
@@ -108,3 +108,4 @@ PYTHON_SANDBOX_PATH = makepath('sandbox/bin/python')[0]
 WEBSITE_URL = 'localhost:8000'
 
 TEST = False
+PROVIDE_STATICFILES = False  # it automatically does this for us in development mode
