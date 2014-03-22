@@ -14,7 +14,10 @@ def get_user(view):
 class FormView(FormView):
     template_name = 'forms/post.html'
     require_login = True
-    cookies = {}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cookies = {}
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
