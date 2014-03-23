@@ -17,14 +17,20 @@ function refreshMarkup() {
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'description']);
 }
 
+function rp(val, orig, final) {
+    return val.replace(new RegExp('&' + orig + ';', 'g'), final);
+}
+
 function openEdit(btn) {
     while (orig == null) {}
-
+    console.log(orig);
+    orig = rp(rp(rp(rp(orig, 'lt', '<'), 'gt', '>'), 'quot', '"'), 'amp', '&');
+    console.log(orig);
     $(btn).remove();
     $('#editdescform').show();
     $('#editdesc').val(orig);
 
-    setInterval(refreshMarkup, 3000);
+    setInterval(refreshMarkup, 1000);
 }
 
 $(document).ready(function () {
