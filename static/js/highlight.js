@@ -20,17 +20,26 @@ function applyMarkup (markup, refresh) {
     if (refresh) {
         markup = esc(esc(esc(esc(markup, '&', 'amp'), '<', 'lt'), '>', 'gt'), '"', 'quot');
     }
-    markup += '\n';
+    markup = '\n' + markup + '\n';
+
+    var codeblocks = {};
+    var upto = 9900
 
     var regexes = [
         [  // newline, ```language, newline, code```, newline
             '\n```([^\\n]*)\n((.|\n)*?)```\n',
-            '<pre class="sh_$1">$2</pre>'
+            function (match, lang, code, cap3) {
+                codeblocks[upto++] = '<pre class="sh_' + lang + '">' + code + '</pre>';
+                return String.fromCharCode(upto - 1);
+            }
+        ],[  // bold using a single asterisk. Needs to go before newlines
+            '\\*([^\n]*?)\\*',
+            '<b>$1</b>'
         ],[  // ~~strikethrough~~
             '~~([^\n]*?)~~',
             '<del>$1</del>'
         ],[  // unordered list
-            '(-\\S?([^\n]+)\n)+',
+            '(\n-\\S?([^\n]+))+',
             function (match, capture) {
                 match = match.split('\n');
                 for (var i = 0; i < match.length; i++) {
@@ -48,13 +57,19 @@ function applyMarkup (markup, refresh) {
         ],[  // italics using a single underscore at the start or end of a word
             '\\b_([^\n]*?)_\\b',
             '<i>$1</i>'
-        ],[  // bold using a single asteriks
-            '\\*([^\n]*?)\\*',
-            '<b>$1</b>'
         ]
     ];
     for (var i = 0; i < regexes.length; i++) {
         markup = markup.replace(new RegExp(regexes[i][0], 'mg'), regexes[i][1]);
+    }
+    while (markup.substring(0, 4) == '<br>') {
+        markup = markup.substring(4);
+    }
+    while (markup.substring(markup.length - 4, markup.length) == '<br>') {
+        markup = markup.substring(0, markup.length - 4);
+    }
+    for (block in codeblocks) {
+        markup = markup.replace(String.fromCharCode(block), codeblocks[block]);
     }
 
     $('p.desc').html(markup);
@@ -63,7 +78,7 @@ function applyMarkup (markup, refresh) {
         $(this).css('color', '#1546d7');
         $(this).css('font-weight', '700');
         $(this).html($(this).html().replace(
-            new RegExp('&lt;&lt;&lt;(.*?)<br>', 'mg'),
+            new RegExp('&lt;&lt;&lt; ?(.*?)\n', 'mg'),
             '<span style="color: black">$1</span><br>')
         );
     });
