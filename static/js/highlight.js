@@ -56,7 +56,17 @@ function applyMarkup (markup, refresh) {
     for (var i = 0; i < regexes.length; i++) {
         markup = markup.replace(new RegExp(regexes[i][0], 'mg'), regexes[i][1]);
     }
+
     $('p.desc').html(markup);
+
+    $('p.desc pre.sh_io').each(function () {
+        $(this).css('color', '#1546d7');
+        $(this).css('font-weight', '700');
+        $(this).html($(this).html().replace(
+            new RegExp('&lt;&lt;&lt;(.*?)<br>', 'mg'),
+            '<span style="color: black">$1</span><br>')
+        );
+    });
 
     sh_highlightDocument('/static/js/lang/', '.min.js');
 }
