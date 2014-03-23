@@ -4,28 +4,75 @@ function isimage (url) {
     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }
 
-function applyMarkup (markup) {
-    // {{{!language, newline, code, !}}}
-    var regex = new RegExp('\\{\\{\\{!([^\\n]*)\n((.|\\n)*?)!\\}\\}\\}', 'mg')
-    $('p.desc').html(markup.replace(regex, '<pre class="sh_$1">$2</pre>'));
+function esc(val, orig, final) {
+    return val.replace(new RegExp(orig, 'mg'), '&' + final + ';');
+}
+
+function remove(arr, item) {
+    for(var i = arr.length; i--;) {
+        if(arr[i] === item) {
+            arr.splice(i, 1);
+        }
+    }
+}
+
+function applyMarkup (markup, refresh) {
+    if (refresh) {
+        markup = esc(esc(esc(esc(markup, '&', 'amp'), '<', 'lt'), '>', 'gt'), '"', 'quot');
+    }
+    markup += '\n';
+
+    var regexes = [
+        [  // newline, ```language, newline, code```, newline
+            '\n```([^\\n]*)\n((.|\n)*?)```\n',
+            '<pre class="sh_$1">$2</pre>'
+        ],[  // ~~strikethrough~~
+            '~~([^\n]*?)~~',
+            '<del>$1</del>'
+        ],[  // unordered list
+            '(-\\S?([^\n]+)\n)+',
+            function (match, capture) {
+                match = match.split('\n');
+                for (var i = 0; i < match.length; i++) {
+                    match[i] = match[i].substring(2);
+                }
+                remove(match, '');
+                return '<ul><li>' + match.join('</li><li>') + '</li></ul>';
+            }
+        ],[  // implements paragraph using 2 newlines
+            '\\n[\n]+',
+            '<br><br>'
+        ],[  // implements newline using 1 newline
+            '\\n',
+            '<br>'
+        ],[  // italics using a single underscore at the start or end of a word
+            '\\b_([^\n]*?)_\\b',
+            '<i>$1</i>'
+        ],[  // bold using a single asteriks
+            '\\*([^\n]*?)\\*',
+            '<b>$1</b>'
+        ]
+    ];
+    for (var i = 0; i < regexes.length; i++) {
+        markup = markup.replace(new RegExp(regexes[i][0], 'mg'), regexes[i][1]);
+    }
+    $('p.desc').html(markup);
 
     sh_highlightDocument('/static/js/lang/', '.min.js');
 }
 
 function refreshMarkup() {
-    applyMarkup($('#editdesc').val());
+    applyMarkup($('#editdesc').val(), 1);
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'description']);
 }
 
 function rp(val, orig, final) {
-    return val.replace(new RegExp('&' + orig + ';', 'g'), final);
+    return val.replace(new RegExp('&' + orig + ';', 'mg'), final);
 }
 
 function openEdit(btn) {
     while (orig == null) {}
-    console.log(orig);
     orig = rp(rp(rp(rp(orig, 'lt', '<'), 'gt', '>'), 'quot', '"'), 'amp', '&');
-    console.log(orig);
     $(btn).remove();
     $('#editdescform').show();
     $('#editdesc').val(orig);
@@ -36,7 +83,7 @@ function openEdit(btn) {
 $(document).ready(function () {
     var desc = $('p.desc');
     orig = desc.html();
-    applyMarkup(orig);
+    applyMarkup(orig, 0);
     loadMathJax();
 });
 
