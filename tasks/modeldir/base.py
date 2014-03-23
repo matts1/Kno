@@ -37,6 +37,7 @@ class Task(models.Model):
     def get_submission(self):
         from tasks.models import CodeSubmission
         return {
+            'read': Submission,
             'code': CodeSubmission
         }[self.kind]
 
