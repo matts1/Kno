@@ -27,7 +27,7 @@ function applyMarkup (markup, refresh) {
 
     var regexes = [
         [  // newline, ```language, newline, code```, newline
-            '\n```([^\\n]*)\n((.|\n)*?)```\n',
+            '```([^\\n]*)\n((.|\n)*?)```',
             function (match, lang, code, cap3) {
                 codeblocks[upto++] = '<pre class="sh_' + lang + '">' + code + '</pre>';
                 return String.fromCharCode(upto - 1);
@@ -47,6 +47,12 @@ function applyMarkup (markup, refresh) {
                 }
                 remove(match, '');
                 return '<ul><li>' + match.join('</li><li>') + '</li></ul>';
+            }
+        ],[  // headings
+            '\n(#+) ?(.*)\n',
+            function (match, hashes, text) {
+                var size = Math.max(5 - hashes.length, 1);
+                return '\n<h' + size + '>' + text + '</h' + size + '>\n'
             }
         ],[  // implements paragraph using 2 newlines
             '\\n[\n]+',
