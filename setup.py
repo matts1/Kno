@@ -9,6 +9,7 @@ packages = [
     'selenium==2.39',
     'django-selenium==0.9.6',
     'virtualenv',
+    'django-mptt==0.6.1'
 ]
 
 setup(name='Kno',

@@ -41,20 +41,21 @@ class LoginLogoutTest(TestCase):
         self.assertEqual(logout.status_code, 302)
 
     def test_login_logout(self):
+        initnumsessions = len(Session.objects.all())
         index = self.client.get(reverse('index'))
         self.assertIn('Register', str(index.content))
-        self.assertEqual(len(Session.objects.all()), 0)
+        self.assertEqual(len(Session.objects.all()), initnumsessions)
 
         request = self.client.post(
             reverse('login'),
             data={'email': 'student@gmail.com', 'pwd': 'a'}
         )
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(len(Session.objects.all()), 1)
+        self.assertEqual(len(Session.objects.all()), initnumsessions + 1)
         index = self.client.get(reverse('index'))
         self.assertNotIn('RegisterForm', str(index.content))
 
         self.client.get(reverse('logout'))
-        self.assertEqual(len(Session.objects.all()), 0)
+        self.assertEqual(len(Session.objects.all()), initnumsessions)
 
 

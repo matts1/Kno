@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from common.forms import ModelForm
+from tasks.modeldir.assign import AssignTask
 from tasks.models import Task, CodeTask
 
 
@@ -20,6 +21,7 @@ class CreateTaskForm(ModelForm):
         super().__init__(*args, **kwargs)
 
         # only show the courses the user teaches, label them correctly
+        self.fields['name'].placeholder = 'Enter the task name'
         self.fields['course'].queryset = self.user.get_courses_taught()
         self.fields['course'].label_from_instance = lambda course: course.name
 
@@ -42,3 +44,5 @@ class CreateTaskForm(ModelForm):
             self.task = Task.create(**kwargs)
         elif kind == 'code':
             self.task = CodeTask.create(**kwargs)
+        elif kind == 'assign':
+            self.task = AssignTask.create(**kwargs)

@@ -58,7 +58,13 @@
         <div class="row" style="margin-bottom:10px;">
           <h4>Submission #{{ submission.order }}</h4>
           <pre class="sh_python">{{ submission.data.read().decode('UTF-8') }}</pre>
-          Results: {{ submission.get_comment_display() }}
+          {{ submission.marked.desc }} - {{ submission.marked.markedcriteria.comment }} ({{ submission.marked.markedcriteria.marks }} / {{ submission.marked.max_marks }})
+          {% for node in submission.marked.get_children() recursive %}
+            <li>{{ node.desc }} - {{ node.markedcriteria.comment }} ({{ node.markedcriteria.marks }} / {{ node.max_marks }})</li>
+            {% if loop.get_children %}
+              <ul>{{ loop(node.get_children()) }}</ul>
+            {% endif %}
+          {% endfor %}
         </div>
       {% endfor %}
     {% endif %}

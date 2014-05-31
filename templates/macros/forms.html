@@ -9,7 +9,7 @@
         'data-placeholder' if type in ('select', 'clearablefileinput') else 'placeholder':
           form.placeholders.get(
             key,
-            'Enter your ' + string(field.label)).title(),
+            field.placeholder if field.placeholder else ('Enter your ' + string(field.label)).title()),
             'required' if field.required and type != 'select' else 'data-checkbox': '',
             'class': 'form-control',
             'id': form.__class__.cls_name() + '_' + key
