@@ -1,7 +1,15 @@
+from zipfile import ZipFile
 from django import forms
+from django.conf import settings
+from codejail.jail_code import jail_code, configure
 from django.core.exceptions import ValidationError
+from django.core.files.temp import NamedTemporaryFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from common.forms import ModelForm
 from tasks.models import TestCase
+
+
+configure('python3', settings.PYTHON_SANDBOX_PATH)
 
 
 class DeleteIOFileForm(ModelForm):
@@ -28,21 +36,18 @@ class DeleteIOFileForm(ModelForm):
 
 
 class AddIOFileForm(ModelForm):
-    name = 'Add Test Case'
+    name = 'Set test cases'
     urlname = 'addiofile'
     valid_users = (1,)
-    success_msg = 'Added file'
+    success_msg = 'Added test cases'
 
+    program = forms.FileField(label='Correct program')
+    zipfile = forms.FileField(label='Zipped input files')
     # TODO: add a file size limit - see http://stackoverflow.com/questions/2894914/how-to-restrict-the-size-of-file-being-uploaded-apache-django/2895811#2895811
 
     class Meta:
         model = TestCase
-        fields = ('task', 'name', 'infile', 'outfile')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['infile'].allow_empty_file = True
-        self.fields['outfile'].allow_empty_file = True
+        fields = ('task', 'program', 'zipfile')
 
     def clean_task(self, task):
         if task is None:
@@ -61,11 +66,22 @@ class AddIOFileForm(ModelForm):
         return self.cleaned_data
 
     def save(self):
-        TestCase(
-            name=self.cleaned_data['name'],
-            task=self.cleaned_data['task'],
-            infile=self.cleaned_data['infile'],
-            outfile=self.cleaned_data['outfile'],
-            hidden=False,  # TODO: make user able to change this
-            order=0,  # TODO: autoincrement this
-        ).save()
+        program = self.cleaned_data['program'].read().decode('UTF-8')
+        zipfile = ZipFile(self.cleaned_data['zipfile'])
+        for name in zipfile.namelist():
+            prefix = '.'.join(name.split('.')[:-1])
+            zipfile.extract(name, 'media/zips')  # potential race condition
+            inputfile = zipfile.open(name)
+            output = jail_code('python3', program, stdin=inputfile.read()).stdout
+            outfile = open('media/zips/testout', 'w')
+            outfile.write(output.decode('UTF-8'))
+            outfile.close()
+
+            TestCase(
+                name=prefix,
+                task=self.cleaned_data['task'],
+                infile=InMemoryUploadedFile(open('media/zips/' + name), 'infile', name, 'text/plain', len(inputfile.read()), None),
+                outfile=InMemoryUploadedFile(open('media/zips/testout'), 'outfile', prefix + '.out', 'text/plain', len(output), None),
+                hidden=False,  # TODO: make user able to change this
+                order=0,  # TODO: autoincrement this
+            ).save()
