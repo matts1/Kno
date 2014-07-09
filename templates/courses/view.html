@@ -14,7 +14,7 @@
   {% if user == course.teacher %}
     {{ as_form('CreateTask', info, course=course.id)|safe }}
     {% if course.code is not none %}
-      Code is{{ course.code }}
+      Code is {{ course.code }}
     {% endif %}
   {% endif %}
   {{ displaytasks(course.get_tasks(), 'Tasks') }}

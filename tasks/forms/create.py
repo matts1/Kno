@@ -15,13 +15,17 @@ class CreateTaskForm(ModelForm):
 
     class Meta:
         model = Task
-        fields = ('name', 'course', 'kind')
+        fields = ('name', 'course', 'kind', 'weight', 'marks')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # only show the courses the user teaches, label them correctly
         self.fields['name'].placeholder = 'Enter the task name'
+        self.fields['weight'].placeholder = 'Enter the task\'s weighting'
+        self.fields['weight'].initial = 0
+        self.fields['marks'].placeholder = 'Enter the total marks'
+        self.fields['marks'].initial = 0
         self.fields['course'].queryset = self.user.get_courses_taught()
         self.fields['course'].label_from_instance = lambda course: course.name
 
@@ -34,6 +38,12 @@ class CreateTaskForm(ModelForm):
 
     def clean_name(self, name):
         return name.strip()
+
+    def clean_marks(self, mark):
+        return 0 if self.cleaned_data.get('kind') == 'read' else mark
+
+    def clean_weight(self, weight):
+        return 0 if self.cleaned_data.get('kind') == 'read' else weight
 
     def save(self):
         kwargs = self.cleaned_data

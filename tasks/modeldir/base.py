@@ -40,6 +40,9 @@ class Task(models.Model):
     course = models.ForeignKey(Course)
     criteria = models.ForeignKey(Criteria, blank=True, null=True)
     kind = models.CharField(max_length=20, choices=TASK_TYPES, default='read', verbose_name='Task Type')
+    weight = models.PositiveIntegerField(verbose_name='Weighting')
+    marks = models.PositiveIntegerField()
+
 
     @classmethod
     def create(cls, *args, **kwargs):

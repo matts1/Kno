@@ -10,4 +10,4 @@ class AssignSubmission(Submission):
         app_label = 'tasks'
 
     def on_submit(self, bonus):
-        pass
+        return 'Submitted'

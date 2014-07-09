@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+  Weighting: {{ task.weight }}<br/>
   {% if task.course.teacher == user %}
     <form role="form" method="post" action="{{ url('edittaskdesc') }}" hidden id="editdescform">
       {% csrf_token %}
@@ -46,6 +47,19 @@
         </div>
       </form>
     {% endfor %}
+  {% elif task.kind == 'assign' and user == task.course.teacher %}
+    <table>
+      <tr><th>Student</th><th>Marks</th><th>Total</th><th>Download</th></tr>
+      {% for student in task.course.students.all() %}
+        <tr>
+          <td>{{ student.get_full_name() }}</td>
+          <td><input value="{{ 0 }}" class="form-control" type="number" min="0" max="
+          {{ task.marks }}" size="2"></td>
+          <td>{{ task.marks }}</td>
+          <td>Download link here</td>
+        </tr>
+      {% endfor %}
+    </table>
   {% endif %}
 
   {% if task.course.students.filter(id=user.id).first() is not none %}
