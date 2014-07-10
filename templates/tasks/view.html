@@ -48,18 +48,37 @@
       </form>
     {% endfor %}
   {% elif task.kind == 'assign' and user == task.course.teacher %}
-    <table>
-      <tr><th>Student</th><th>Marks</th><th>Total</th><th>Download</th></tr>
-      {% for student in task.course.students.all() %}
+    <form role="form" method="post" class="form-horizontal" action="/tasks/mark">
+      {% csrf_token %}
+      <input name="task" type="hidden" value="{{ task.id }}">
+      <table>
         <tr>
-          <td>{{ student.get_full_name() }}</td>
-          <td><input value="{{ 0 }}" class="form-control" type="number" min="0" max="
-          {{ task.marks }}" size="2"></td>
-          <td>{{ task.marks }}</td>
-          <td>Download link here</td>
+          <th class="col-sm-2">Student</th>
+          <th class="col-sm-1">Marks</th>
+          <th class="col-sm-1">Total</th>
+          <th class="col-sm-2">Status</th>
         </tr>
-      {% endfor %}
-    </table>
+        {% for student in studentslist %}
+          <tr>
+            <td class="col-sm-2">{{ student.get_full_name() }}</td>
+            <td class="col-sm-1">
+              {% if students[student] == None %}
+                0
+              {% else %}
+                <input value="{{ students[student].mark }}" name="mark_{{ student.id }}" class="form-control" type="number" min="0" max="{{ task.marks }}" size="2">
+              {% endif %}
+            </td>
+            <td class="col-sm-1">{{ task.marks }}</td>
+            <td class="col-sm-2">{% if students[student] == None %}
+              Incomplete
+            {% else %}
+              Complete
+            {% endif %}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <input type="submit" class="btn btn-primary" value="Save Marks">
+    </form>
   {% endif %}
 
   {% if task.course.students.filter(id=user.id).first() is not none %}

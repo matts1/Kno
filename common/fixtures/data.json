@@ -1,576 +1,602 @@
 [
 {
+    "model": "auth.user", 
     "pk": 1, 
-    "model": "auth.user", 
     "fields": {
-        "school": "chs", 
         "pwd": "pbkdf2_sha256$12000$THoEJbAF2k7R$jmd5vZp8sLLuoDv2KKLJ5eccaCA9dLxVvf1SGKAExZk=", 
+        "lname": "Stark", 
         "email": "mattstark75@gmail.com", 
-        "fname": "Matt", 
         "reset_code": null, 
-        "lname": "Stark"
+        "school": "chs", 
+        "fname": "Matt"
     }
 },
 {
+    "model": "auth.user", 
     "pk": 2, 
-    "model": "auth.user", 
     "fields": {
-        "school": "chs", 
         "pwd": "pbkdf2_sha256$12000$QsTtgBrdJ9Nm$XSLjnewCqn75BUokVgxRhW3jgrt7C3/ptTs6idhZgzE=", 
+        "lname": "S", 
         "email": "student@gmail.com", 
-        "fname": "Student", 
         "reset_code": null, 
-        "lname": "S"
-    }
-},
-{
-    "pk": 3, 
-    "model": "auth.user", 
-    "fields": {
         "school": "chs", 
-        "pwd": "pbkdf2_sha256$12000$TvaOpojuOema$IpHJjTeQWvfzJCf4Lkc1QCnQpxRo2qmm5KGn0XrNU9Q=", 
-        "email": "teacher@gmail.com", 
-        "fname": "Teacher", 
-        "reset_code": null, 
-        "lname": "T"
+        "fname": "Student"
     }
 },
 {
-    "pk": "1c48857412a43ce62e9561df55ad57fc3a6692e006749c3e4546949834a53d178175ddf5ecf369086fbaf59b3cb860dfe55e", 
+    "model": "auth.user", 
+    "pk": 3, 
+    "fields": {
+        "pwd": "pbkdf2_sha256$12000$TvaOpojuOema$IpHJjTeQWvfzJCf4Lkc1QCnQpxRo2qmm5KGn0XrNU9Q=", 
+        "lname": "T", 
+        "email": "teacher@gmail.com", 
+        "reset_code": null, 
+        "school": "chs", 
+        "fname": "Teacher"
+    }
+},
+{
     "model": "auth.session", 
+    "pk": "1c48857412a43ce62e9561df55ad57fc3a6692e006749c3e4546949834a53d178175ddf5ecf369086fbaf59b3cb860dfe55e", 
     "fields": {
         "user": 2, 
         "expiry": "2014-07-14T08:03:08.564Z"
     }
 },
 {
-    "pk": "b9e0a89e81263f2162281b892bb43e1d716ac643e031c106de8fcd0cbf58c9e162941fc25bb9fbac6e3e70de2462fb7e9dee", 
     "model": "auth.session", 
+    "pk": "82514fdf49c48e45bac2dd772d84a3272081ca5ea3527d27a8fd3699622c3e9d02c8382ad1320d0fa80cc1e2977390cf5a00", 
+    "fields": {
+        "user": 3, 
+        "expiry": "2014-07-17T04:00:10.463Z"
+    }
+},
+{
+    "model": "auth.session", 
+    "pk": "b9e0a89e81263f2162281b892bb43e1d716ac643e031c106de8fcd0cbf58c9e162941fc25bb9fbac6e3e70de2462fb7e9dee", 
     "fields": {
         "user": 1, 
         "expiry": "2014-06-07T06:18:13.294Z"
     }
 },
 {
+    "model": "courses.course", 
     "pk": 1, 
-    "model": "courses.course", 
     "fields": {
+        "name": "Programming", 
+        "code": null, 
+        "subject": 0, 
         "students": [
             2
         ], 
-        "teacher": 1, 
-        "subject": 0, 
         "year": 7, 
-        "code": null, 
-        "name": "Programming"
+        "teacher": 1
     }
 },
 {
+    "model": "courses.course", 
     "pk": 2, 
-    "model": "courses.course", 
     "fields": {
+        "name": "public course", 
+        "code": null, 
+        "subject": 0, 
         "students": [
+            1, 
             2
         ], 
-        "teacher": 3, 
-        "subject": 0, 
         "year": 8, 
-        "code": null, 
-        "name": "public course"
+        "teacher": 3
     }
 },
 {
-    "pk": 3, 
     "model": "courses.course", 
+    "pk": 3, 
     "fields": {
-        "students": [
-            2
-        ], 
-        "teacher": 3, 
-        "subject": 0, 
-        "year": 8, 
+        "name": "private course", 
         "code": "5f5865fc7b72f6df", 
-        "name": "private course"
+        "subject": 0, 
+        "students": [
+            2
+        ], 
+        "year": 8, 
+        "teacher": 3
     }
 },
 {
-    "pk": 4, 
     "model": "courses.course", 
+    "pk": 4, 
     "fields": {
-        "students": [], 
-        "teacher": 1, 
-        "subject": 0, 
-        "year": 7, 
+        "name": "my public course", 
         "code": null, 
-        "name": "my public course"
-    }
-},
-{
-    "pk": 5, 
-    "model": "courses.course", 
-    "fields": {
-        "students": [], 
-        "teacher": 1, 
         "subject": 0, 
+        "students": [], 
         "year": 7, 
-        "code": "3504253c73b24909", 
-        "name": "my private course"
+        "teacher": 1
     }
 },
 {
-    "pk": 2, 
-    "model": "tasks.task", 
-    "fields": {
-        "course": 1, 
-        "criteria": null, 
-        "name": "Programming Task 1", 
-        "kind": "code", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 10,
-        "marks": 0
-    }
-},
-{
-    "pk": 3, 
-    "model": "tasks.task", 
-    "fields": {
-        "course": 1, 
-        "criteria": null, 
-        "name": "Programming Task 2", 
-        "kind": "code", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 10,
-        "marks": 0
-    }
-},
-{
-    "pk": 4, 
-    "model": "tasks.task", 
-    "fields": {
-        "course": 1, 
-        "criteria": null, 
-        "name": "Programming Task 3", 
-        "kind": "code", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 10,
-        "marks": 0
-    }
-},
-{
+    "model": "courses.course", 
     "pk": 5, 
-    "model": "tasks.task", 
     "fields": {
-        "course": 1, 
-        "criteria": null, 
-        "name": "Reading Task 1", 
-        "kind": "read", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 0,
-        "marks": 0
+        "name": "my private course", 
+        "code": "3504253c73b24909", 
+        "subject": 0, 
+        "students": [], 
+        "year": 7, 
+        "teacher": 1
     }
 },
 {
-    "pk": 6, 
     "model": "tasks.task", 
-    "fields": {
-        "course": 4, 
-        "criteria": null, 
-        "name": "my public course task 1", 
-        "kind": "read", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 0,
-        "marks": 0
-    }
-},
-{
-    "pk": 7, 
-    "model": "tasks.task", 
-    "fields": {
-        "course": 2, 
-        "criteria": null, 
-        "name": "Assignment 1", 
-        "kind": "assign", 
-        "desc": "This description is empty. You might want to add something to it...",
-        "weight": 10,
-        "marks": 50
-    }
-},
-{
-    "pk": 7, 
-    "model": "tasks.assigntask", 
-    "fields": {}
-},
-{
     "pk": 2, 
-    "model": "tasks.codetask", 
-    "fields": {}
-},
-{
-    "pk": 3, 
-    "model": "tasks.codetask", 
-    "fields": {}
-},
-{
-    "pk": 4, 
-    "model": "tasks.codetask", 
-    "fields": {}
-},
-{
-    "pk": 1, 
-    "model": "misc.search", 
     "fields": {
-        "word": "matt", 
+        "name": "Programming Task 1", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 1, 
+        "kind": "code", 
+        "marks": 0, 
+        "weight": 10
+    }
+},
+{
+    "model": "tasks.task", 
+    "pk": 3, 
+    "fields": {
+        "name": "Programming Task 2", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 1, 
+        "kind": "code", 
+        "marks": 0, 
+        "weight": 10
+    }
+},
+{
+    "model": "tasks.task", 
+    "pk": 4, 
+    "fields": {
+        "name": "Programming Task 3", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 1, 
+        "kind": "code", 
+        "marks": 0, 
+        "weight": 10
+    }
+},
+{
+    "model": "tasks.task", 
+    "pk": 5, 
+    "fields": {
+        "name": "Reading Task 1", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 1, 
+        "kind": "read", 
+        "marks": 0, 
+        "weight": 0
+    }
+},
+{
+    "model": "tasks.task", 
+    "pk": 6, 
+    "fields": {
+        "name": "my public course task 1", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 4, 
+        "kind": "read", 
+        "marks": 0, 
+        "weight": 0
+    }
+},
+{
+    "model": "tasks.task", 
+    "pk": 7, 
+    "fields": {
+        "name": "Assignment 1", 
+        "desc": "This description is empty. You might want to add something to it...", 
+        "criteria": null, 
+        "course": 2, 
+        "kind": "assign", 
+        "marks": 50, 
+        "weight": 10
+    }
+},
+{
+    "model": "tasks.submission", 
+    "pk": 1, 
+    "fields": {
+        "data": "submissions/template_13.tex", 
+        "user": 1, 
+        "criteria": null, 
+        "task": 7
+    }
+},
+{
+    "model": "tasks.assigntask", 
+    "pk": 7, 
+    "fields": {}
+},
+{
+    "model": "tasks.assignsubmission", 
+    "pk": 1, 
+    "fields": {
+        "mark": 0
+    }
+},
+{
+    "model": "tasks.codetask", 
+    "pk": 2, 
+    "fields": {}
+},
+{
+    "model": "tasks.codetask", 
+    "pk": 3, 
+    "fields": {}
+},
+{
+    "model": "tasks.codetask", 
+    "pk": 4, 
+    "fields": {}
+},
+{
+    "model": "misc.search", 
+    "pk": 1, 
+    "fields": {
         "table_id": 1, 
+        "word": "matt", 
         "weight": 400, 
         "table": 0
     }
 },
 {
-    "pk": 2, 
     "model": "misc.search", 
+    "pk": 2, 
     "fields": {
-        "word": "stark", 
         "table_id": 1, 
+        "word": "stark", 
         "weight": 500, 
         "table": 0
     }
 },
 {
-    "pk": 3, 
     "model": "misc.search", 
+    "pk": 3, 
     "fields": {
-        "word": "programming", 
         "table_id": 1, 
+        "word": "programming", 
         "weight": 1000, 
         "table": 1
     }
 },
 {
+    "model": "misc.search", 
     "pk": 10, 
-    "model": "misc.search", 
     "fields": {
+        "table_id": 2, 
         "word": "student", 
-        "table_id": 2, 
         "weight": 777, 
         "table": 0
     }
 },
 {
+    "model": "misc.search", 
     "pk": 11, 
-    "model": "misc.search", 
     "fields": {
-        "word": "s", 
         "table_id": 2, 
+        "word": "s", 
         "weight": 111, 
         "table": 0
     }
 },
 {
-    "pk": 12, 
     "model": "misc.search", 
+    "pk": 12, 
     "fields": {
-        "word": "teacher", 
         "table_id": 3, 
+        "word": "teacher", 
         "weight": 777, 
         "table": 0
     }
 },
 {
-    "pk": 13, 
     "model": "misc.search", 
+    "pk": 13, 
     "fields": {
-        "word": "t", 
         "table_id": 3, 
+        "word": "t", 
         "weight": 111, 
         "table": 0
     }
 },
 {
+    "model": "misc.search", 
     "pk": 14, 
-    "model": "misc.search", 
     "fields": {
+        "table_id": 2, 
         "word": "public", 
-        "table_id": 2, 
         "weight": 461, 
         "table": 1
     }
 },
 {
+    "model": "misc.search", 
     "pk": 15, 
-    "model": "misc.search", 
     "fields": {
-        "word": "course", 
         "table_id": 2, 
+        "word": "course", 
         "weight": 461, 
         "table": 1
     }
 },
 {
-    "pk": 16, 
     "model": "misc.search", 
+    "pk": 16, 
     "fields": {
-        "word": "private", 
         "table_id": 3, 
+        "word": "private", 
         "weight": 500, 
         "table": 1
     }
 },
 {
-    "pk": 17, 
     "model": "misc.search", 
+    "pk": 17, 
     "fields": {
-        "word": "course", 
         "table_id": 3, 
+        "word": "course", 
         "weight": 428, 
         "table": 1
     }
 },
 {
-    "pk": 18, 
     "model": "misc.search", 
+    "pk": 18, 
     "fields": {
-        "word": "my", 
         "table_id": 4, 
+        "word": "my", 
         "weight": 125, 
         "table": 1
     }
 },
 {
+    "model": "misc.search", 
     "pk": 19, 
-    "model": "misc.search", 
     "fields": {
+        "table_id": 4, 
         "word": "public", 
-        "table_id": 4, 
         "weight": 375, 
         "table": 1
     }
 },
 {
+    "model": "misc.search", 
     "pk": 20, 
-    "model": "misc.search", 
     "fields": {
-        "word": "course", 
         "table_id": 4, 
+        "word": "course", 
         "weight": 375, 
         "table": 1
     }
 },
 {
-    "pk": 21, 
     "model": "misc.search", 
+    "pk": 21, 
     "fields": {
-        "word": "my", 
         "table_id": 5, 
+        "word": "my", 
         "weight": 117, 
         "table": 1
     }
 },
 {
-    "pk": 22, 
     "model": "misc.search", 
+    "pk": 22, 
     "fields": {
-        "word": "private", 
         "table_id": 5, 
+        "word": "private", 
         "weight": 411, 
         "table": 1
     }
 },
 {
-    "pk": 23, 
     "model": "misc.search", 
+    "pk": 23, 
     "fields": {
-        "word": "course", 
         "table_id": 5, 
+        "word": "course", 
         "weight": 352, 
         "table": 1
     }
 },
 {
+    "model": "misc.search", 
     "pk": 27, 
-    "model": "misc.search", 
     "fields": {
-        "word": "programming", 
         "table_id": 2, 
+        "word": "programming", 
         "weight": 611, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 28, 
-    "model": "misc.search", 
     "fields": {
-        "word": "task", 
         "table_id": 2, 
+        "word": "task", 
         "weight": 222, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 29, 
-    "model": "misc.search", 
     "fields": {
-        "word": "1", 
         "table_id": 2, 
+        "word": "1", 
         "weight": 55, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 30, 
-    "model": "misc.search", 
     "fields": {
-        "word": "programming", 
         "table_id": 3, 
+        "word": "programming", 
         "weight": 611, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 31, 
-    "model": "misc.search", 
     "fields": {
-        "word": "task", 
         "table_id": 3, 
+        "word": "task", 
         "weight": 222, 
         "table": 2
     }
 },
 {
-    "pk": 32, 
     "model": "misc.search", 
+    "pk": 32, 
     "fields": {
-        "word": "2", 
         "table_id": 3, 
+        "word": "2", 
         "weight": 55, 
         "table": 2
     }
 },
 {
-    "pk": 33, 
     "model": "misc.search", 
+    "pk": 33, 
     "fields": {
-        "word": "programming", 
         "table_id": 4, 
+        "word": "programming", 
         "weight": 611, 
         "table": 2
     }
 },
 {
-    "pk": 34, 
     "model": "misc.search", 
+    "pk": 34, 
     "fields": {
-        "word": "task", 
         "table_id": 4, 
+        "word": "task", 
         "weight": 222, 
         "table": 2
     }
 },
 {
-    "pk": 35, 
     "model": "misc.search", 
+    "pk": 35, 
     "fields": {
-        "word": "3", 
         "table_id": 4, 
+        "word": "3", 
         "weight": 55, 
         "table": 2
     }
 },
 {
-    "pk": 36, 
     "model": "misc.search", 
+    "pk": 36, 
     "fields": {
-        "word": "reading", 
         "table_id": 5, 
+        "word": "reading", 
         "weight": 500, 
         "table": 2
     }
 },
 {
-    "pk": 37, 
     "model": "misc.search", 
+    "pk": 37, 
     "fields": {
-        "word": "task", 
         "table_id": 5, 
+        "word": "task", 
         "weight": 285, 
         "table": 2
     }
 },
 {
-    "pk": 38, 
     "model": "misc.search", 
+    "pk": 38, 
     "fields": {
-        "word": "1", 
         "table_id": 5, 
+        "word": "1", 
         "weight": 71, 
         "table": 2
     }
 },
 {
-    "pk": 39, 
     "model": "misc.search", 
+    "pk": 39, 
     "fields": {
-        "word": "my", 
         "table_id": 6, 
+        "word": "my", 
         "weight": 86, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 40, 
-    "model": "misc.search", 
     "fields": {
+        "table_id": 6, 
         "word": "public", 
-        "table_id": 6, 
         "weight": 260, 
         "table": 2
     }
 },
 {
+    "model": "misc.search", 
     "pk": 41, 
-    "model": "misc.search", 
     "fields": {
-        "word": "course", 
         "table_id": 6, 
+        "word": "course", 
         "weight": 260, 
         "table": 2
     }
 },
 {
-    "pk": 42, 
     "model": "misc.search", 
+    "pk": 42, 
     "fields": {
-        "word": "task", 
         "table_id": 6, 
+        "word": "task", 
         "weight": 173, 
         "table": 2
     }
 },
 {
-    "pk": 43, 
     "model": "misc.search", 
+    "pk": 43, 
     "fields": {
-        "word": "1", 
         "table_id": 6, 
+        "word": "1", 
         "weight": 43, 
         "table": 2
     }
 },
 {
-    "pk": 44, 
     "model": "misc.search", 
+    "pk": 44, 
     "fields": {
-        "word": "assignment", 
         "table_id": 7, 
+        "word": "assignment", 
         "weight": 833, 
         "table": 2
     }
 },
 {
-    "pk": 45, 
     "model": "misc.search", 
+    "pk": 45, 
     "fields": {
-        "word": "1", 
         "table_id": 7, 
+        "word": "1", 
         "weight": 83, 
         "table": 2
     }
