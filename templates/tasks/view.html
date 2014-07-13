@@ -72,7 +72,7 @@
             <td class="col-sm-2">{% if students[student] == None %}
               Incomplete
             {% else %}
-              Complete
+              <a href="{{ url('downloadsubmission', students[student].id, students[student].data.name) }}">Complete</a>
             {% endif %}</td>
           </tr>
         {% endfor %}

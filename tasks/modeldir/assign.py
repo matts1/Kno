@@ -14,3 +14,15 @@ class AssignSubmission(Submission):
 
     def on_submit(self, bonus):
         return 'Submitted'
+
+    @classmethod
+    def create(cls, task, user, bonus):
+        submission = cls.objects.filter(user=user, task=task).first()
+        if submission is None:
+            msg = super(cls).create(task, user, bonus)
+        else:
+            submission.data = bonus['data']
+            msg = submission.on_submit(bonus)
+            submission.save()
+        return msg
+
