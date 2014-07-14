@@ -19,7 +19,7 @@
       <tr>
         <th>{{ student.get_full_name() }}</th>
         {% for mark in marks[student] %}
-          <td>{{ mark if mode == 'raw' else percent(mark) }}</td>
+          <td>{{ integer(mark) if mode == 'raw' else percent(mark) }}</td>
         {% endfor %}
       </tr>
     {% endfor %}

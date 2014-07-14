@@ -29,7 +29,7 @@ class ScoreboardView(ViewCourseView):
                 if task.kind == 'assign':
                     mark = 0 if submission.first() is None else submission.first().mark
                 elif task.kind == 'code':
-                    mark = int(max(x.codesubmission.marked.marks for x in submission) / 10 * task.marks) \
+                    mark = max(x.codesubmission.marked.marks for x in submission) / 10 * task.marks \
                         if submission else 0
                 marks[student].append(mark if mode == 'raw' else (mark / task.marks * task.weight
                 / totalweight))

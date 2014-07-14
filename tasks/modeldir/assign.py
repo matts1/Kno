@@ -19,7 +19,7 @@ class AssignSubmission(Submission):
     def create(cls, task, user, bonus):
         submission = cls.objects.filter(user=user, task=task).first()
         if submission is None:
-            msg = super(cls).create(task, user, bonus)
+            msg = Submission.create(task, user, bonus)
         else:
             submission.data = bonus['data']
             msg = submission.on_submit(bonus)
