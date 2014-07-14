@@ -1,6 +1,7 @@
 {% set title='Scoreboard' %}
 {% extends 'base.html' %}
 {% block content %}
+  <a href="{{ url('viewcourse', course.id) }}">Back to course</a><br/>
   {% if mode == 'raw' %}
     <a href="{{ url('scoreboard', course.id) }}?mode=weighted">Weighted marks</a>
   {% else %}
@@ -10,8 +11,7 @@
     <tr>
       <th>Student</th>
       {% for task in tasks %}
-      <th>{{ task.name }}<br/>(
-        /{{ task.marks if mode == 'raw' else percent(task.weight / totalweight) }})</th>
+      <th>{{ task.name }}<br/>(/{{ task.marks if mode == 'raw' else percent(task.weight / totalweight) }})</th>
       {% endfor %}
       <th>Total<br/>(/{{ totalmarks if mode == 'raw' else '100%' }})</th>
     </tr>
