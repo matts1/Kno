@@ -11,9 +11,10 @@ class ViewCourseView(TemplateView):
         user = get_user(self)
         id = int(args[0])
         self.course = get_object_or_404(Course, id=id)
+        self.permission = self.course.students.filter(id=user.id).first() or self.course.teacher == user
         if user is None:
             return redirect('index')
         return super().get(request, *args, **kwargs)
 
     def custom_context_data(self):
-        return {'course': self.course}
+        return {'course': self.course, 'scoreboard': self.permission}

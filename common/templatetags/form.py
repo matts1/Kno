@@ -45,6 +45,14 @@ def string(s):
     return str(s)
 
 @lib.global_function
+def percent(n):
+    return str(int(n * 100)) + '%'
+
+@lib.global_function
+def integer(n):
+    return int(n)
+
+@lib.global_function
 def table_width(i):
     return (3, 4, 3)[i]
 

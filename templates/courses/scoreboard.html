@@ -1,0 +1,33 @@
+{% set title='Scoreboard' %}
+{% extends 'base.html' %}
+{% block content %}
+  {% if mode == 'raw' %}
+    <a href="{{ url('scoreboard', course.id) }}?mode=weighted">Weighted marks</a>
+  {% else %}
+    <a href="{{ url('scoreboard', course.id) }}?mode=raw">Raw marks</a>
+  {% endif %}
+  <table>
+    <tr>
+      <th>Student</th>
+      {% for task in tasks %}
+      <th>{{ task.name }}</th>
+      {% endfor %}
+      <th>Total</th>
+    </tr>
+    <tr>
+      <th></th>
+      {% for task in tasks %}
+        <th>(/{{ task.marks if mode == 'raw' else percent(task.weight / totalweight) }})</th>
+      {% endfor %}
+      <th>(/{{ totalmarks if mode == 'raw' else '100%' }})</th>
+    </tr>
+    {% for student in students %}
+      <tr>
+        <th>{{ student.get_full_name() }}</th>
+        {% for mark in marks[student] %}
+          <td>{{ mark if mode == 'raw' else percent(mark) }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

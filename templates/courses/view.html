@@ -17,6 +17,7 @@
       Code is {{ course.code }}
     {% endif %}
   {% endif %}
+  {% if scoreboard %}<a href="{{ url('scoreboard', course.id) }}">Scoreboard</a>{% endif %}
   {{ displaytasks(course.get_tasks(), 'Tasks') }}
   {{ 'public course' if course.code is none else 'private course' }}
   {{ displayusers([course.teacher], 'Teacher', False) }}
