@@ -13,12 +13,43 @@
       <a href="#Register" data-toggle="modal" class="btn btn-default btn-xlg">Sign Up</a>
     {% endif %}
   </div>
-  <!--<p>
-      This site is designed to be a collaborative e-learning site where teachers can
-      share tasks and courses that they have created, and is designed to make the jobs
-      of both teachers and students easier by providing easy ways to do things such as
-      hand in assignments and provide updates on those assignments.
-  </p>-->
+  <p>
+      <h2>User manual</h2>
+      <h3>Students</h3>
+      <ol>
+        <li>Create an account on the website by clicking the 'sign up' button</li>
+        <li>Log in with the 'login' button</li>
+        <li>Join a course, either by searching for the course name or by finding it in the
+          courses page. If it is a private course, you will need a code in order to join it.
+          Once you have it, click 'join course' in the navbar on the top</li>
+        <li>You will get a notification whenever a new task comes up. Click on the link when
+          it does, and you will see the task (or if you open up the course,
+          you will get a link to the task)</li>
+        <li>You can submit for tasks on the task page, and view your marks on the scoreboard
+          page, which is accessible from the course page</li>
+      </ol>
+    <h3>Teachers</h3>
+    <ol>
+      <li>Create an account on the website by clicking the 'sign up' button</li>
+      <li>Log in with the 'login' button</li>
+      <li>Create a course with the create > course option in the top right</li>
+      <li>Create a task with the options given. You will be able to edit it as soon as you
+        make it</li>
+      <li>Edit the task description. You can use special syntax to show various things - math
+        equations with $$math$$, \(math\), or \[math\], where math is written in latex. Code can
+        be written with ```&lt;language&gt;, then your code on a new line, followed with ```. There
+        is a special language called io, which allows you to do input and output - simply put a
+        <<< before any input. A # at the start of the line will turn the line into a heading
+        (more # = bigger heading). There is a preview window to help you if you get stuck.</li>
+      <li>For programming tasks, provide a correct solution and a set of inputs,
+        and the outputs of your correct solution will automatically generate the correct
+        output. Once this is done, they will be automatically marked</li>
+      <li>For assignment tasks, when the student submits them you will get a notification -
+        simply click the link to see all the submissions by all the students. Download the
+        students' submissions, then hand out the marks as deserved, click save, and the marks
+        will be saved.</li>
+    </ol>
+  </p>
   {% if view.args_data %}
     <div class="openmodal" data-modal="DoResetPwd"></div>
     {{ as_modal('DoResetPwd', info, reset_code=view.args_data[0])|safe }}

@@ -89,6 +89,11 @@ class User(models.Model):
         from courses.models import Course  # 2 way import
         return Course.objects.filter(teacher=self)
 
+    def potential_courses(self):
+        from courses.models import Course  # 2 way import
+        courses = set(Course.objects.filter(code=None).exclude(teacher=self))
+        return courses.difference(set(self.courses.all()))
+
     def can_interact(self, data, table):
         cls_name = table.__name__
         if cls_name == 'User':

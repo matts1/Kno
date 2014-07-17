@@ -3,6 +3,7 @@
 {% extends '/base.html' %}
 
 {% block content %}
-    {{ displaycourses(user, user.get_courses_taught(), 'Courses You Teach') }}
+  {{ displaycourses(user, user.get_courses_taught(), 'Courses You Teach') }}
   {{ displaycourses(user, user.courses.all(), 'Courses You Are Enrolled In') }}
+  {{ displaycourses(user, user.potential_courses(), 'Courses You Can Join') }}
 {% endblock %}
