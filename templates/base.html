@@ -61,25 +61,28 @@
     </div>
   </nav>
 
+  {% if user != None %}{% set notifications=user.notifications.all() %}{% endif %}
   <div class="container">
     <div class="row">
-      {% if user != None %}<div class="col-lg-9">{% endif %}
+      {% if user != None and notifications %}<div class="col-lg-9">{% endif %}
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="page-header h1">{{ title }}</div>
             {% block content %}ADD SOME CONTENT{% endblock %}
           </div>
         </div>
-      {% if user != None %}
+      {% if user != None and notifications %}
       </div>
       <div class="col-lg-3">
         <div class="list-group">
-        {% for i in range(5) %}
-          <a href="" class="list-group-item">
-            <div class="list-group-item-heading">Notification Heading</div>
-            <div class="list-group-item-text">
-              Notification Text
-            </div>
+        {% for notif in notifications %}
+          <a href="{{ url('notify', notif.id) }}" class="list-group-item">
+            <div class="list-group-item-heading">{{ notif.heading }}</div>
+            <button type="button" class="close notify-delete" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <div class="list-group-item-text">{{ notif.text }}</div>
           </a>
         {% endfor %}
         </div>

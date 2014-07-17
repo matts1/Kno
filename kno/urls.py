@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^courses/', include('courses.urls')),
     url(r'^tasks/', include('tasks.urls')),
     url(r'^misc/', include('misc.urls')),
+    url(r'^notifications/', include('notifications.urls')),
 
     url(r'^$', TemplateView.as_view(template_name='other/index.html', valid_users=(0, 1, 2)),
         name='index')

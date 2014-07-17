@@ -1,4 +1,6 @@
+from django.core.urlresolvers import reverse
 from common import models
+from notifications.models import Notification
 from tasks.modeldir.base import Task, Submission
 
 
@@ -17,12 +19,16 @@ class AssignSubmission(Submission):
 
     @classmethod
     def create(cls, task, user, bonus):
-        submission = cls.objects.filter(user=user, task=task).first()
-        if submission is None:
-            msg = Submission.create(task, user, bonus)
+        sub = cls.objects.filter(user=user, task=task).first()
+        if sub is None:
+            sub = AssignSubmission(user=user, task=task, criteria=None, data=bonus['data'], mark=0)
         else:
-            submission.data = bonus['data']
-            msg = submission.on_submit(bonus)
-            submission.save()
-        return msg
-
+            sub.data = bonus['data']
+        sub.save()
+        Notification.create(
+            users=[task.course.teacher],
+            heading='Task handed in',
+            text='{} handed in for {}'.format(user.get_full_name(), task.name),
+            url=reverse('viewtask', args=(task.id,))
+        )
+        return sub.on_submit(bonus)

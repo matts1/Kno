@@ -33,7 +33,6 @@ class ScoreboardView(ViewCourseView):
                         if submission else 0
                 marks[student].append(mark if mode == 'raw' else (mark / task.marks * task.weight
                 / totalweight))
-            if total == 0: total -= 1
             marks[student].append(sum(marks[student]))
         return {
             'course': self.course,
@@ -42,5 +41,5 @@ class ScoreboardView(ViewCourseView):
             'marks': marks,
             'mode': mode,
             'totalweight': totalweight,
-            'totalmarks': max(total, 0),
+            'totalmarks': total,
         }

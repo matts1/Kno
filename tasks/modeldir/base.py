@@ -1,8 +1,10 @@
+from django.core.urlresolvers import reverse
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from auth.models import User
 from common import models
 from courses.models import Course
+from notifications.models import Notification
 
 
 TASK_TYPES = (
@@ -50,6 +52,12 @@ class Task(models.Model):
         task.save()
 
         from misc.models import Search  # bidirectional import
+        Notification.create(
+            users=task.course.students,
+            heading='New task created',
+            text='{} created in {}'.format(task.name, task.course.name),
+            url=reverse('viewtask', args=(task.id,))
+        )
         Search.add_words(kwargs['name'], task.id, Task)
         return task
 

@@ -12,6 +12,11 @@ $(document).ready(function () {
         }
     });
 
+    // when deleting notifications, tell the server we have done so
+    $('.notify-delete').on('click', function () {
+        $.get($(this).parent().attr('href'));
+    })
+
     $('form[method=post]').ajaxForm({
         beforeSubmit: function (arr, form, options) {
             // delete the old error messages from the screen

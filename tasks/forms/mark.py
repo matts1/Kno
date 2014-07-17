@@ -7,10 +7,14 @@ class MarkForm(ModelForm):
     class Meta:
         model = AssignSubmission
         fields = ('task',)
+    success_msg = 'Saved!'
 
     def clean(self):
         if self.user != self.cleaned_data.get('task').course.teacher:
             raise ValidationError('You don\'t have permission')
+        return self.cleaned_data
+
+    def save(self):
         for key in self.data:
             splitted = key.split('_')
             if len(splitted) == 2 and splitted[0] == 'mark' and splitted[1].isdigit():
@@ -23,4 +27,3 @@ class MarkForm(ModelForm):
                     ).first()
                     submission.mark = mark
                     submission.save()
-        return self.cleaned_data
